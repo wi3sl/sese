@@ -94,10 +94,25 @@ public class DAO {
             throw new DAOException(e);
         }
     }
-
-    public <T> boolean delete(Object id, Class<T> c) throws DAOException {
+    
+    public <T> boolean delete(T object) throws DAOException {
+        logger.debug("Request: Delete " + object);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(object);
+            entityManager.getTransaction().commit();
+            logger.debug(object.toString() + " deleted.");
+            return true;
+        } catch (Exception e) {
+        	e.printStackTrace();
+            logger.debug("DAOException during deleting of " + object);
+            throw new DAOException(e);
+        }
+    }
+    
+    public <T> boolean delete(int id, Class<T> c) throws DAOException {
         Object object = null;
-        logger.debug("Request: Delete " + id.toString());
+        logger.debug("Request: Delete " + id);
         try {
             object = entityManager.find(c, id);
             entityManager.getTransaction().begin();
