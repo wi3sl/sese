@@ -9,6 +9,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
 import blue.hotel.model.Customer;
+import blue.hotel.model.Room;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -37,6 +38,15 @@ public class MainMenu extends JDialog {
 		});
 		btnCustomerList.setIcon(new ImageIcon(MainMenu.class.getResource("/blue/hotel/data/users.png")));
 		
+		JButton btnRoomsList = new JButton("Rooms");
+		panel.add(btnRoomsList);
+		btnRoomsList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ObjectList<Room>(Room.class).setVisible(true);
+			}
+		});
+		btnRoomsList.setIcon(new ImageIcon(MainMenu.class.getResource("/blue/hotel/data/room.png")));
+		
 		JButton btnOtherList = new JButton("Reservations");
 		panel.add(btnOtherList);
 		btnOtherList.addActionListener(new ActionListener() {
@@ -46,7 +56,7 @@ public class MainMenu extends JDialog {
 		});
 		btnOtherList.setIcon(new ImageIcon(MainMenu.class.getResource("/blue/hotel/data/edit.png")));
 		
-		setSize(400, 120);
+		setSize(500, 120);
 	}
 
 }
