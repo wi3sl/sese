@@ -22,6 +22,10 @@ public class Customer implements Serializable {
 	private String web;
 	private String fax;
 	
+	public String toString() {
+		return "Customer #" + id + " / " + name + " (" + address + ")";
+	}
+	
 	public Customer() {
 		
 	}

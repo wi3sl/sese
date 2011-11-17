@@ -4,6 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     
     <class>blue.hotel.model.Customer</class>
+    <class>blue.hotel.model.Room</class>
 	
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
