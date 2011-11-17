@@ -4,21 +4,17 @@ import javax.swing.JDialog;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
 
 import blue.hotel.model.Customer;
+import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
 
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class MainMenu extends JDialog {
 	public MainMenu() {
 		setTitle("[BlueHotel] Hotel Booking System");
@@ -51,7 +47,7 @@ public class MainMenu extends JDialog {
 		panel.add(btnOtherList);
 		btnOtherList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(MainMenu.this, "Not implemented yet.");
+				new ObjectList<Reservation>(Reservation.class).setVisible(true);
 			}
 		});
 		btnOtherList.setIcon(new ImageIcon(MainMenu.class.getResource("/blue/hotel/data/edit.png")));

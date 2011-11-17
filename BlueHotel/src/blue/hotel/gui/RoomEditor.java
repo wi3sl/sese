@@ -15,7 +15,6 @@ import javax.swing.JSpinner;
 
 import blue.hotel.model.Room;
 import javax.swing.SpinnerNumberModel;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -99,7 +98,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblMaxPersons, gbc_lblMaxPersons);
 		
 		spMaxPersons = new JSpinner();
-		spMaxPersons.setModel(new SpinnerNumberModel(1.0, 1.0, 100.0, 1.0));
+		spMaxPersons.setModel(new SpinnerNumberModel(1, 1, 100, 1));
 		GridBagConstraints gbc_spMaxPersons = new GridBagConstraints();
 		gbc_spMaxPersons.insets = new Insets(0, 0, 5, 0);
 		gbc_spMaxPersons.fill = GridBagConstraints.HORIZONTAL;
@@ -116,7 +115,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblSinglePrice, gbc_lblSinglePrice);
 		
 		spSinglePrice = new JSpinner();
-		spSinglePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spSinglePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spSinglePrice = new GridBagConstraints();
 		gbc_spSinglePrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spSinglePrice.fill = GridBagConstraints.HORIZONTAL;
@@ -133,7 +132,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblDoublePrice, gbc_lblDoublePrice);
 		
 		spDoublePrice = new JSpinner();
-		spDoublePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spDoublePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spDoublePrice = new GridBagConstraints();
 		gbc_spDoublePrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spDoublePrice.fill = GridBagConstraints.HORIZONTAL;
@@ -150,7 +149,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblTriplePrice, gbc_lblTriplePrice);
 		
 		spTriplePrice = new JSpinner();
-		spTriplePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spTriplePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spTriplePrice = new GridBagConstraints();
 		gbc_spTriplePrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spTriplePrice.fill = GridBagConstraints.HORIZONTAL;
@@ -167,7 +166,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblSPwithOneKid, gbc_lblSPwithOneKid);
 		
 		spSingleOneKidPrice = new JSpinner();
-		spSingleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spSingleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spSingleOneKidPrice = new GridBagConstraints();
 		gbc_spSingleOneKidPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spSingleOneKidPrice.fill = GridBagConstraints.HORIZONTAL;
@@ -184,7 +183,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblSPwithTwoKids, gbc_lblSPwithTwoKids);
 		
 		spSingleTwoKidsPrice = new JSpinner();
-		spSingleTwoKidsPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spSingleTwoKidsPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spSingleTwoKidsPrice = new GridBagConstraints();
 		gbc_spSingleTwoKidsPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spSingleTwoKidsPrice.fill = GridBagConstraints.HORIZONTAL;
@@ -201,7 +200,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(lblDPwithOneKid, gbc_lblDPwithOneKid);
 		
 		spDoubleOneKidPrice = new JSpinner();
-		spDoubleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 0.0, 0.0));
+		spDoubleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		GridBagConstraints gbc_spDoubleOneKidPrice = new GridBagConstraints();
 		gbc_spDoubleOneKidPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_spDoubleOneKidPrice.fill = GridBagConstraints.HORIZONTAL;

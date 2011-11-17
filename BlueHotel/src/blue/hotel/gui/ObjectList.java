@@ -1,19 +1,16 @@
 package blue.hotel.gui;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
-import java.lang.reflect.ParameterizedType;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 import blue.hotel.storage.DAO;
@@ -23,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
-import java.awt.Dialog.ModalityType;
 
 @SuppressWarnings("serial")
 public class ObjectList<T> extends JDialog {

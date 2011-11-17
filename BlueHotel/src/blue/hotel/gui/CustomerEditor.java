@@ -151,7 +151,7 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		panel_editor.add(lblDiscount, gbc_lblDiscount);
 		
 		spDiscount = new JSpinner();
-		spDiscount.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.0));
+		spDiscount.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.1));
 		GridBagConstraints gbc_spDiscount = new GridBagConstraints();
 		gbc_spDiscount.insets = new Insets(0, 0, 5, 0);
 		gbc_spDiscount.fill = GridBagConstraints.HORIZONTAL;

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import blue.hotel.model.Customer;
+import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
 
 public class EditorManager {
@@ -15,6 +16,7 @@ public class EditorManager {
 		
 		editors.put(Customer.class, CustomerEditor.class);
 		editors.put(Room.class, RoomEditor.class);
+		editors.put(Reservation.class, ReservationEditor.class);
 		/* TODO: Add editors for your model classes here */
 	}
 	
