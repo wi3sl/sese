@@ -30,8 +30,6 @@ import javax.swing.border.BevelBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JSpinner;
@@ -149,6 +147,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		roomButtonPanel.add(btnAddRoomReservation);
 		
 		btnRemoveRoomReservation = new JButton("Remove");
+		btnRemoveRoomReservation.setEnabled(false);
 		roomButtonPanel.add(btnRemoveRoomReservation);
 		
 		JPanel stayPanel = new JPanel();
@@ -247,6 +246,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			public void actionPerformed(ActionEvent e) {
 				if(customerList.getSelectedIndex() != -1){
 					customerListModel.remove(customerList.getSelectedIndex());
+					calculate();
 				}
 			}
 		});
@@ -259,7 +259,6 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 				} else{
 					btnRemoveCustomer.setEnabled(false);
 				}
-				calculate();
 			}
 		});
 		
@@ -283,6 +282,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			public void actionPerformed(ActionEvent arg0) {
 				if (roomReservationList.getSelectedIndex() != -1){
 					removeRoomReservation();
+					calculate();
 				}
 			}
 		});
@@ -298,7 +298,6 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 				} else{
 					btnRemoveRoomReservation.setEnabled(false);
 				}
-				calculate();
 			}
 		});
 	}
