@@ -17,6 +17,11 @@ import blue.hotel.model.Room;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class RoomEditor extends JDialog implements Editor<Room> {
@@ -67,148 +72,117 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		getContentPane().add(panel_editor, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_editor = new GridBagLayout();
 		gbl_panel_editor.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_editor.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_editor.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_editor.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_editor.rowHeights = new int[]{115, 0, 0};
+		gbl_panel_editor.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_editor.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panel_editor.setLayout(gbl_panel_editor);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "General ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridwidth = 2;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 0;
+		panel_editor.add(panel_1, gbc_panel_1);
+		panel_1.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10px"),
+				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("125px"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
 		JLabel lblName = new JLabel("Name:");
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblName.anchor = GridBagConstraints.EAST;
-		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
-		panel_editor.add(lblName, gbc_lblName);
+		panel_1.add(lblName, "2, 2, left, center");
 		
 		tfName = new JTextField();
-		GridBagConstraints gbc_tfName = new GridBagConstraints();
-		gbc_tfName.insets = new Insets(0, 0, 5, 0);
-		gbc_tfName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfName.gridx = 1;
-		gbc_tfName.gridy = 0;
-		panel_editor.add(tfName, gbc_tfName);
+		panel_1.add(tfName, "3, 2, fill, top");
 		tfName.setColumns(10);
 		
 		JLabel lblMaxPersons = new JLabel("Max. Persons:");
-		GridBagConstraints gbc_lblMaxPersons = new GridBagConstraints();
-		gbc_lblMaxPersons.anchor = GridBagConstraints.EAST;
-		gbc_lblMaxPersons.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMaxPersons.gridx = 0;
-		gbc_lblMaxPersons.gridy = 1;
-		panel_editor.add(lblMaxPersons, gbc_lblMaxPersons);
+		panel_1.add(lblMaxPersons, "2, 4");
 		
 		spMaxPersons = new JSpinner();
+		panel_1.add(spMaxPersons, "3, 4, fill, default");
 		spMaxPersons.setModel(new SpinnerNumberModel(1, 1, 100, 1));
-		GridBagConstraints gbc_spMaxPersons = new GridBagConstraints();
-		gbc_spMaxPersons.insets = new Insets(0, 0, 5, 0);
-		gbc_spMaxPersons.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spMaxPersons.gridx = 1;
-		gbc_spMaxPersons.gridy = 1;
-		panel_editor.add(spMaxPersons, gbc_spMaxPersons);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Prices", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.anchor = GridBagConstraints.SOUTH;
+		gbc_panel_2.gridwidth = 2;
+		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_2.gridx = 0;
+		gbc_panel_2.gridy = 1;
+		panel_editor.add(panel_2, gbc_panel_2);
+		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10px"),
+				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("125px"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		JLabel lblSinglePrice = new JLabel("Single Price:");
-		GridBagConstraints gbc_lblSinglePrice = new GridBagConstraints();
-		gbc_lblSinglePrice.anchor = GridBagConstraints.EAST;
-		gbc_lblSinglePrice.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSinglePrice.gridx = 0;
-		gbc_lblSinglePrice.gridy = 2;
-		panel_editor.add(lblSinglePrice, gbc_lblSinglePrice);
+		panel_2.add(lblSinglePrice, "2, 2, left, default");
 		
 		spSinglePrice = new JSpinner();
+		panel_2.add(spSinglePrice, "3, 2, fill, default");
 		spSinglePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spSinglePrice = new GridBagConstraints();
-		gbc_spSinglePrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spSinglePrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spSinglePrice.gridx = 1;
-		gbc_spSinglePrice.gridy = 2;
-		panel_editor.add(spSinglePrice, gbc_spSinglePrice);
 		
 		JLabel lblDoublePrice = new JLabel("Double Price:");
-		GridBagConstraints gbc_lblDoublePrice = new GridBagConstraints();
-		gbc_lblDoublePrice.anchor = GridBagConstraints.EAST;
-		gbc_lblDoublePrice.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDoublePrice.gridx = 0;
-		gbc_lblDoublePrice.gridy = 3;
-		panel_editor.add(lblDoublePrice, gbc_lblDoublePrice);
+		panel_2.add(lblDoublePrice, "2, 4");
 		
 		spDoublePrice = new JSpinner();
+		panel_2.add(spDoublePrice, "3, 4, fill, default");
 		spDoublePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spDoublePrice = new GridBagConstraints();
-		gbc_spDoublePrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spDoublePrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spDoublePrice.gridx = 1;
-		gbc_spDoublePrice.gridy = 3;
-		panel_editor.add(spDoublePrice, gbc_spDoublePrice);
 		
 		JLabel lblTriplePrice = new JLabel("Triple Price:");
-		GridBagConstraints gbc_lblTriplePrice = new GridBagConstraints();
-		gbc_lblTriplePrice.anchor = GridBagConstraints.EAST;
-		gbc_lblTriplePrice.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTriplePrice.gridx = 0;
-		gbc_lblTriplePrice.gridy = 4;
-		panel_editor.add(lblTriplePrice, gbc_lblTriplePrice);
+		panel_2.add(lblTriplePrice, "2, 6");
 		
 		spTriplePrice = new JSpinner();
+		panel_2.add(spTriplePrice, "3, 6, fill, default");
 		spTriplePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spTriplePrice = new GridBagConstraints();
-		gbc_spTriplePrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spTriplePrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spTriplePrice.gridx = 1;
-		gbc_spTriplePrice.gridy = 4;
-		panel_editor.add(spTriplePrice, gbc_spTriplePrice);
 		
 		JLabel lblSPwithOneKid = new JLabel("Single Price with one Kid:");
-		GridBagConstraints gbc_lblSPwithOneKid = new GridBagConstraints();
-		gbc_lblSPwithOneKid.anchor = GridBagConstraints.EAST;
-		gbc_lblSPwithOneKid.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSPwithOneKid.gridx = 0;
-		gbc_lblSPwithOneKid.gridy = 5;
-		panel_editor.add(lblSPwithOneKid, gbc_lblSPwithOneKid);
+		panel_2.add(lblSPwithOneKid, "2, 8");
 		
 		spSingleOneKidPrice = new JSpinner();
+		panel_2.add(spSingleOneKidPrice, "3, 8, fill, default");
 		spSingleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spSingleOneKidPrice = new GridBagConstraints();
-		gbc_spSingleOneKidPrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spSingleOneKidPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spSingleOneKidPrice.gridx = 1;
-		gbc_spSingleOneKidPrice.gridy = 5;
-		panel_editor.add(spSingleOneKidPrice, gbc_spSingleOneKidPrice);
 		
 		JLabel lblSPwithTwoKids = new JLabel("Single Price with two Kids:");
-		GridBagConstraints gbc_lblSPwithTwoKids = new GridBagConstraints();
-		gbc_lblSPwithTwoKids.anchor = GridBagConstraints.EAST;
-		gbc_lblSPwithTwoKids.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSPwithTwoKids.gridx = 0;
-		gbc_lblSPwithTwoKids.gridy = 6;
-		panel_editor.add(lblSPwithTwoKids, gbc_lblSPwithTwoKids);
+		panel_2.add(lblSPwithTwoKids, "2, 10");
 		
 		spSingleTwoKidsPrice = new JSpinner();
+		panel_2.add(spSingleTwoKidsPrice, "3, 10, fill, default");
 		spSingleTwoKidsPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spSingleTwoKidsPrice = new GridBagConstraints();
-		gbc_spSingleTwoKidsPrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spSingleTwoKidsPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spSingleTwoKidsPrice.gridx = 1;
-		gbc_spSingleTwoKidsPrice.gridy = 6;
-		panel_editor.add(spSingleTwoKidsPrice, gbc_spSingleTwoKidsPrice);
 		
 		JLabel lblDPwithOneKid = new JLabel("Double Price with one Kid:");
-		GridBagConstraints gbc_lblDPwithOneKid = new GridBagConstraints();
-		gbc_lblDPwithOneKid.anchor = GridBagConstraints.EAST;
-		gbc_lblDPwithOneKid.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDPwithOneKid.gridx = 0;
-		gbc_lblDPwithOneKid.gridy = 7;
-		panel_editor.add(lblDPwithOneKid, gbc_lblDPwithOneKid);
+		panel_2.add(lblDPwithOneKid, "2, 12");
 		
 		spDoubleOneKidPrice = new JSpinner();
+		panel_2.add(spDoubleOneKidPrice, "3, 12, fill, default");
 		spDoubleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		GridBagConstraints gbc_spDoubleOneKidPrice = new GridBagConstraints();
-		gbc_spDoubleOneKidPrice.insets = new Insets(0, 0, 5, 0);
-		gbc_spDoubleOneKidPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spDoubleOneKidPrice.gridx = 1;
-		gbc_spDoubleOneKidPrice.gridy = 7;
-		panel_editor.add(spDoubleOneKidPrice, gbc_spDoubleOneKidPrice);
 		
 		setSize(340, 420);
+		setLocationRelativeTo(null);
 	}
 
 	@Override

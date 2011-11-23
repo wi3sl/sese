@@ -18,6 +18,11 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class CustomerEditor extends JDialog implements Editor<Customer> {
@@ -69,165 +74,142 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		getContentPane().add(panel_editor, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_editor = new GridBagLayout();
 		gbl_panel_editor.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_editor.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_editor.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_editor.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_editor.rowHeights = new int[]{0, 0, 0, 52, 0, 0, 0, 0, 50, 18, 0, 46, 0};
+		gbl_panel_editor.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_editor.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_editor.setLayout(gbl_panel_editor);
 		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "General ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.gridwidth = 2;
+		gbc_panel_3.gridheight = 4;
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridy = 0;
+		panel_editor.add(panel_3, gbc_panel_3);
+		panel_3.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10px"),
+				ColumnSpec.decode("118px"),
+				ColumnSpec.decode("160px"),},
+			new RowSpec[] {
+				RowSpec.decode("2px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
 		JLabel lblName = new JLabel("Name:");
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblName.anchor = GridBagConstraints.EAST;
-		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
-		panel_editor.add(lblName, gbc_lblName);
+		panel_3.add(lblName, "2, 3, left, center");
 		
 		tfName = new JTextField();
-		GridBagConstraints gbc_tfName = new GridBagConstraints();
-		gbc_tfName.insets = new Insets(0, 0, 5, 0);
-		gbc_tfName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfName.gridx = 1;
-		gbc_tfName.gridy = 0;
-		panel_editor.add(tfName, gbc_tfName);
+		panel_3.add(tfName, "3, 3, fill, top");
 		tfName.setColumns(10);
 		
 		JLabel lblAddress = new JLabel("Address:");
-		GridBagConstraints gbc_lblAddress = new GridBagConstraints();
-		gbc_lblAddress.anchor = GridBagConstraints.EAST;
-		gbc_lblAddress.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAddress.gridx = 0;
-		gbc_lblAddress.gridy = 1;
-		panel_editor.add(lblAddress, gbc_lblAddress);
+		panel_3.add(lblAddress, "2, 5, left, center");
 		
 		tfAddress = new JTextField();
-		GridBagConstraints gbc_tfAddress = new GridBagConstraints();
-		gbc_tfAddress.insets = new Insets(0, 0, 5, 0);
-		gbc_tfAddress.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfAddress.gridx = 1;
-		gbc_tfAddress.gridy = 1;
-		panel_editor.add(tfAddress, gbc_tfAddress);
+		panel_3.add(tfAddress, "3, 5, fill, top");
 		tfAddress.setColumns(10);
 		
 		JLabel lblCompany = new JLabel("Company:");
-		GridBagConstraints gbc_lblCompany = new GridBagConstraints();
-		gbc_lblCompany.anchor = GridBagConstraints.EAST;
-		gbc_lblCompany.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCompany.gridx = 0;
-		gbc_lblCompany.gridy = 2;
-		panel_editor.add(lblCompany, gbc_lblCompany);
+		panel_3.add(lblCompany, "2, 7, left, center");
 		
 		tfCompany = new JTextField();
-		GridBagConstraints gbc_tfCompany = new GridBagConstraints();
-		gbc_tfCompany.insets = new Insets(0, 0, 5, 0);
-		gbc_tfCompany.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfCompany.gridx = 1;
-		gbc_tfCompany.gridy = 2;
-		panel_editor.add(tfCompany, gbc_tfCompany);
+		panel_3.add(tfCompany, "3, 7, fill, top");
 		tfCompany.setColumns(10);
 		
-		JLabel lblNotes = new JLabel("Notes:");
-		GridBagConstraints gbc_lblNotes = new GridBagConstraints();
-		gbc_lblNotes.anchor = GridBagConstraints.EAST;
-		gbc_lblNotes.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNotes.gridx = 0;
-		gbc_lblNotes.gridy = 3;
-		panel_editor.add(lblNotes, gbc_lblNotes);
-		
-		tfNotes = new JTextField();
-		GridBagConstraints gbc_tfNotes = new GridBagConstraints();
-		gbc_tfNotes.insets = new Insets(0, 0, 5, 0);
-		gbc_tfNotes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfNotes.gridx = 1;
-		gbc_tfNotes.gridy = 3;
-		panel_editor.add(tfNotes, gbc_tfNotes);
-		tfNotes.setColumns(10);
-		
-		JLabel lblDiscount = new JLabel("Discount:");
-		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
-		gbc_lblDiscount.anchor = GridBagConstraints.EAST;
-		gbc_lblDiscount.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDiscount.gridx = 0;
-		gbc_lblDiscount.gridy = 4;
-		panel_editor.add(lblDiscount, gbc_lblDiscount);
-		
-		spDiscount = new JSpinner();
-		spDiscount.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.1));
-		GridBagConstraints gbc_spDiscount = new GridBagConstraints();
-		gbc_spDiscount.insets = new Insets(0, 0, 5, 0);
-		gbc_spDiscount.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spDiscount.gridx = 1;
-		gbc_spDiscount.gridy = 4;
-		panel_editor.add(spDiscount, gbc_spDiscount);
-		
-		JLabel lblPhone = new JLabel("Phone:");
-		GridBagConstraints gbc_lblPhone = new GridBagConstraints();
-		gbc_lblPhone.anchor = GridBagConstraints.EAST;
-		gbc_lblPhone.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPhone.gridx = 0;
-		gbc_lblPhone.gridy = 5;
-		panel_editor.add(lblPhone, gbc_lblPhone);
-		
-		tfPhone = new JTextField();
-		GridBagConstraints gbc_tfPhone = new GridBagConstraints();
-		gbc_tfPhone.insets = new Insets(0, 0, 5, 0);
-		gbc_tfPhone.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfPhone.gridx = 1;
-		gbc_tfPhone.gridy = 5;
-		panel_editor.add(tfPhone, gbc_tfPhone);
-		tfPhone.setColumns(10);
-		
-		JLabel lblEmail = new JLabel("E-Mail:");
-		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.anchor = GridBagConstraints.EAST;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEmail.gridx = 0;
-		gbc_lblEmail.gridy = 6;
-		panel_editor.add(lblEmail, gbc_lblEmail);
-		
-		tfEmail = new JTextField();
-		GridBagConstraints gbc_tfEmail = new GridBagConstraints();
-		gbc_tfEmail.insets = new Insets(0, 0, 5, 0);
-		gbc_tfEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfEmail.gridx = 1;
-		gbc_tfEmail.gridy = 6;
-		panel_editor.add(tfEmail, gbc_tfEmail);
-		tfEmail.setColumns(10);
-		
-		JLabel lblWeb = new JLabel("Web:");
-		GridBagConstraints gbc_lblWeb = new GridBagConstraints();
-		gbc_lblWeb.anchor = GridBagConstraints.EAST;
-		gbc_lblWeb.insets = new Insets(0, 0, 5, 5);
-		gbc_lblWeb.gridx = 0;
-		gbc_lblWeb.gridy = 7;
-		panel_editor.add(lblWeb, gbc_lblWeb);
-		
-		tfWeb = new JTextField();
-		GridBagConstraints gbc_tfWeb = new GridBagConstraints();
-		gbc_tfWeb.insets = new Insets(0, 0, 5, 0);
-		gbc_tfWeb.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfWeb.gridx = 1;
-		gbc_tfWeb.gridy = 7;
-		panel_editor.add(tfWeb, gbc_tfWeb);
-		tfWeb.setColumns(10);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Contact", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.gridwidth = 2;
+		gbc_panel_1.gridheight = 5;
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 4;
+		panel_editor.add(panel_1, gbc_panel_1);
+		panel_1.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10px"),
+				ColumnSpec.decode("118px"),
+				ColumnSpec.decode("160px"),},
+			new RowSpec[] {
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		JLabel lblFax = new JLabel("Fax:");
-		GridBagConstraints gbc_lblFax = new GridBagConstraints();
-		gbc_lblFax.anchor = GridBagConstraints.EAST;
-		gbc_lblFax.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFax.gridx = 0;
-		gbc_lblFax.gridy = 8;
-		panel_editor.add(lblFax, gbc_lblFax);
+		panel_1.add(lblFax, "2, 2, left, center");
 		
 		tfFax = new JTextField();
-		GridBagConstraints gbc_tfFax = new GridBagConstraints();
-		gbc_tfFax.insets = new Insets(0, 0, 5, 0);
-		gbc_tfFax.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfFax.gridx = 1;
-		gbc_tfFax.gridy = 8;
-		panel_editor.add(tfFax, gbc_tfFax);
+		panel_1.add(tfFax, "3, 2, fill, top");
 		tfFax.setColumns(10);
 		
-		setSize(340, 350);
+		JLabel lblPhone = new JLabel("Phone:");
+		panel_1.add(lblPhone, "2, 4, left, center");
+		
+		tfPhone = new JTextField();
+		panel_1.add(tfPhone, "3, 4, fill, top");
+		tfPhone.setColumns(10);
+		
+		JLabel lblWeb = new JLabel("Web:");
+		panel_1.add(lblWeb, "2, 6, left, center");
+		
+		tfWeb = new JTextField();
+		panel_1.add(tfWeb, "3, 6, fill, top");
+		tfWeb.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("E-Mail:");
+		panel_1.add(lblEmail, "2, 8, left, center");
+		
+		tfEmail = new JTextField();
+		panel_1.add(tfEmail, "3, 8, fill, top");
+		tfEmail.setColumns(10);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Additional Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.gridheight = 3;
+		gbc_panel_2.gridwidth = 2;
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 0;
+		gbc_panel_2.gridy = 9;
+		panel_editor.add(panel_2, gbc_panel_2);
+		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10px"),
+				ColumnSpec.decode("118px"),
+				ColumnSpec.decode("160px"),},
+			new RowSpec[] {
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblDiscount = new JLabel("Discount:");
+		panel_2.add(lblDiscount, "2, 2, left, center");
+		
+		spDiscount = new JSpinner();
+		panel_2.add(spDiscount, "3, 2, fill, top");
+		spDiscount.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.1));
+		
+		JLabel lblNotes = new JLabel("Notes:");
+		panel_2.add(lblNotes, "2, 4, left, top");
+		
+		tfNotes = new JTextField();
+		panel_2.add(tfNotes, "3, 4, fill, top");
+		tfNotes.setColumns(10);
+		
+		setSize(340, 427);
+		setLocationRelativeTo(null);
 	}
 
 	@Override

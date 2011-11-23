@@ -23,7 +23,7 @@ import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
-public class ObjectList<T> extends JDialog {
+public class ObjectList<T> extends JPanel {
 	Class<T> klass;
 	JList list;
 	List<T> objects;
@@ -45,16 +45,20 @@ public class ObjectList<T> extends JDialog {
 		}
 	}
 
+	public String getSimpleName() {
+		return klass.getSimpleName();
+	}
+	
 	public ObjectList(Class<T> klass) {
-		setModalityType(ModalityType.APPLICATION_MODAL);
+		//setModalityType(ModalityType.APPLICATION_MODAL);
 		this.klass = klass;
-		setTitle("Data Editor: " + klass.getSimpleName());
+		//setTitle("Data Editor: " + klass.getSimpleName());
 		
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		this.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		getContentPane().add(panel, BorderLayout.SOUTH);
+		this.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
@@ -126,7 +130,7 @@ public class ObjectList<T> extends JDialog {
 		panel.add(btnDelete);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 		
 		list = new JList();
 		scrollPane.getViewport().setView(list);

@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
@@ -14,9 +15,17 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+
 @SuppressWarnings("serial")
 public class MainMenu extends JDialog {
 	public MainMenu() {
+		try {
+			//Set system look and feel
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		setTitle("[BlueHotel] Hotel Booking System");
 		getContentPane().setLayout(new GridLayout(1, 2, 10, 0));
 		

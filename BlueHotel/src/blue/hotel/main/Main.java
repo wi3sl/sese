@@ -1,10 +1,10 @@
 package blue.hotel.main;
 
-import blue.hotel.gui.MainMenu;
+import blue.hotel.gui.MainFrame;
 
 public class Main {
 	public static void main(String [] args) {
-		MainMenu menu = new MainMenu();
-		menu.setVisible(true);
+		MainFrame main = new MainFrame();
+		main.setVisible(true);
 	}
 }

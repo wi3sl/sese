@@ -41,6 +41,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class ReservationEditor extends JDialog implements Editor<Reservation>{
@@ -72,123 +77,168 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setTitle("new Reservation");
 		setSize(400, 600);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_editor = new JPanel();
-		panel_editor.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_editor.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(panel_editor);
 		panel_editor.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel customerPanel = new JPanel();
 		customerPanel.setBorder(new TitledBorder(null, "Customer", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_editor.add(customerPanel);
-		customerPanel.setLayout(new BorderLayout(0, 0));
 		
 		customerListModel = new DefaultListModel();
+		customerPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("15px"),
+				ColumnSpec.decode("344px"),},
+			new RowSpec[] {
+				FormFactory.PARAGRAPH_GAP_ROWSPEC,
+				RowSpec.decode("30px"),
+				RowSpec.decode("33px"),}));
 		customerList = new JList(customerListModel);
 		customerList.setVisibleRowCount(3);
 		customerList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		customerPanel.add(customerList, BorderLayout.WEST);
+		customerPanel.add(customerList, "2, 2, left, fill");
 		
 		JPanel customerButtonPanel = new JPanel();
 		customerButtonPanel.setBorder(null);
-		customerPanel.add(customerButtonPanel, BorderLayout.SOUTH);
-		customerButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		customerPanel.add(customerButtonPanel, "2, 3, center, top");
+		customerButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("218px"),
+				ColumnSpec.decode("51px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("71px"),},
+			new RowSpec[] {
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("23px"),}));
 		
 		JButton btnAddCustomer = new JButton("Add");
-		customerButtonPanel.add(btnAddCustomer);
+		customerButtonPanel.add(btnAddCustomer, "2, 2, left, top");
 		
 		btnRemoveCustomer = new JButton("Remove");
 		btnRemoveCustomer.setEnabled(false);
-		customerButtonPanel.add(btnRemoveCustomer);
+		customerButtonPanel.add(btnRemoveCustomer, "4, 2, right, top");
 		
 		customerBox = new JComboBox();
-		customerPanel.add(customerBox, BorderLayout.CENTER);
+		customerPanel.add(customerBox, "2, 2, fill, top");
 		
 		JPanel roomPanel = new JPanel();
 		roomPanel.setBorder(new TitledBorder(null, "Room", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_editor.add(roomPanel);
-		roomPanel.setLayout(new BorderLayout(0, 0));
 		
 		roomReservationListModel = new DefaultListModel();
-		roomReservationList = new JList(roomReservationListModel);
-		roomPanel.add(roomReservationList, BorderLayout.WEST);
-		
-		JPanel roomReservationPanel = new JPanel();
-		roomPanel.add(roomReservationPanel);
-		roomReservationPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		roomPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("15px"),
+				ColumnSpec.decode("344px"),},
+			new RowSpec[] {
+				FormFactory.NARROW_LINE_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("46px"),
+				RowSpec.decode("30px"),}));
 		
 		roomBox = new JComboBox();
-		roomReservationPanel.add(roomBox);
+		roomPanel.add(roomBox, "2, 2, fill, default");
+		roomReservationList = new JList(roomReservationListModel);
+		roomPanel.add(roomReservationList, "2, 4, left, fill");
 		
-		JPanel roomPersonsPanel = new JPanel();
-		roomReservationPanel.add(roomPersonsPanel);
-		roomPersonsPanel.setLayout(new GridLayout(2, 2, 0, 0));
+		JPanel roomReservationPanel = new JPanel();
+		roomPanel.add(roomReservationPanel, "2, 4, fill, fill");
+		roomReservationPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("150px"),
+				ColumnSpec.decode("left:195px"),
+				FormFactory.RELATED_GAP_COLSPEC,},
+			new RowSpec[] {
+				RowSpec.decode("26px"),
+				RowSpec.decode("26px"),}));
 		
 		JLabel lblAduldts = new JLabel("Aduldt(s):");
-		roomPersonsPanel.add(lblAduldts);
+		roomReservationPanel.add(lblAduldts, "1, 1, left, top");
 		
 		adultSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		roomPersonsPanel.add(adultSpinner);
+		roomReservationPanel.add(adultSpinner, "2, 1, fill, top");
 		
 		JLabel lblKids = new JLabel("Kid(s):");
-		roomPersonsPanel.add(lblKids);
+		roomReservationPanel.add(lblKids, "1, 2, left, top");
 		
 		kidSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-		roomPersonsPanel.add(kidSpinner);
+		roomReservationPanel.add(kidSpinner, "2, 2, fill, top");
 		
 		JPanel roomButtonPanel = new JPanel();
-		FlowLayout fl_roomButtonPanel = (FlowLayout) roomButtonPanel.getLayout();
-		fl_roomButtonPanel.setAlignment(FlowLayout.RIGHT);
-		roomPanel.add(roomButtonPanel, BorderLayout.SOUTH);
+		roomPanel.add(roomButtonPanel, "2, 5, right, top");
+		roomButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("51px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("71px"),},
+			new RowSpec[] {
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("23px"),}));
 		
 		JButton btnAddRoomReservation = new JButton("Add");
-		roomButtonPanel.add(btnAddRoomReservation);
+		roomButtonPanel.add(btnAddRoomReservation, "2, 2, left, top");
 		
 		btnRemoveRoomReservation = new JButton("Remove");
 		btnRemoveRoomReservation.setEnabled(false);
-		roomButtonPanel.add(btnRemoveRoomReservation);
+		roomButtonPanel.add(btnRemoveRoomReservation, "4, 2, left, top");
 		
 		JPanel stayPanel = new JPanel();
 		stayPanel.setBorder(new TitledBorder(null, "Stay", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_editor.add(stayPanel);
-		stayPanel.setLayout(new GridLayout(2, 2, 0, 0));
+		stayPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("15px"),
+				ColumnSpec.decode("150px"),
+				ColumnSpec.decode("195px"),},
+			new RowSpec[] {
+				RowSpec.decode("12dlu"),
+				RowSpec.decode("30px"),
+				RowSpec.decode("30px"),}));
 		
 		JLabel lblArrival = new JLabel("Arrival:");
-		stayPanel.add(lblArrival);
+		stayPanel.add(lblArrival, "2, 2, left, top");
 		
 		Calendar cal = Calendar.getInstance();
 		Date now = new Date();
 		cal.setTime(now);
 		arrivalDateField = new JDateChooser(cal.getTime());
-		stayPanel.add(arrivalDateField);
+		stayPanel.add(arrivalDateField, "3, 2, fill, top");
 		
 		JLabel lblDeparture = new JLabel("Departure:");
-		stayPanel.add(lblDeparture);
+		stayPanel.add(lblDeparture, "2, 3, left, top");
 		
 		cal.add(Calendar.DAY_OF_YEAR, 1);
 		departureDateField = new JDateChooser(cal.getTime());
-		stayPanel.add(departureDateField);
+		stayPanel.add(departureDateField, "3, 3, fill, top");
 		
 		JPanel billPanel = new JPanel();
 		billPanel.setBorder(new TitledBorder(null, "Bill", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_editor.add(billPanel);
-		billPanel.setLayout(new GridLayout(2, 2, 0, 0));
+		billPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("10dlu"),
+				ColumnSpec.decode("150px"),
+				ColumnSpec.decode("195px"),},
+			new RowSpec[] {
+				RowSpec.decode("12dlu"),
+				RowSpec.decode("30px"),
+				RowSpec.decode("30px"),}));
 		
 		JLabel lblPrice = new JLabel("Price:");
-		billPanel.add(lblPrice);
+		billPanel.add(lblPrice, "2, 2, left, top");
 		
 		priceSpinner = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		billPanel.add(priceSpinner);
+		billPanel.add(priceSpinner, "3, 2, fill, top");
 		
 		JLabel lblDiscount = new JLabel("Discount:");
-		billPanel.add(lblDiscount);
+		billPanel.add(lblDiscount, "2, 3, left, top");
 		
 		discountSpinner = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
-		billPanel.add(discountSpinner);
+		billPanel.add(discountSpinner, "3, 3, fill, top");
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
