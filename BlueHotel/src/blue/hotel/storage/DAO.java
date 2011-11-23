@@ -35,14 +35,14 @@ public class DAO {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    public <T> boolean create(T object) throws DAOException {
+    public <T> T create(T object) throws DAOException {
         logger.debug("Request: Create " + object.toString());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(object);
             entityManager.getTransaction().commit();
             logger.debug(object.toString() + " created.");
-            return true;
+            return object;
         } catch (Exception e) {
             logger.debug("DAOException during creating of " + object.toString());
             throw new DAOException(e);

@@ -2,9 +2,11 @@ package blue.hotel.gui;
 
 import javax.swing.JDialog;
 
+import blue.hotel.logic.CalculateReservation;
 import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
+import blue.hotel.model.RoomReservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
@@ -17,6 +19,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 import java.awt.FlowLayout;
@@ -35,6 +38,7 @@ import javax.swing.JSpinner;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -45,7 +49,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 	private JDateChooser arrivalDateField;
 	private JDateChooser departureDateField;
 	private boolean accepted = false;
-	private JButton btnRemove;
+	private JButton btnRemoveCustomer;
 	private DefaultListModel customerListModel;
 	private JList customerList;
 	private JSpinner priceSpinner;
@@ -56,6 +60,10 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 	private JSpinner kidSpinner;
 	private List<Customer> customers;
 	private List<Room> rooms;
+	private DefaultListModel roomReservationListModel;
+	private JList roomReservationList;
+	private JButton btnRemoveRoomReservation;
+	private int reservationId = -1;
 	
 	public ReservationEditor(Reservation r) {
 		this();
@@ -90,12 +98,12 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		customerPanel.add(customerButtonPanel, BorderLayout.SOUTH);
 		customerButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
-		JButton btnAdd = new JButton("Add");
-		customerButtonPanel.add(btnAdd);
+		JButton btnAddCustomer = new JButton("Add");
+		customerButtonPanel.add(btnAddCustomer);
 		
-		btnRemove = new JButton("Remove");
-		btnRemove.setEnabled(false);
-		customerButtonPanel.add(btnRemove);
+		btnRemoveCustomer = new JButton("Remove");
+		btnRemoveCustomer.setEnabled(false);
+		customerButtonPanel.add(btnRemoveCustomer);
 		
 		customerBox = new JComboBox();
 		customerPanel.add(customerBox, BorderLayout.CENTER);
@@ -103,13 +111,21 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		JPanel roomPanel = new JPanel();
 		roomPanel.setBorder(new TitledBorder(null, "Room", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_editor.add(roomPanel);
-		roomPanel.setLayout(new GridLayout(2, 0, 0, 0));
+		roomPanel.setLayout(new BorderLayout(0, 0));
+		
+		roomReservationListModel = new DefaultListModel();
+		roomReservationList = new JList(roomReservationListModel);
+		roomPanel.add(roomReservationList, BorderLayout.WEST);
+		
+		JPanel roomReservationPanel = new JPanel();
+		roomPanel.add(roomReservationPanel);
+		roomReservationPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		roomBox = new JComboBox();
-		roomPanel.add(roomBox);
+		roomReservationPanel.add(roomBox);
 		
 		JPanel roomPersonsPanel = new JPanel();
-		roomPanel.add(roomPersonsPanel);
+		roomReservationPanel.add(roomPersonsPanel);
 		roomPersonsPanel.setLayout(new GridLayout(2, 2, 0, 0));
 		
 		JLabel lblAduldts = new JLabel("Aduldt(s):");
@@ -123,6 +139,17 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		
 		kidSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
 		roomPersonsPanel.add(kidSpinner);
+		
+		JPanel roomButtonPanel = new JPanel();
+		FlowLayout fl_roomButtonPanel = (FlowLayout) roomButtonPanel.getLayout();
+		fl_roomButtonPanel.setAlignment(FlowLayout.RIGHT);
+		roomPanel.add(roomButtonPanel, BorderLayout.SOUTH);
+		
+		JButton btnAddRoomReservation = new JButton("Add");
+		roomButtonPanel.add(btnAddRoomReservation);
+		
+		btnRemoveRoomReservation = new JButton("Remove");
+		roomButtonPanel.add(btnRemoveRoomReservation);
 		
 		JPanel stayPanel = new JPanel();
 		stayPanel.setBorder(new TitledBorder(null, "Stay", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -198,7 +225,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			e.printStackTrace();
 		}
 		
-		btnAdd.addActionListener(new ActionListener() {
+		btnAddCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Customer tmp = (Customer) customerBox.getSelectedItem();
@@ -215,7 +242,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			}
 		});
 		
-		btnRemove.addActionListener(new ActionListener() {
+		btnRemoveCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(customerList.getSelectedIndex() != -1){
@@ -228,31 +255,49 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (customerListModel.getSize() > 0){
-					btnRemove.setEnabled(true);
+					btnRemoveCustomer.setEnabled(true);
 				} else{
-					btnRemove.setEnabled(false);
+					btnRemoveCustomer.setEnabled(false);
 				}
 				calculate();
 			}
 		});
 		
-		roomBox.addActionListener(new ActionListener() {
+		btnAddRoomReservation.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				calculate();
+			public void actionPerformed(ActionEvent arg0) {
+				int amount = (Integer)adultSpinner.getValue() + (Integer)kidSpinner.getValue();
+				Room room = (Room)roomBox.getSelectedItem();
+				if(room.getMaxPersons() >= amount){
+					addRoomReservation();
+					calculate();
+				} else{
+					JOptionPane.showConfirmDialog(null, "Too many persons in one room!", "Error", JOptionPane.CLOSED_OPTION, JOptionPane.WARNING_MESSAGE);
+					adultSpinner.setValue(1.0);
+					kidSpinner.setValue(0.0);
+				}
 			}
 		});
 		
-		adultSpinner.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				calculate();
+		btnRemoveRoomReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (roomReservationList.getSelectedIndex() != -1){
+					removeRoomReservation();
+				}
 			}
 		});
 		
-		kidSpinner.addChangeListener(new ChangeListener() {		
+		roomReservationList.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
+				if (roomReservationListModel.getSize() > 0){
+					btnRemoveRoomReservation.setEnabled(true);
+					if (roomReservationList.getSelectedIndex() != -1){
+						setRoomReservationFields();
+					}
+				} else{
+					btnRemoveRoomReservation.setEnabled(false);
+				}
 				calculate();
 			}
 		});
@@ -261,16 +306,18 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 	@Override
 	public void readFrom(Reservation o) {
 		setTitle("Edit reservation:" + o);
+		reservationId = o.getId();
 		for (Customer c: o.getCustomers()){
 			customerListModel.addElement(c);
 		}
-		roomBox.setSelectedItem(o.getRoom());
-		adultSpinner.setValue(o.getAdults());
-		kidSpinner.setValue(o.getKids());
 		priceSpinner.setValue(o.getPrice());
 		discountSpinner.setValue(o.getDiscount());
 		arrivalDateField.setDate(o.getArrival());
 		departureDateField.setDate(o.getDeparture());
+		
+		for(RoomReservation rr : o.getRooms()){
+			roomReservationListModel.addElement(rr);
+		}
 	}
 
 	@Override
@@ -280,13 +327,35 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			tmpList.add((Customer) customerListModel.get(i));
 		}
 		o.setCustomers(tmpList);
-		o.setRoom((Room) roomBox.getSelectedItem());
-		o.setAdults((Integer) adultSpinner.getValue());
-		o.setKids((Integer) kidSpinner.getValue());
 		o.setPrice((Double) priceSpinner.getValue());
 		o.setDiscount((Double) discountSpinner.getValue());
 		o.setArrival(arrivalDateField.getDate());
 		o.setDeparture(departureDateField.getDate());
+		
+		try {
+			if (reservationId == -1){
+				DAO dao = DAO.getInstance();
+				o = dao.create(o);
+				System.out.println(o.getId());
+				
+				List<RoomReservation> rr = new ArrayList<RoomReservation>();
+				for (int i=0; i<roomReservationListModel.getSize(); i++){
+					RoomReservation tmp = (RoomReservation)roomReservationListModel.get(i);
+					if(tmp.getReservation() == null){
+						tmp.setReservation(o);
+						tmp = dao.create(tmp);
+					} else{
+						tmp.setReservation(o);
+						tmp = dao.update(tmp);
+					}
+					rr.add(tmp);		
+				}
+				
+				o.setRooms(rr);
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -294,6 +363,43 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		accepted = false;
 		setVisible(true);
 		return accepted;
+	}
+	
+	private void addRoomReservation(){
+		
+		RoomReservation rr = new RoomReservation();
+		rr.setKids((Integer)kidSpinner.getValue());
+		rr.setAdults((Integer)adultSpinner.getValue());
+		rr.setRoom((Room) roomBox.getSelectedItem());
+		
+		int id = -1;
+		for (int i=0; i<roomReservationListModel.getSize(); i++){
+			RoomReservation tmp = (RoomReservation)roomReservationListModel.get(i);
+			if(tmp.getRoom().equals(rr.getRoom())){
+				id = i;
+			}
+		}
+		
+		if (id == -1){
+			roomReservationListModel.addElement(rr);
+		} else {
+			roomReservationListModel.remove(id);
+			roomReservationListModel.add(id, rr);
+		}
+		
+		adultSpinner.setValue((Integer)1);
+		kidSpinner.setValue((Integer)0);
+	}
+	
+	private void removeRoomReservation(){
+		roomReservationListModel.remove(roomReservationList.getSelectedIndex());
+	}
+	
+	private void setRoomReservationFields(){
+		RoomReservation rr = (RoomReservation)roomReservationListModel.get(roomReservationList.getSelectedIndex());
+		roomBox.setSelectedItem(rr.getRoom());
+		adultSpinner.setValue(rr.getAdults());
+		kidSpinner.setValue(rr.getKids());
 	}
 	
 	private void calculate(){
@@ -304,54 +410,19 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		if (customerListModel.getSize() > 0 &&
 			roomBox.getSelectedIndex() != -1 &&
 			(Integer)adultSpinner.getValue() >0){
-			int adults = (Integer)adultSpinner.getValue();
-			int kids = (Integer)kidSpinner.getValue();
-			Room room = (Room) roomBox.getSelectedItem();
 			
-			int days = (int)(departureDateField.getDate().getTime() - arrivalDateField.getDate().getTime())/ (1000 * 60 * 60 * 24);
-			System.out.println(days);
-			
-			switch(adults){
-				case 1:
-					switch(kids){
-					case 0:
-						priceSpinner.setValue(days * room.getSinglePrice());
-						break;
-					case 1:
-						priceSpinner.setValue(days * room.getSingleOneKidPrice());
-						break;
-					default:
-						priceSpinner.setValue(days * room.getSingleTwoKidsPrice());
-						break;
-					}
-					break;
-				case 2:
-					switch(kids){
-					case 0:
-						priceSpinner.setValue(days * room.getDoublePrice());
-						break;
-					default:
-						priceSpinner.setValue(days * room.getDoubleOneKidPrice());
-						break;
-					}
-					break;
-				default:
-					priceSpinner.setValue(days * room.getTriplePrice());
-					break;
+			List<RoomReservation> rr = new ArrayList<RoomReservation>();
+			for (int i=0; i<roomReservationListModel.getSize(); i++){
+				rr.add((RoomReservation)roomReservationListModel.get(i));
 			}
 			
-			double discount = 0.0;
-			int size = customerListModel.getSize();
-			System.out.println(size);
-			for (int i=0; i<size; i++){
-				Customer c = (Customer) customerListModel.get(i);
-				discount += c.getDiscount();
-				System.out.println(c);
-			}
+			priceSpinner.setValue(CalculateReservation.calcualtePrice(rr, arrivalDateField.getDate(), departureDateField.getDate()));
 			
-			if (discount > 0.0){
-				discountSpinner.setValue(discount / size);
+			List<Customer> c = new ArrayList<Customer>();
+			for (int i=0; i<customerListModel.getSize(); i++){
+				c.add((Customer)customerListModel.get(i));
 			}
+			discountSpinner.setValue(CalculateReservation.calcualteDiscount(c));
 		}
 		else{
 			priceSpinner.setValue(0.0);

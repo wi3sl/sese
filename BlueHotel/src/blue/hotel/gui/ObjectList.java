@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
+import blue.hotel.model.Reservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
@@ -87,7 +88,11 @@ public class ObjectList<T> extends JDialog {
 					if (editor.run()) {
 						T o = ObjectList.this.klass.newInstance();
 						editor.writeTo(o);
-						DAO.getInstance().create(o);
+						if( ObjectList.this.klass == Reservation.class){
+							DAO.getInstance().update(o);
+						} else{
+							DAO.getInstance().create(o);
+						}
 						ObjectList.this.reloadObjects();
 					}
 				} catch (Exception e1) {

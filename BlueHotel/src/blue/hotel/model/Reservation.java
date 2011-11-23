@@ -1,5 +1,6 @@
 package blue.hotel.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,21 +9,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="reservation")
-public class Reservation {
+public class Reservation implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@ManyToMany()
+	@ManyToMany
 	private List<Customer> customers;
-	@ManyToOne
-	private Room room;
+	@OneToMany
+	private List<RoomReservation> rooms;
 	private double discount;
 	private double price;
 	private Date arrival;
 	private Date departure;
-	private int adults;
-	private int kids;
 	
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -32,23 +32,10 @@ public class Reservation {
 		}
 		tmpc = tmpc.substring(0, tmpc.length() - 2);
 		return "Reservation #" + id + "(" + tmpc + ") / " + 
-				"Date: " +  df.format(arrival) + " - " + df.format(departure) + " / " +
-				"Room: " + room.getName();
+				"Date: " +  df.format(arrival) + " - " + df.format(departure);
 	}	
 	
 	public Reservation(){}
-	
-	public Reservation(int id, List<Customer> customers, Room room,
-			double discount, double price, Date arrival, Date departure) {
-		super();
-		this.id = id;
-		this.customers = customers;
-		this.room = room;
-		this.discount = discount;
-		this.price = price;
-		this.arrival = arrival;
-		this.departure = departure;
-	}
 	
 	public int getId() {
 		return id;
@@ -62,11 +49,11 @@ public class Reservation {
 	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
 	}
-	public Room getRoom() {
-		return room;
+	public List<RoomReservation> getRooms() {
+		return rooms;
 	}
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRooms(List<RoomReservation> rooms) {
+		this.rooms = rooms;
 	}
 	public double getDiscount() {
 		return discount;
@@ -91,21 +78,5 @@ public class Reservation {
 	}
 	public void setDeparture(Date departure) {
 		this.departure = departure;
-	}
-
-	public int getAdults() {
-		return adults;
-	}
-
-	public void setAdults(int adults) {
-		this.adults = adults;
-	}
-
-	public int getKids() {
-		return kids;
-	}
-
-	public void setKids(int kids) {
-		this.kids = kids;
 	}
 }

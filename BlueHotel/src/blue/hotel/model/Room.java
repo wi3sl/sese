@@ -1,6 +1,8 @@
 package blue.hotel.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +13,6 @@ public class Room implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
 	private String name;
 	private int maxPersons;
 	private double singlePrice;
@@ -20,6 +21,9 @@ public class Room implements Serializable {
 	private double singleTwoKidsPrice;
 	private double singleOneKidPrice;
 	private double doubleOneKidPrice;
+	
+	@OneToMany
+	private List<RoomReservation> reservations;
 	
 	public String toString() {
 		return "Room #" + id + " / " + name;
@@ -115,5 +119,13 @@ public class Room implements Serializable {
 
 	public void setDoubleOneKidPrice(double doubleOneKidPrice) {
 		this.doubleOneKidPrice = doubleOneKidPrice;
+	}
+
+	public List<RoomReservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<RoomReservation> reservations) {
+		this.reservations = reservations;
 	}
 }
