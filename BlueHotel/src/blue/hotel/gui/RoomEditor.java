@@ -2,6 +2,8 @@ package blue.hotel.gui;
 
 import javax.swing.JDialog;
 import java.awt.BorderLayout;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +16,7 @@ import java.awt.Insets;
 import javax.swing.JSpinner;
 
 import blue.hotel.model.Room;
+
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,6 +38,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 	private JSpinner spSingleOneKidPrice;
 	private JSpinner spDoubleOneKidPrice;
 	private boolean accepted = false;
+	private boolean valid = false;
 	
 	public RoomEditor(Room r) {
 		this();
@@ -52,8 +56,14 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				RoomEditor.this.accepted = true;
-				RoomEditor.this.setVisible(false);
+				if(tfName.getText().compareTo("") != 0){
+					RoomEditor.this.setVisible(false);
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "Bitte Daten vollständig ausfüllen.");
+				}
 			}
 		});
 		panel.add(btnSave);
@@ -200,14 +210,14 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 
 	@Override
 	public void writeTo(Room o) {
-		o.setName(tfName.getText());
-		o.setMaxPersons((Integer)spMaxPersons.getValue());
-		o.setSinglePrice((Double)spSinglePrice.getValue());
-		o.setDoublePrice((Double)spDoublePrice.getValue());
-		o.setTriplePrice((Double)spTriplePrice.getValue());
-		o.setSingleTwoKidsPrice((Double)spSingleTwoKidsPrice.getValue());
-		o.setSingleOneKidPrice((Double)spSingleOneKidPrice.getValue());
-		o.setDoubleOneKidPrice((Double)spDoubleOneKidPrice.getValue());
+			o.setName(tfName.getText());
+			o.setMaxPersons((Integer)spMaxPersons.getValue());
+			o.setSinglePrice((Double)spSinglePrice.getValue());
+			o.setDoublePrice((Double)spDoublePrice.getValue());
+			o.setTriplePrice((Double)spTriplePrice.getValue());
+			o.setSingleTwoKidsPrice((Double)spSingleTwoKidsPrice.getValue());
+			o.setSingleOneKidPrice((Double)spSingleOneKidPrice.getValue());
+			o.setDoubleOneKidPrice((Double)spDoubleOneKidPrice.getValue());
 	}
 
 	@Override
