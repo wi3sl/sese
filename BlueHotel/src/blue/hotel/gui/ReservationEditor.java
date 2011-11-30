@@ -1,6 +1,32 @@
 package blue.hotel.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import blue.hotel.logic.CalculateReservation;
 import blue.hotel.model.Customer;
@@ -10,42 +36,11 @@ import blue.hotel.model.RoomReservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
-
-import java.awt.FlowLayout;
-import javax.swing.JComboBox;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.BevelBorder;
-
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.JSpinner;
-import com.toedter.calendar.JDateChooser;
-
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.border.EmptyBorder;
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class ReservationEditor extends JDialog implements Editor<Reservation>{

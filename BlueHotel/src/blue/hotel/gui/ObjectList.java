@@ -1,28 +1,25 @@
 package blue.hotel.gui;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
-import blue.hotel.model.Reservation;
 import blue.hotel.model.Customer;
+import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class ObjectList<T> extends JPanel {
