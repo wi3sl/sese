@@ -150,7 +150,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 				RowSpec.decode("26px"),
 				RowSpec.decode("26px"),}));
 		
-		JLabel lblAduldts = new JLabel("Aduldt(s):");
+		JLabel lblAduldts = new JLabel("Adult(s):");
 		roomReservationPanel.add(lblAduldts, "1, 1, left, top");
 		
 		adultSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
