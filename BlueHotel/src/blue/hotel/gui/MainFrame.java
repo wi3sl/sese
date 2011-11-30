@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
@@ -24,6 +25,10 @@ import blue.hotel.model.Room;
 public class MainFrame extends JFrame {
 	JPanel panContent;
 	JPanel panContentBox;
+	JToggleButton btnInvoiceButton;
+	JToggleButton btnOtherList;
+	JToggleButton btnRoomsList;
+	JToggleButton btnCustomerList;
 	
 	public MainFrame() {
 		try {
@@ -50,9 +55,10 @@ public class MainFrame extends JFrame {
 		gbl_panMenuBox.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panMenuBox.setLayout(gbl_panMenuBox);
 		
-		JButton btnOtherList = new JButton("Reservations");
-		JButton btnRoomsList = new JButton("Rooms");
-		JButton btnCustomerList = new JButton("Customers");
+		btnOtherList = new JToggleButton("Reservations");
+		btnRoomsList = new JToggleButton("Rooms");
+		btnCustomerList = new JToggleButton("Customers");
+		btnInvoiceButton = new JToggleButton("Invoices");
 
 		btnCustomerList.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/users.png")));
 		GridBagConstraints gbc_btnCustomerList = new GridBagConstraints();
@@ -69,18 +75,13 @@ public class MainFrame extends JFrame {
 		gbc_btnRoomsList.gridy = 0;
 		panMenuBox.add(btnRoomsList, gbc_btnRoomsList);
 		
-		JButton btnNewButton = new JButton("Invoices");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new InvoiceAssistant().setVisible(true);
-			}
-		});
+
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
-		panMenuBox.add(btnNewButton, gbc_btnNewButton);
+		panMenuBox.add(btnInvoiceButton, gbc_btnNewButton);
 		btnOtherList.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/edit.png")));
 		GridBagConstraints gbc_btnOtherList = new GridBagConstraints();
 		gbc_btnOtherList.fill = GridBagConstraints.BOTH;
@@ -93,21 +94,39 @@ public class MainFrame extends JFrame {
 		panContentBox.setLayout(new BorderLayout(0, 0));
 		
 		//action listeners for menu buttons
+		btnInvoiceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new InvoiceAssistant().setVisible(true);
+				btnOtherList.setSelected(false);
+				btnRoomsList.setSelected(false);
+				btnCustomerList.setSelected(false);
+			}
+		});
+		
 		btnOtherList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Reservation>(Reservation.class));
+				btnInvoiceButton.setSelected(false);
+				btnRoomsList.setSelected(false);
+				btnCustomerList.setSelected(false);
 			}
-		});
+		}); 
 		
 		btnRoomsList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Room>(Room.class));
+				btnInvoiceButton.setSelected(false);
+				btnOtherList.setSelected(false);
+				btnCustomerList.setSelected(false);
 			}
 		});
 		
 		btnCustomerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Customer>(Customer.class));
+				btnInvoiceButton.setSelected(false);
+				btnOtherList.setSelected(false);
+				btnRoomsList.setSelected(false);
 			}
 		});
 		

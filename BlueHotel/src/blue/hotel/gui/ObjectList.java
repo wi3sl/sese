@@ -23,6 +23,8 @@ import blue.hotel.storage.DAOException;
 
 @SuppressWarnings("serial")
 public class ObjectList<T> extends JPanel {
+	private final String PLACE_HOLDER_STRING = "No entry available...";
+	
 	Class<T> klass;
 	JList list;
 	List<T> objects;
@@ -41,6 +43,10 @@ public class ObjectList<T> extends JPanel {
 				dlm.addElement(o);
 			}
 			list.setModel(dlm);
+			
+			if(dlm.size() == 0) {
+				dlm.addElement(PLACE_HOLDER_STRING);
+			}
 		}
 	}
 
@@ -68,6 +74,12 @@ public class ObjectList<T> extends JPanel {
 				}
 				
 				T o = (T)list.getSelectedValue();
+				
+				if(o.equals(PLACE_HOLDER_STRING)) {
+					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
+					return;
+				}
+				
 				Editor<T> editor = (Editor<T>) EditorManager.openEditor(ObjectList.this.klass);
 				editor.readFrom(o);
 				
@@ -125,6 +137,11 @@ public class ObjectList<T> extends JPanel {
 				if (o instanceof Room) {
 					/* TODO Issue #6: If the room is part of any
 					 * reservations, show error and return --thp */
+				}
+				
+				if(o.equals(PLACE_HOLDER_STRING)) {
+					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
+					return;
 				}
 				
 				try {

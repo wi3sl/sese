@@ -102,20 +102,19 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		customerButtonPanel.setBorder(null);
 		customerPanel.add(customerButtonPanel, "2, 3, center, top");
 		customerButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("218px"),
-				ColumnSpec.decode("51px"),
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("71px"),},
+				ColumnSpec.decode("185px"),
+				ColumnSpec.decode("75px"),
+				ColumnSpec.decode("84px"),},
 			new RowSpec[] {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("23px"),}));
 		
 		JButton btnAddCustomer = new JButton("Add");
-		customerButtonPanel.add(btnAddCustomer, "2, 2, left, top");
+		customerButtonPanel.add(btnAddCustomer, "2, 2, right, top");
 		
 		btnRemoveCustomer = new JButton("Remove");
 		btnRemoveCustomer.setEnabled(false);
-		customerButtonPanel.add(btnRemoveCustomer, "4, 2, right, top");
+		customerButtonPanel.add(btnRemoveCustomer, "3, 2, right, top");
 		
 		customerBox = new JComboBox();
 		customerPanel.add(customerBox, "2, 2, fill, top");
@@ -143,7 +142,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		JPanel roomReservationPanel = new JPanel();
 		roomPanel.add(roomReservationPanel, "2, 4, fill, fill");
 		roomReservationPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("150px"),
+				ColumnSpec.decode("149px"),
 				ColumnSpec.decode("left:195px"),
 				FormFactory.RELATED_GAP_COLSPEC,},
 			new RowSpec[] {
@@ -165,20 +164,19 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		JPanel roomButtonPanel = new JPanel();
 		roomPanel.add(roomButtonPanel, "2, 5, right, top");
 		roomButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("51px"),
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("71px"),},
+				ColumnSpec.decode("185px"),
+				ColumnSpec.decode("75px"),
+				ColumnSpec.decode("84px"),},
 			new RowSpec[] {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("23px"),}));
 		
 		JButton btnAddRoomReservation = new JButton("Add");
-		roomButtonPanel.add(btnAddRoomReservation, "2, 2, left, top");
+		roomButtonPanel.add(btnAddRoomReservation, "2, 2, right, top");
 		
 		btnRemoveRoomReservation = new JButton("Remove");
 		btnRemoveRoomReservation.setEnabled(false);
-		roomButtonPanel.add(btnRemoveRoomReservation, "4, 2, left, top");
+		roomButtonPanel.add(btnRemoveRoomReservation, "3, 2, right, top");
 		
 		JPanel stayPanel = new JPanel();
 		stayPanel.setBorder(new TitledBorder(null, "Stay", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));

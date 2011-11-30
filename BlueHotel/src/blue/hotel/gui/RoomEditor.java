@@ -92,7 +92,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("10px"),
-				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("179px"),
 				ColumnSpec.decode("125px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -125,7 +125,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("10px"),
-				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("179px"),
 				ColumnSpec.decode("125px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -185,7 +185,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_2.add(spDoubleOneKidPrice, "3, 12, fill, default");
 		spDoubleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		
-		setSize(340, 420);
+		setSize(379, 420);
 		setLocationRelativeTo(null);
 	}
 
