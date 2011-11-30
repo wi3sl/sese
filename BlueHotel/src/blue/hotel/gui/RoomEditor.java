@@ -56,13 +56,9 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				RoomEditor.this.accepted = true;
-				if(tfName.getText().compareTo("") != 0){
+				if (ValidationHandler.validate(RoomEditor.this)) {
+					RoomEditor.this.accepted = true;
 					RoomEditor.this.setVisible(false);
-				}else
-				{
-					JOptionPane.showMessageDialog(null, "Bitte Daten vollständig ausfüllen.");
 				}
 			}
 		});
@@ -225,5 +221,17 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		accepted = false;
 		setVisible(true);
 		return accepted;
+	}
+
+	@Override
+	public boolean validateInput() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String inputErrors() {
+		// TODO Auto-generated method stub
+		return "Input validation unimplemented";
 	}
 }

@@ -2,6 +2,8 @@ package blue.hotel.gui;
 
 import javax.swing.JDialog;
 import java.awt.BorderLayout;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
@@ -54,8 +56,10 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerEditor.this.accepted = true;
-				CustomerEditor.this.setVisible(false);
+				if (ValidationHandler.validate(CustomerEditor.this)) {
+					CustomerEditor.this.accepted = true;
+					CustomerEditor.this.setVisible(false);
+				}
 			}
 		});
 		panel.add(btnSave);
@@ -244,5 +248,27 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		accepted = false;
 		setVisible(true);
 		return accepted;
+	}
+
+	@Override
+	public boolean validateInput() {
+		/* Fixes bug 1: Kunde ohne Name und Adresse kann erstellt
+		 * werden (die zwei Felder sollten zumindes Pflichtfelder sein) */
+		return (!"".equals(tfName.getText()) && !"".equals(tfAddress.getText()));
+	}
+
+	@Override
+	public String inputErrors() {
+		String result = "";
+		
+		if ("".equals(tfName.getText())) {
+			result += "Please enter a name.\n";
+		}
+		
+		if ("".equals(tfAddress.getText())) {
+			result += "Please enter an address.\n";
+		}
+		
+		return result.trim();
 	}
 }

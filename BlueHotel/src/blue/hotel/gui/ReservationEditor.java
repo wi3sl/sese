@@ -244,8 +244,10 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ReservationEditor.this.accepted = true;
-				ReservationEditor.this.setVisible(false);
+				if (ValidationHandler.validate(ReservationEditor.this)) {
+					ReservationEditor.this.accepted = true;
+					ReservationEditor.this.setVisible(false);
+				}
 			}
 		});
 		panel.add(btnSave);
@@ -478,6 +480,18 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			discountSpinner.setValue(0.0);
 		}
 		
+	}
+
+	@Override
+	public boolean validateInput() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String inputErrors() {
+		// TODO Auto-generated method stub
+		return "Input validation unimplemented";
 	}
 
 }
