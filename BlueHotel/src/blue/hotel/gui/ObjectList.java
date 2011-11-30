@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 import blue.hotel.model.Reservation;
+import blue.hotel.model.Customer;
+import blue.hotel.model.Room;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
@@ -117,6 +119,16 @@ public class ObjectList<T> extends JPanel {
 				}
 				
 				T o = (T)list.getSelectedValue();
+				
+				if (o instanceof Customer) {
+					/* TODO Issue #6: If the customer has any
+					 * reservations, show error and return --thp */
+				}
+				
+				if (o instanceof Room) {
+					/* TODO Issue #6: If the room is part of any
+					 * reservations, show error and return --thp */
+				}
 				
 				try {
 					DAO.getInstance().delete(o);
