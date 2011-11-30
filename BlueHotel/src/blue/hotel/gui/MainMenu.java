@@ -20,8 +20,8 @@ import javax.swing.border.EmptyBorder;
 public class MainMenu extends JDialog {
 	public MainMenu() {
 		try {
-			//Set system look and feel
-	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			// XXX: Don't do that - it looks shit under Linux, basically because Swing sucks.
+	        //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
