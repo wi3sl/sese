@@ -119,6 +119,6 @@ public class MainFrame extends JFrame {
 		panContentBox.add(panContent, BorderLayout.CENTER);
 		
 		this.setTitle("[BlueHotel] Hotel Booking System - " + content.getSimpleName());
-		this.revalidate();
+		this.validate();
 	}
 }
