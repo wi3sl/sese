@@ -106,6 +106,7 @@ public class MainFrame extends JFrame {
 		btnOtherList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Reservation>(Reservation.class));
+				btnOtherList.setSelected(true);
 				btnInvoiceButton.setSelected(false);
 				btnRoomsList.setSelected(false);
 				btnCustomerList.setSelected(false);
@@ -115,6 +116,7 @@ public class MainFrame extends JFrame {
 		btnRoomsList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Room>(Room.class));
+				btnRoomsList.setSelected(true);
 				btnInvoiceButton.setSelected(false);
 				btnOtherList.setSelected(false);
 				btnCustomerList.setSelected(false);
@@ -124,6 +126,7 @@ public class MainFrame extends JFrame {
 		btnCustomerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Customer>(Customer.class));
+				btnCustomerList.setSelected(true);
 				btnInvoiceButton.setSelected(false);
 				btnOtherList.setSelected(false);
 				btnRoomsList.setSelected(false);
@@ -133,6 +136,7 @@ public class MainFrame extends JFrame {
 		//set reservarion as default content
 		if(panContent == null) {
 			loadContent(new ObjectList<Reservation>(Reservation.class));
+			btnOtherList.setSelected(true);
 		}
 		
 		setSize(630, 500);

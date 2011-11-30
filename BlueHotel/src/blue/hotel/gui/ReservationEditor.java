@@ -71,7 +71,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 	public ReservationEditor() {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setTitle("new Reservation");
-		setSize(400, 600);
+		setSize(400, 689);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -91,16 +91,32 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			new RowSpec[] {
 				FormFactory.PARAGRAPH_GAP_ROWSPEC,
 				RowSpec.decode("30px"),
-				RowSpec.decode("33px"),}));
+				RowSpec.decode("45px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		customerBox = new JComboBox();
+		customerPanel.add(customerBox, "2, 2, fill, top");
 		customerList = new JList(customerListModel);
 		customerList.setVisibleRowCount(3);
 		customerList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		customerPanel.add(customerList, "2, 2, left, fill");
+		customerPanel.add(customerList, "2, 3, 1, 2, fill, fill");
+		
+		customerList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (customerListModel.getSize() > 0){
+					btnRemoveCustomer.setEnabled(true);
+				} else{
+					btnRemoveCustomer.setEnabled(false);
+				}
+			}
+		});
 		
 		JPanel customerButtonPanel = new JPanel();
 		customerButtonPanel.setBorder(null);
-		customerPanel.add(customerButtonPanel, "2, 3, center, top");
+		customerPanel.add(customerButtonPanel, "2, 5, center, top");
 		customerButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("185px"),
 				ColumnSpec.decode("75px"),
@@ -116,8 +132,32 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		btnRemoveCustomer.setEnabled(false);
 		customerButtonPanel.add(btnRemoveCustomer, "3, 2, right, top");
 		
-		customerBox = new JComboBox();
-		customerPanel.add(customerBox, "2, 2, fill, top");
+		btnAddCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Customer tmp = (Customer) customerBox.getSelectedItem();
+				boolean notInList = true;
+				for (int i=0; i<customerListModel.getSize(); i++){
+					if (customerListModel.get(i).equals(tmp)){
+						notInList = false;
+					}
+				}
+				if (notInList){
+					customerListModel.addElement(tmp);
+					calculate();
+				}
+			}
+		});
+		
+		btnRemoveCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(customerList.getSelectedIndex() != -1){
+					customerListModel.remove(customerList.getSelectedIndex());
+					calculate();
+				}
+			}
+		});
 		
 		JPanel roomPanel = new JPanel();
 		roomPanel.setBorder(new TitledBorder(null, "Room", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -132,7 +172,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("46px"),
-				RowSpec.decode("30px"),}));
+				RowSpec.decode("42px"),}));
 		
 		roomBox = new JComboBox();
 		roomPanel.add(roomBox, "2, 2, fill, default");
@@ -162,7 +202,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		roomReservationPanel.add(kidSpinner, "2, 2, fill, top");
 		
 		JPanel roomButtonPanel = new JPanel();
-		roomPanel.add(roomButtonPanel, "2, 5, right, top");
+		roomPanel.add(roomButtonPanel, "2, 5, right, bottom");
 		roomButtonPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("185px"),
 				ColumnSpec.decode("75px"),
@@ -268,44 +308,6 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		btnAddCustomer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Customer tmp = (Customer) customerBox.getSelectedItem();
-				boolean notInList = true;
-				for (int i=0; i<customerListModel.getSize(); i++){
-					if (customerListModel.get(i).equals(tmp)){
-						notInList = false;
-					}
-				}
-				if (notInList){
-					customerListModel.addElement(tmp);
-					calculate();
-				}
-			}
-		});
-		
-		btnRemoveCustomer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(customerList.getSelectedIndex() != -1){
-					customerListModel.remove(customerList.getSelectedIndex());
-					calculate();
-				}
-			}
-		});
-		
-		customerList.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if (customerListModel.getSize() > 0){
-					btnRemoveCustomer.setEnabled(true);
-				} else{
-					btnRemoveCustomer.setEnabled(false);
-				}
-			}
-		});
 		
 		btnAddRoomReservation.addActionListener(new ActionListener() {
 			@Override
