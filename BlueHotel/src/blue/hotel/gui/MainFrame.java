@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 	JToggleButton btnCustomerList;
 	
 	public MainFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			// XXX: Don't do that - it looks shit under Linux, basically because Swing sucks.
 	        //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
