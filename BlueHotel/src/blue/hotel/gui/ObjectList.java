@@ -119,7 +119,13 @@ public class ObjectList<T> extends JPanel {
 		panel.add(btnNew);
 		panel.add(btnEdit);
 		
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete;
+		if (klass.getName().equals(Reservation.class.getName())) {
+			btnDelete = new JButton("Storno");
+		} else {
+			btnDelete = new JButton("Delete");
+		}
+		
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (list.getSelectedIndex() == -1) {

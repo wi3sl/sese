@@ -49,9 +49,9 @@ public class MainFrame extends JFrame {
 		panMenuBox.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.add(panMenuBox, BorderLayout.NORTH);
 		GridBagLayout gbl_panMenuBox = new GridBagLayout();
-		gbl_panMenuBox.columnWidths = new int[]{196, 197, 0, 196, 0};
+		gbl_panMenuBox.columnWidths = new int[]{190, 190, 190, 190, 0};
 		gbl_panMenuBox.rowHeights = new int[]{77, 0};
-		gbl_panMenuBox.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panMenuBox.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panMenuBox.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panMenuBox.setLayout(gbl_panMenuBox);
 		
@@ -76,6 +76,7 @@ public class MainFrame extends JFrame {
 		panMenuBox.add(btnRoomsList, gbc_btnRoomsList);
 		
 
+		btnInvoiceButton.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/invoice.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -139,7 +140,7 @@ public class MainFrame extends JFrame {
 			btnOtherList.setSelected(true);
 		}
 		
-		setSize(630, 500);
+		setSize(950, 800);
 		setLocationRelativeTo(null);
 	}
 	
