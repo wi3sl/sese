@@ -46,7 +46,7 @@ public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends D
 			e.printStackTrace();
 		}
 		
-		//TODO This is just some Testing code! Remove it when reservation creation is working fine..
+		//TODO This is just some code generated for GUI testing! Remove it when reservation creation is working fine..
 //		for(int i = 0; i < 50; i++) {
 //			Reservation r = new Reservation();
 //			r.setId(i);

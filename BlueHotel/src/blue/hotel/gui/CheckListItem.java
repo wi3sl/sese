@@ -25,7 +25,7 @@ public class CheckListItem {
 	//returns the string displayed in the list
 	public String toString() {
 		String returnString = "No. " + Integer.toString(this.item.getId());
-		
+				
 		String roomString = null;
 		List<RoomReservation> custList = item.getRooms();
 		
