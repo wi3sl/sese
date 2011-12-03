@@ -29,6 +29,7 @@ public class Reservation implements Serializable {
 	private double price;
 	private Date arrival;
 	private Date departure;
+	private boolean storno;
 	
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -84,5 +85,13 @@ public class Reservation implements Serializable {
 	}
 	public void setDeparture(Date departure) {
 		this.departure = departure;
+	}
+
+	public boolean isStorno() {
+		return storno;
+	}
+
+	public void setStorno(boolean storno) {
+		this.storno = storno;
 	}
 }
