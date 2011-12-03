@@ -1,10 +1,11 @@
 package blue.hotel.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +29,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import antlr.debug.NewLineListener;
 import blue.hotel.logic.CalculateReservation;
+import blue.hotel.logic.SaveReservation;
 import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
@@ -40,10 +43,8 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
@@ -65,7 +66,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 	private DefaultListModel roomReservationListModel;
 	private JList roomReservationList;
 	private JButton btnRemoveRoomReservation;
-	private int reservationId = -1;
+	private int reservationId = 0;
 	
 	public ReservationEditor(Reservation r) {
 		this();
@@ -241,13 +242,13 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			public void actionPerformed(ActionEvent arg0) {
 				int amount = (Integer)adultSpinner.getValue() + (Integer)kidSpinner.getValue();
 				Room room = (Room)roomBox.getSelectedItem();
-				if(room.getMaxPersons() >= amount){
+				if(amount > room.getMaxPersons()){
+					JOptionPane.showConfirmDialog(null, "Too many persons in one room!", "Error", JOptionPane.CLOSED_OPTION, JOptionPane.WARNING_MESSAGE);
+					adultSpinner.setValue(1);
+					kidSpinner.setValue(0);
+				} else{
 					addRoomReservation();
 					calculate();
-				} else{
-					JOptionPane.showConfirmDialog(null, "Too many persons in one room!", "Error", JOptionPane.CLOSED_OPTION, JOptionPane.WARNING_MESSAGE);
-					adultSpinner.setValue(1.0);
-					kidSpinner.setValue(0.0);
 				}
 			}
 		});
@@ -295,6 +296,41 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		stayPanel.add(lblArrival, "2, 2, left, top");
 		arrivalDateField = new JDateChooser(cal.getTime());
 		stayPanel.add(arrivalDateField, "3, 2, fill, top");
+		
+		arrivalDateField.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("enter");
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("enter");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				calculate();
+				System.out.println("enter");
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("enter");
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("enter");
+			}
+		});
+		
 		
 		JLabel lblDeparture = new JLabel("Departure:");
 		stayPanel.add(lblDeparture, "2, 3, left, top");
@@ -394,33 +430,20 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		for (int i=0; i<customerListModel.getSize(); i++){
 			tmpList.add((Customer) customerListModel.get(i));
 		}
+		o.setId(reservationId);
 		o.setCustomers(tmpList);
 		o.setPrice((Double) priceSpinner.getValue());
 		o.setDiscount((Double) discountSpinner.getValue());
 		o.setArrival(arrivalDateField.getDate());
 		o.setDeparture(departureDateField.getDate());
 		
+		List<RoomReservation> rr = new ArrayList<RoomReservation>();
+		for (int i=0; i<roomReservationListModel.getSize(); i++){
+			RoomReservation tmp = (RoomReservation)roomReservationListModel.get(i);
+			rr.add(tmp);		
+		}
 		try {
-			if (reservationId == -1){
-				DAO dao = DAO.getInstance();
-				o = dao.create(o);
-				System.out.println(o.getId());
-				
-				List<RoomReservation> rr = new ArrayList<RoomReservation>();
-				for (int i=0; i<roomReservationListModel.getSize(); i++){
-					RoomReservation tmp = (RoomReservation)roomReservationListModel.get(i);
-					if(tmp.getReservation() == null){
-						tmp.setReservation(o);
-						tmp = dao.create(tmp);
-					} else{
-						tmp.setReservation(o);
-						tmp = dao.update(tmp);
-					}
-					rr.add(tmp);		
-				}
-				
-				o.setRooms(rr);
-			}
+			o = SaveReservation.save(o, rr);
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
@@ -476,8 +499,7 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		}
 		
 		if (customerListModel.getSize() > 0 &&
-			roomBox.getSelectedIndex() != -1 &&
-			(Integer)adultSpinner.getValue() >0){
+			roomReservationListModel.getSize() >0){
 			
 			List<RoomReservation> rr = new ArrayList<RoomReservation>();
 			for (int i=0; i<roomReservationListModel.getSize(); i++){
@@ -501,14 +523,31 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 
 	@Override
 	public boolean validateInput() {
-		// TODO Auto-generated method stub
-		return false;
+		return inputErrors().equals("") ? true : false;
 	}
 
 	@Override
 	public String inputErrors() {
-		// TODO Auto-generated method stub
-		return "Input validation unimplemented";
+		String errorMsg = "";
+		if(customerListModel.getSize() < 1){
+			errorMsg += "Please add a customer!\n";
+		}
+		
+		if(roomReservationListModel.getSize() < 1){
+			errorMsg += "Please add a room!\n";
+		}
+		
+		Date arr = arrivalDateField.getDate();
+		Date dep = departureDateField.getDate();
+		if (dep.before(arr)){
+			errorMsg += "The departure date should be after the arrival date!\n";
+		}
+		
+		if ((Double)priceSpinner.getValue() <= 0.0){
+			errorMsg += "Please set the price!\n";
+		}
+		
+		return errorMsg.trim();
 	}
 
 }

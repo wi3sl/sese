@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Customer implements Serializable {
 	private String web;
 	private String fax;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="customers")
 	private List<Reservation> reservations;
 	
 	public String toString() {

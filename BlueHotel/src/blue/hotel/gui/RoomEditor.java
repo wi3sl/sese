@@ -224,7 +224,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 	@Override
 	public boolean validateInput() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
