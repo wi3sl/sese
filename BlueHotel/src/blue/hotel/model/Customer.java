@@ -1,8 +1,15 @@
 package blue.hotel.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="customer")
@@ -22,6 +29,9 @@ public class Customer implements Serializable {
 	private String email;
 	private String web;
 	private String fax;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="customers")
+	private List<Reservation> reservations;
 	
 	public String toString() {
 		return "Customer #" + id + " / " + name + " (" + address + ")";
@@ -90,5 +100,13 @@ public class Customer implements Serializable {
 	}
 	public void setFax(String fax) {
 		this.fax = fax;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 }

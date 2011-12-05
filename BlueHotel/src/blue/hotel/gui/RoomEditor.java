@@ -1,30 +1,29 @@
 package blue.hotel.gui;
 
-import javax.swing.JDialog;
 import java.awt.BorderLayout;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import blue.hotel.model.Room;
 
-import javax.swing.SpinnerNumberModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-import javax.swing.border.TitledBorder;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 @SuppressWarnings("serial")
 public class RoomEditor extends JDialog implements Editor<Room> {
@@ -54,9 +53,11 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {		
-				RoomEditor.this.accepted = true;
-				RoomEditor.this.setVisible(false);
+			public void actionPerformed(ActionEvent arg0) {
+				if (ValidationHandler.validate(RoomEditor.this)) {
+					RoomEditor.this.accepted = true;
+					RoomEditor.this.setVisible(false);
+				}
 			}
 		});
 		panel.add(btnSave);
@@ -91,7 +92,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("10px"),
-				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("179px"),
 				ColumnSpec.decode("125px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -124,7 +125,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_editor.add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("10px"),
-				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("179px"),
 				ColumnSpec.decode("125px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -184,7 +185,7 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		panel_2.add(spDoubleOneKidPrice, "3, 12, fill, default");
 		spDoubleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		
-		setSize(340, 420);
+		setSize(379, 420);
 		setLocationRelativeTo(null);
 	}
 
@@ -218,5 +219,21 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		accepted = false;
 		setVisible(true);
 		return accepted;
+	}
+
+	@Override
+	public boolean validateInput() {
+		return (!"".equals(tfName.getText()));
+	}
+
+	@Override
+	public String inputErrors() {
+		String result = "";
+		
+		if ("".equals(tfName.getText())) {
+			result += "Please enter a name.\n";
+		}
+		
+		return result.trim();
 	}
 }

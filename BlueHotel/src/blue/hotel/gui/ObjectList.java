@@ -1,28 +1,31 @@
 package blue.hotel.gui;
 
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
 
+import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
+import blue.hotel.model.Room;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
-
 @SuppressWarnings("serial")
 public class ObjectList<T> extends JPanel {
+	private final String PLACE_HOLDER_STRING = "No entry available...";
+	
 	Class<T> klass;
 	JList list;
 	List<T> objects;
@@ -41,6 +44,10 @@ public class ObjectList<T> extends JPanel {
 				dlm.addElement(o);
 			}
 			list.setModel(dlm);
+			
+			if(dlm.size() == 0) {
+				dlm.addElement(PLACE_HOLDER_STRING);
+			}
 		}
 	}
 
@@ -68,6 +75,12 @@ public class ObjectList<T> extends JPanel {
 				}
 				
 				T o = (T)list.getSelectedValue();
+				
+				if(o.equals(PLACE_HOLDER_STRING)) {
+					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
+					return;
+				}
+				
 				Editor<T> editor = (Editor<T>) EditorManager.openEditor(ObjectList.this.klass);
 				editor.readFrom(o);
 				
@@ -107,7 +120,13 @@ public class ObjectList<T> extends JPanel {
 		panel.add(btnNew);
 		panel.add(btnEdit);
 		
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete;
+		if (klass.getName().equals(Reservation.class.getName())) {
+			btnDelete = new JButton("Storno");
+		} else {
+			btnDelete = new JButton("Delete");
+		}
+		
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (list.getSelectedIndex() == -1) {
@@ -116,6 +135,21 @@ public class ObjectList<T> extends JPanel {
 				}
 				
 				T o = (T)list.getSelectedValue();
+				
+				if (o instanceof Customer) {
+					/* TODO Issue #6: If the customer has any
+					 * reservations, show error and return --thp */
+				}
+				
+				if (o instanceof Room) {
+					/* TODO Issue #6: If the room is part of any
+					 * reservations, show error and return --thp */
+				}
+				
+				if(o.equals(PLACE_HOLDER_STRING)) {
+					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
+					return;
+				}
 				
 				try {
 					DAO.getInstance().delete(o);

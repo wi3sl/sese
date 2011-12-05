@@ -5,7 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="reservation")
@@ -15,7 +22,7 @@ public class Reservation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Customer> customers;
 	@OneToMany
 	private List<RoomReservation> rooms;
@@ -23,6 +30,7 @@ public class Reservation implements Serializable {
 	private double price;
 	private Date arrival;
 	private Date departure;
+	private boolean storno;
 	
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -78,5 +86,13 @@ public class Reservation implements Serializable {
 	}
 	public void setDeparture(Date departure) {
 		this.departure = departure;
+	}
+
+	public boolean isStorno() {
+		return storno;
+	}
+
+	public void setStorno(boolean storno) {
+		this.storno = storno;
 	}
 }

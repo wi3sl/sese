@@ -1,27 +1,28 @@
 package blue.hotel.gui;
 
-import javax.swing.JDialog;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import blue.hotel.model.Customer;
-import javax.swing.SpinnerNumberModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class CustomerEditor extends JDialog implements Editor<Customer> {
@@ -53,8 +54,10 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerEditor.this.accepted = true;
-				CustomerEditor.this.setVisible(false);
+				if (ValidationHandler.validate(CustomerEditor.this)) {
+					CustomerEditor.this.accepted = true;
+					CustomerEditor.this.setVisible(false);
+				}
 			}
 		});
 		panel.add(btnSave);
@@ -243,5 +246,27 @@ public class CustomerEditor extends JDialog implements Editor<Customer> {
 		accepted = false;
 		setVisible(true);
 		return accepted;
+	}
+
+	@Override
+	public boolean validateInput() {
+		/* Fixes bug 1: Kunde ohne Name und Adresse kann erstellt
+		 * werden (die zwei Felder sollten zumindes Pflichtfelder sein) */
+		return (!"".equals(tfName.getText()) && !"".equals(tfAddress.getText()));
+	}
+
+	@Override
+	public String inputErrors() {
+		String result = "";
+		
+		if ("".equals(tfName.getText())) {
+			result += "Please enter a name.\n";
+		}
+		
+		if ("".equals(tfAddress.getText())) {
+			result += "Please enter an address.\n";
+		}
+		
+		return result.trim();
 	}
 }
