@@ -1,7 +1,6 @@
 package blue.hotel.gui;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;

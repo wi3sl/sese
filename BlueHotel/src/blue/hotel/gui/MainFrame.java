@@ -19,10 +19,6 @@ import javax.swing.border.EtchedBorder;
 import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.CompoundBorder;
 
 
 @SuppressWarnings("serial")
@@ -119,6 +115,6 @@ public class MainFrame extends JFrame {
 		panContentBox.add(panContent, BorderLayout.CENTER);
 		
 		this.setTitle("[BlueHotel] Hotel Booking System - " + content.getSimpleName());
-		this.revalidate();
+		this.validate();
 	}
 }

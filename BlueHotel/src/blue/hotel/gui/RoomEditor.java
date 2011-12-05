@@ -38,7 +38,6 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 	private JSpinner spSingleOneKidPrice;
 	private JSpinner spDoubleOneKidPrice;
 	private boolean accepted = false;
-	private boolean valid = false;
 	
 	public RoomEditor(Room r) {
 		this();
@@ -55,15 +54,9 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(0, 2, 10, 0));
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {		
 				RoomEditor.this.accepted = true;
-				if(tfName.getText().compareTo("") != 0){
-					RoomEditor.this.setVisible(false);
-				}else
-				{
-					JOptionPane.showMessageDialog(null, "Bitte Daten vollständig ausfüllen.");
-				}
+				RoomEditor.this.setVisible(false);
 			}
 		});
 		panel.add(btnSave);

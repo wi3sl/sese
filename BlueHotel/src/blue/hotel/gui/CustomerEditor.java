@@ -15,7 +15,6 @@ import javax.swing.JSpinner;
 
 import blue.hotel.model.Customer;
 import javax.swing.SpinnerNumberModel;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.jgoodies.forms.layout.FormLayout;
