@@ -33,12 +33,15 @@ public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends D
 		
 		try {
 			List<Reservation> rl = DAO.getInstance().getAll(Reservation.class);
-			
+						
 			for(Reservation r : rl) {
-				CheckListItem cli = new CheckListItem(r);
-				cli.setSelected(false);
+				//do not display canceled reservations
+				if(!r.isStorno()) {
+					CheckListItem cli = new CheckListItem(r);
+					cli.setSelected(false);
 
-				l.add(cli);
+					l.add(cli);
+				}
 			}
 			
 		} catch (DAOException e) {

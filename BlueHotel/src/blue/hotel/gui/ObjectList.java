@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import blue.hotel.logic.SaveReservation;
 import blue.hotel.model.Customer;
 import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
@@ -41,7 +42,15 @@ public class ObjectList<T> extends JPanel {
 		if (list != null) {
 			DefaultListModel dlm = new DefaultListModel();
 			for (T o: objects) {
-				dlm.addElement(o);
+				boolean add = true;
+				
+				//do not display canceled reservations
+				if(o instanceof Reservation) {
+					Reservation res = (Reservation)o;
+					if(res.isStorno()) add = false;
+				}
+				
+				if(add) dlm.addElement(o);
 			}
 			list.setModel(dlm);
 			
@@ -122,7 +131,7 @@ public class ObjectList<T> extends JPanel {
 		
 		JButton btnDelete;
 		if (klass.getName().equals(Reservation.class.getName())) {
-			btnDelete = new JButton("Storno");
+			btnDelete = new JButton("Cancellation");
 		} else {
 			btnDelete = new JButton("Delete");
 		}
@@ -152,7 +161,24 @@ public class ObjectList<T> extends JPanel {
 				}
 				
 				try {
-					DAO.getInstance().delete(o);
+					if(o instanceof Reservation) {
+						//do storno if o is a reservation
+						int option = JOptionPane.showConfirmDialog(ObjectList.this,
+							    		"Do you really want do cancel this reservation?", "Cancellation",
+							    		JOptionPane.YES_NO_OPTION,
+							    		JOptionPane.QUESTION_MESSAGE);
+						
+				
+						if(option == JOptionPane.YES_OPTION) {
+							Reservation res = (Reservation)o;
+							res.setStorno(true);
+							res = SaveReservation.save(res, res.getRooms());
+						}
+					} else {
+						//delete selected entry
+						DAO.getInstance().delete(o);
+					}
+					
 					ObjectList.this.reloadObjects();
 				} catch (DAOException e1) {
 					// TODO Auto-generated catch block
