@@ -1,6 +1,6 @@
 package blue.hotel.logic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 import java.util.LinkedList;

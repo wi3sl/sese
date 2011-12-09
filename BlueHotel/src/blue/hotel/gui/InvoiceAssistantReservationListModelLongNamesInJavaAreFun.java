@@ -6,8 +6,6 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 import blue.hotel.model.Reservation;
-import blue.hotel.model.Room;
-import blue.hotel.model.RoomReservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 

@@ -1,6 +1,10 @@
 package blue.hotel.gui;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,31 +19,19 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
-import com.toedter.calendar.JDateChooser;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import blue.hotel.model.Customer;
-import blue.hotel.model.Reservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import java.awt.BorderLayout;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.border.BevelBorder;
-import javax.swing.ScrollPaneConstants;
+import com.toedter.calendar.JDateChooser;
 
 public class InvoiceAssistant extends JDialog {
 	private static final long serialVersionUID = 1L;

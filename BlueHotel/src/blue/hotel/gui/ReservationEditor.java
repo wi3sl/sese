@@ -1,7 +1,7 @@
 package blue.hotel.gui;
 
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -29,7 +29,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import antlr.debug.NewLineListener;
 import blue.hotel.logic.CalculateReservation;
 import blue.hotel.logic.SaveReservation;
 import blue.hotel.model.Customer;
@@ -43,9 +42,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class ReservationEditor extends JDialog implements Editor<Reservation>{
