@@ -22,6 +22,7 @@ import blue.hotel.model.Reservation;
 import blue.hotel.model.Room;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
+import blue.hotel.storage.DAOExtension;
 
 @SuppressWarnings("serial")
 public class ObjectList<T> extends JPanel {
@@ -146,13 +147,27 @@ public class ObjectList<T> extends JPanel {
 				T o = (T)list.getSelectedValue();
 				
 				if (o instanceof Customer) {
-					/* TODO Issue #6: If the customer has any
-					 * reservations, show error and return --thp */
+					DAOExtension ext = new DAOExtension();
+					try {
+						if (ext.getAllReservationsFromCustomer((Customer)o).size() > 0) {
+							JOptionPane.showMessageDialog(ObjectList.this, "Cannot delete customer - this customer is referred in reservations.");
+							return;
+						}
+					} catch (DAOException e1) {
+						e1.printStackTrace();
+					}
 				}
 				
 				if (o instanceof Room) {
-					/* TODO Issue #6: If the room is part of any
-					 * reservations, show error and return --thp */
+					DAOExtension ext = new DAOExtension();
+					try {
+						if (ext.getAllReservationsFromRoom((Room)o).size() > 0) {
+							JOptionPane.showMessageDialog(ObjectList.this, "Cannot delete room - this room is referred reservations.");
+							return;
+						}
+					} catch (DAOException e1) {
+						e1.printStackTrace();
+					}
 				}
 				
 				if(o.equals(PLACE_HOLDER_STRING)) {
