@@ -8,6 +8,7 @@
     <class>blue.hotel.model.Reservation</class>
     <class>blue.hotel.model.RoomReservation</class>
     <class>blue.hotel.model.RoomReservationId</class>
+    <class>blue.hotel.model.Invoice</class>
 	
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
