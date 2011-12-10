@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class ValidationHandler {
 	public static boolean validate(Editor<?> editor) {
-		if (!editor.validateInput()) {
+		if (!editor.validateInput()) { 
 			JOptionPane.showConfirmDialog(null,
 					"Cannot save because of the following errors:\n\n" +
 			        editor.inputErrors(), 

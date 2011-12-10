@@ -10,6 +10,11 @@ import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
 public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends DefaultListModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Override
 	public Object getElementAt(int index) {
 		return l.get(index);
@@ -20,10 +25,6 @@ public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends D
 		return l.size();
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	//List<Reservation> l;
 	List<CheckListItem> l;
 	public InvoiceAssistantReservationListModelLongNamesInJavaAreFun() {

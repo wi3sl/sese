@@ -29,7 +29,7 @@ public class ObjectList<T> extends JPanel {
 	private final String PLACE_HOLDER_STRING = "No entry available...";
 	
 	Class<T> klass;
-	JList list;
+	JList<IconListItem> list;
 	List<T> objects;
 	
 	private void reloadObjects() {
@@ -41,22 +41,43 @@ public class ObjectList<T> extends JPanel {
 		}
 		
 		if (list != null) {
-			DefaultListModel dlm = new DefaultListModel();
+			DefaultListModel<IconListItem> dlm = new DefaultListModel<IconListItem>();
+			list.setCellRenderer(new IconListRenderer());
+						
 			for (T o: objects) {
 				boolean add = true;
+				String iconName = null;
 				
 				//do not display canceled reservations
 				if(o instanceof Reservation) {
 					Reservation res = (Reservation)o;
 					if(res.isStorno()) add = false;
+					
+					//display right icon
+					if(res.getInvoice() != null) {
+						iconName = IconNames.INVOICE_ICON_NAME;
+					} else {
+						iconName = IconNames.INVOICE_MISSING_ICON_NAME;
+					}
 				}
 				
-				if(add) dlm.addElement(o);
+				if(add) {
+					IconListItem ili; 
+					
+					if(iconName != null) {
+						ili = new IconListItem(iconName,o);
+					} else {
+						ili = new IconListItem("",o);
+					}
+					
+					dlm.addElement(ili);
+				}
+					
 			}
 			list.setModel(dlm);
 			
-			if(dlm.size() == 0) {
-				dlm.addElement(PLACE_HOLDER_STRING);
+			if(dlm.size() == 0) {	
+				dlm.addElement(new IconListItem("", PLACE_HOLDER_STRING));
 			}
 		}
 	}
@@ -84,7 +105,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
-				T o = (T)list.getSelectedValue();
+				T o = (T)list.getSelectedValue().getObject();
 				
 				if(o.equals(PLACE_HOLDER_STRING)) {
 					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
@@ -144,7 +165,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
-				T o = (T)list.getSelectedValue();
+				T o = (T)list.getSelectedValue().getObject();
 				
 				if (o instanceof Customer) {
 					DAOExtension ext = new DAOExtension();
