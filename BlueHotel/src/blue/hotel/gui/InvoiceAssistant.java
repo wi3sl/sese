@@ -1,10 +1,6 @@
 package blue.hotel.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,7 +9,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -32,7 +27,6 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.SpringLayout;
 
 public class InvoiceAssistant extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -79,14 +73,11 @@ public class InvoiceAssistant extends JPanel {
 		
 		JLabel lblReservationsToPay = new JLabel("Reservations to pay:");
 		panel_3.add(lblReservationsToPay, "2, 4");
-		
-
-		
+	
 		JList list_1 = new JList();
 		list_1.setValueIsAdjusting(true);
 		list_1.setVisibleRowCount(30);
 		list_1.setLayoutOrientation(JList.VERTICAL_WRAP);
-		//list_1.setSize(new Dimension(400, 0));
 		list_1.setFixedCellWidth(400);
 		list_1.setModel(new InvoiceAssistantReservationListModelLongNamesInJavaAreFun());
 		list_1.setCellRenderer(new CheckListRenderer());
@@ -127,8 +118,7 @@ public class InvoiceAssistant extends JPanel {
 		
 		textDeparture = new JDateChooser();
 		panel_4.add(textDeparture, "1, 2, fill, center");
-		//textDeparture.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("Today");
 		panel_4.add(btnNewButton, "3, 2, fill, top");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -184,7 +174,6 @@ public class InvoiceAssistant extends JPanel {
 		}
 		
 		setSize(715, 650);
-//		setLocationRelativeTo(null);
 	}
 	
 }

@@ -32,6 +32,7 @@ public class ObjectList<T> extends JPanel {
 	JList<IconListItem> list;
 	List<T> objects;
 	
+	@SuppressWarnings("unchecked")
 	private void reloadObjects() {
 		try {
 			objects = DAO.getInstance().getAll(klass);
@@ -105,6 +106,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
+				@SuppressWarnings("unchecked")
 				T o = (T)list.getSelectedValue().getObject();
 				
 				if(o.equals(PLACE_HOLDER_STRING)) {
@@ -165,6 +167,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
+				@SuppressWarnings("unchecked")
 				T o = (T)list.getSelectedValue().getObject();
 				
 				if (o instanceof Customer) {
@@ -227,7 +230,7 @@ public class ObjectList<T> extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		this.add(scrollPane, BorderLayout.CENTER);
 		
-		list = new JList();
+		list = new JList<IconListItem>();
 		scrollPane.getViewport().setView(list);
 		
 		setSize(500, 500);

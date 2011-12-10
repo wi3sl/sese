@@ -6,13 +6,14 @@ public class IconListItem {
     private ImageIcon icon = null;
     private Object o;
  
-    public IconListItem(String iconName, Object o) 
-    {    	
+    public IconListItem(String iconName, Object o) {
+    	//select right icon
     	if(iconName.equals(IconNames.INVOICE_MISSING_ICON_NAME)) {
     		icon = new ImageIcon(IconListItem.class.getResource(IconNames.INVOICE_MISSING_ICON_RES));
     	} else if(iconName.equals(IconNames.INVOICE_ICON_NAME)) {
     		icon = new ImageIcon(IconListItem.class.getResource(IconNames.INVOICE_ICON_RES));
     	} else {
+    		//transparent icon to fill the empty space
     		icon = new ImageIcon(IconListItem.class.getResource(IconNames.FILLER_ICON_RES));
     	}
     		
@@ -24,8 +25,7 @@ public class IconListItem {
     }
  
 
-    public Object getObject() 
-    {
+    public Object getObject() {
         return o;	
     }
 }

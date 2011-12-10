@@ -6,8 +6,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+@SuppressWarnings("rawtypes")
 class CheckListRenderer extends JCheckBox implements ListCellRenderer {
-
 	/**
 	 * 
 	 */
