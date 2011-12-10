@@ -5,5 +5,7 @@ public class IconNames {
 	public static final String INVOICE_MISSING_ICON_RES = "/blue/hotel/data/cash-register-icon.png"; 
 	public static final String INVOICE_ICON_NAME = "invoice";
 	public static final String INVOICE_ICON_RES = "/blue/hotel/data/Ok-icon.png";
+	
+	public static final String FILLER_ICON_RES = "/blue/hotel/data/exclamation-icon.png";
 }
 

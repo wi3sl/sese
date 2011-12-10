@@ -10,10 +10,10 @@ public class IconListItem {
     {    	
     	if(iconName.equals(IconNames.INVOICE_MISSING_ICON_NAME)) {
     		icon = new ImageIcon(IconListItem.class.getResource(IconNames.INVOICE_MISSING_ICON_RES));
-    	}
-    	
-    	if(iconName.equals(IconNames.INVOICE_ICON_NAME)) {
+    	} else if(iconName.equals(IconNames.INVOICE_ICON_NAME)) {
     		icon = new ImageIcon(IconListItem.class.getResource(IconNames.INVOICE_ICON_RES));
+    	} else {
+    		icon = new ImageIcon(IconListItem.class.getResource(IconNames.FILLER_ICON_RES));
     	}
     		
         this.o = o;

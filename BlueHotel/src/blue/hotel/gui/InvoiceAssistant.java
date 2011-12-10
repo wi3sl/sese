@@ -32,46 +32,42 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.SpringLayout;
 
-public class InvoiceAssistant extends JDialog {
+public class InvoiceAssistant extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private final JLabel lblNewLabel_1 = new JLabel("Total amount:");
 	private JDateChooser textDeparture;
 	public InvoiceAssistant() {
-		setTitle("Invoice");
-		setResizable(false);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{494, 0};
-		gridBagLayout.rowHeights = new int[]{338, 87, 39, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(10, 10, 5, 10));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.anchor = GridBagConstraints.WEST;
-		gbc_panel.fill = GridBagConstraints.VERTICAL;
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		getContentPane().add(panel, gbc_panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+		gbc_panel_6.anchor = GridBagConstraints.NORTH;
+		gbc_panel_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_6.gridx = 0;
+		gbc_panel_6.gridy = 0;
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.GROWING_BUTTON_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("514px:grow"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("75px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("42px"),}));
 		
 		JPanel panel_3 = new JPanel();
+		add(panel_3, "1, 2, fill, top");
 		panel_3.setBorder(new TitledBorder(null, "General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.add(panel_3, BorderLayout.EAST);
 		panel_3.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(298px;default)"),},
+				ColumnSpec.decode("max(510px;default):grow"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(134dlu;default)"),
+				RowSpec.decode("top:max(221dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(24dlu;default):grow"),}));
 		
@@ -86,15 +82,15 @@ public class InvoiceAssistant extends JDialog {
 		
 
 		
-		JList list = new JList();
-		list.setValueIsAdjusting(true);
-		list.setVisibleRowCount(256);
-		list.setLayoutOrientation(JList.VERTICAL_WRAP);
-		list.setSize(new Dimension(400, 0));
-		list.setFixedCellWidth(400);
-		list.setModel(new InvoiceAssistantReservationListModelLongNamesInJavaAreFun());
-		list.setCellRenderer(new CheckListRenderer());
-		list.addMouseListener(new MouseAdapter() {
+		JList list_1 = new JList();
+		list_1.setValueIsAdjusting(true);
+		list_1.setVisibleRowCount(30);
+		list_1.setLayoutOrientation(JList.VERTICAL_WRAP);
+		//list_1.setSize(new Dimension(400, 0));
+		list_1.setFixedCellWidth(400);
+		list_1.setModel(new InvoiceAssistantReservationListModelLongNamesInJavaAreFun());
+		list_1.setCellRenderer(new CheckListRenderer());
+		list_1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
 				JList list = (JList) event.getSource();
 
@@ -110,7 +106,7 @@ public class InvoiceAssistant extends JDialog {
 			}
 		}); 
 		
-		JScrollPane scrollPane = new JScrollPane(list);
+		JScrollPane scrollPane = new JScrollPane(list_1);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel_3.add(scrollPane, "4, 4, fill, fill");
@@ -120,9 +116,9 @@ public class InvoiceAssistant extends JDialog {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new EmptyBorder(0, 0, 0, 0));
-		panel_3.add(panel_4, "4, 6, fill, center");
+		panel_3.add(panel_4, "4, 6, fill, top");
 		panel_4.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("329px"),
+				ColumnSpec.decode("129px"),
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
 				ColumnSpec.decode("81px"),},
 			new RowSpec[] {
@@ -141,24 +137,14 @@ public class InvoiceAssistant extends JDialog {
 			}
 		});
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new EmptyBorder(5, 10, 5, 10));
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.anchor = GridBagConstraints.NORTHWEST;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 1;
-		getContentPane().add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
 		JPanel panel_5 = new JPanel();
+		add(panel_5, "1, 4, fill, top");
 		panel_5.setBorder(new TitledBorder(null, "Amount", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panel_5);
 		panel_5.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("122px"),
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("max(411px;default)"),},
+				ColumnSpec.decode("max(510px;default):grow"),},
 			new RowSpec[] {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("47px"),}));
@@ -168,34 +154,22 @@ public class InvoiceAssistant extends JDialog {
 		panel_5.add(lblTotalAmount, "4, 2, left, top");
 		
 		JPanel panel_2 = new JPanel();
+		add(panel_2, "1, 6, right, top");
 		panel_2.setBorder(new EmptyBorder(0, 10, 10, 10));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 0;
-		gbc_panel_2.gridy = 2;
-		getContentPane().add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("439px"),
+				ColumnSpec.decode("536px"),
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
 				ColumnSpec.decode("104px"),},
 			new RowSpec[] {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("27px"),}));
 		
-		JButton btnCancel = new JButton("Cancel");
-		panel_2.add(btnCancel, "2, 2, right, top");
-		
 		JButton btnPrintInvoice = new JButton("Print invoice");
 		panel_2.add(btnPrintInvoice, "4, 2, left, top");
 		btnPrintInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(InvoiceAssistant.this, "not implemented");
-				InvoiceAssistant.this.setVisible(false);
-			}
-		});
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				InvoiceAssistant.this.setVisible(false);
 			}
 		});
@@ -209,8 +183,8 @@ public class InvoiceAssistant extends JDialog {
 			e1.printStackTrace();
 		}
 		
-		setSize(582, 502);
-		setLocationRelativeTo(null);
+		setSize(715, 650);
+//		setLocationRelativeTo(null);
 	}
 	
 }

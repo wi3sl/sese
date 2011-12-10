@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 
-public class IconListRenderer  extends JPanel implements ListCellRenderer {
+public class IconListRenderer extends JPanel implements ListCellRenderer {
 	/**
 	 * 
 	 */
@@ -32,13 +32,19 @@ public class IconListRenderer  extends JPanel implements ListCellRenderer {
         add(iconLabel, BorderLayout.EAST);         
     }
 	 
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean iss, boolean chf)  {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean chf)  {
     	iconLabel.setIcon(((IconListItem)value).getIcon());
     	textLabel.setText(((IconListItem)value).getObject().toString());
  
-        if(iss) setBackground(Color.lightGray); 
-        else setBackground(list.getBackground()); 
-
+    	
+    	if(index%2==0) {
+    		setBackground(new Color(242, 242, 255));
+    	} else {
+    		setBackground(Color.WHITE);
+    	}
+    	
+        if(isSelected) setBackground(new Color(232, 231, 255)); 
+        
         return this;
     }
 }

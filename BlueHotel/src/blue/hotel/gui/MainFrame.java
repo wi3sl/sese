@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
 		//action listeners for menu buttons
 		btnInvoiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new InvoiceAssistant().setVisible(true);
+				loadInvoiceAssistant();
 				btnOtherList.setSelected(false);
 				btnRoomsList.setSelected(false);
 				btnCustomerList.setSelected(false);
@@ -142,6 +142,15 @@ public class MainFrame extends JFrame {
 		
 		setSize(950, 800);
 		setLocationRelativeTo(null);
+	}
+	
+	
+	private void loadInvoiceAssistant() {
+		panContent = new InvoiceAssistant();
+		panContentBox.removeAll();
+		panContentBox.add(panContent, BorderLayout.CENTER);
+		this.validate();
+		
 	}
 	
 	@SuppressWarnings("rawtypes")
