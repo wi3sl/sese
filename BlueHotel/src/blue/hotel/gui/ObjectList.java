@@ -224,7 +224,7 @@ public class ObjectList<T> extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		this.add(scrollPane, BorderLayout.CENTER);
 		
-		list = new JList<IconListItem>();
+		list = new JList();
 		scrollPane.getViewport().setView(list);
 		
 		setSize(500, 500);
