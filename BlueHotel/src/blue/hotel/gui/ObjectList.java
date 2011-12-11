@@ -41,7 +41,7 @@ public class ObjectList<T> extends JPanel {
 		}
 		
 		if (list != null) {
-			DefaultListModel<IconListItem> dlm = new DefaultListModel<IconListItem>();
+			DefaultListModel dlm = new DefaultListModel();
 			list.setCellRenderer(new IconListRenderer());
 						
 			for (T o: objects) {
