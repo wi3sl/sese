@@ -29,10 +29,9 @@ public class ObjectList<T> extends JPanel {
 	private final String PLACE_HOLDER_STRING = "No entry available...";
 	
 	Class<T> klass;
-	JList<IconListItem> list;
+	JList list;
 	List<T> objects;
 	
-	@SuppressWarnings("unchecked")
 	private void reloadObjects() {
 		try {
 			objects = DAO.getInstance().getAll(klass);
@@ -88,10 +87,7 @@ public class ObjectList<T> extends JPanel {
 	}
 	
 	public ObjectList(Class<T> klass) {
-		//setModalityType(ModalityType.APPLICATION_MODAL);
 		this.klass = klass;
-		//setTitle("Data Editor: " + klass.getSimpleName());
-		
 		this.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -106,8 +102,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
-				@SuppressWarnings("unchecked")
-				T o = (T)list.getSelectedValue().getObject();
+				T o = (T)((IconListItem)list.getSelectedValue()).getObject();
 				
 				if(o.equals(PLACE_HOLDER_STRING)) {
 					JOptionPane.showMessageDialog(ObjectList.this, "Please select a valid entry.");
@@ -167,8 +162,7 @@ public class ObjectList<T> extends JPanel {
 					return;					
 				}
 				
-				@SuppressWarnings("unchecked")
-				T o = (T)list.getSelectedValue().getObject();
+				T o = (T)((IconListItem)list.getSelectedValue()).getObject();
 				
 				if (o instanceof Customer) {
 					DAOExtension ext = new DAOExtension();
