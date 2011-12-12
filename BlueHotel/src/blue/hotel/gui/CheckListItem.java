@@ -30,7 +30,9 @@ public class CheckListItem {
 		List<RoomReservation> custList = item.getRooms();
 		
 		if(custList != null) {
-			if(custList.size() == 1) {
+			if(custList.size() == 0){
+				roomString = "";
+			}else if(custList.size() == 1) {
 				roomString = custList.get(0).getRoom().getName();
 			} else if(custList.size() == 2) {
 				roomString = custList.get(0).getRoom().getName() + ", " + custList.get(1).getRoom().getName();

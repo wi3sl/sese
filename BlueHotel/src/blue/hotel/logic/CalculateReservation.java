@@ -49,7 +49,7 @@ public class CalculateReservation {
 			price *= days;
 		}
 		
-		return price;
+		return price > 0 ? price : 0;
 	}
 	
 	public static double calcualteDiscount(List<Customer> customers){
