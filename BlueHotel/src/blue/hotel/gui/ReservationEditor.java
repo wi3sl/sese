@@ -555,11 +555,11 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		tmp.setId(reservationId);
 		tmp.setArrival(arrivalDateField.getDate());
 		tmp.setDeparture(departureDateField.getDate());
-		String roomReservated;
+		String roomReserved;
 		try {
-			roomReservated = SaveReservation.checkReservation(tmp);
-			if(!roomReservated.equals("")){
-				errorMsg += roomReservated + " is already reservated in this range!\n";
+			roomReserved = SaveReservation.checkReservation(tmp);
+			if(!roomReserved.equals("")){
+				errorMsg += roomReserved + " is already reserved in this period!\n";
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();

@@ -12,22 +12,18 @@ import blue.hotel.storage.DAOException;
 public class SaveReservation {
 	public static Reservation save(Reservation reservation,
 			List<RoomReservation> roomReservations) throws DAOException {
-		System.out.println("save reservation:");
 		DAO dao = DAO.getInstance();
 		if (reservation.getId() == 0) {
 			reservation = dao.create(reservation);
-			System.out.println("new");
 		}
 		List<RoomReservation> tmp = new ArrayList<RoomReservation>();
 		for (int i = 0; i < roomReservations.size(); i++) {
 			RoomReservation rr = roomReservations.get(i);
 			if (exists(reservation.getRooms(), rr)) {
 				rr = dao.update(rr);
-				System.out.println("update: " + rr);
 			} else {
 				rr.setReservation(reservation);
 				rr = dao.create(rr);
-				System.out.println("create: " + rr);
 			}
 			tmp.add(rr);
 		}
@@ -85,7 +81,6 @@ public class SaveReservation {
 				}
 			}
 			if (notPresent) {
-				System.out.println("delete: " + tmpOld);
 				dao.delete(tmpOld);
 			}
 		}
