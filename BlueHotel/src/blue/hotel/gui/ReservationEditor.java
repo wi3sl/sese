@@ -544,6 +544,27 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 			errorMsg += "Please set the price!\n";
 		}
 		
+		
+		Reservation tmp = new Reservation();
+		List<RoomReservation> rooms = new ArrayList<RoomReservation>();
+		for (int i=0; i<roomReservationListModel.getSize(); i++){
+			RoomReservation rr = (RoomReservation)roomReservationListModel.get(i);
+			rooms.add(rr);		
+		}
+		tmp.setRooms(rooms);
+		tmp.setId(reservationId);
+		tmp.setArrival(arrivalDateField.getDate());
+		tmp.setDeparture(departureDateField.getDate());
+		String roomReservated;
+		try {
+			roomReservated = SaveReservation.checkReservation(tmp);
+			if(!roomReservated.equals("")){
+				errorMsg += roomReservated + " is already reservated in this range!\n";
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		
 		return errorMsg.trim();
 	}
 

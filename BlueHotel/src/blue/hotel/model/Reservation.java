@@ -45,7 +45,7 @@ public class Reservation implements Serializable {
 	}
 
 	public String toString() {
-		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 		String tmpc = "";
 		for (Customer c: customers){
 			tmpc += c.getName() + ", ";
