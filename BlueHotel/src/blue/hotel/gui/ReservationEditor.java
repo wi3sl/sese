@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -294,45 +296,24 @@ public class ReservationEditor extends JDialog implements Editor<Reservation>{
 		arrivalDateField = new JDateChooser(cal.getTime());
 		stayPanel.add(arrivalDateField, "3, 2, fill, top");
 		
-		arrivalDateField.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("enter");
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("enter");
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				calculate();
-				System.out.println("enter");
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("enter");
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("enter");
-			}
-		});
-		
-		
 		JLabel lblDeparture = new JLabel("Departure:");
 		stayPanel.add(lblDeparture, "2, 3, left, top");
 		departureDateField = new JDateChooser(cal.getTime());
 		stayPanel.add(departureDateField, "3, 3, fill, top");
+		
+		arrivalDateField.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				calculate();
+			}
+		});
+		
+		departureDateField.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				calculate();
+			}
+		});
 		
 		JPanel panel_5 = new JPanel();
 		getContentPane().add(panel_5);
