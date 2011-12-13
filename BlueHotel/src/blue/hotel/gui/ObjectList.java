@@ -208,8 +208,18 @@ public class ObjectList<T> extends JPanel {
 							res = SaveReservation.save(res, res.getRooms());
 						}
 					} else {
-						//delete selected entry
-						DAO.getInstance().delete(o);
+						// Confirmation before real deletion
+						int option = JOptionPane.showConfirmDialog(ObjectList.this,
+								"Do you really want to delete this " +
+					            o.getClass().getSimpleName() + "?\n\n" + o.toString(),
+					            "Deletion",
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+		
+		                if (option == JOptionPane.YES_OPTION) {
+							//delete selected entry
+							DAO.getInstance().delete(o);
+						}
 					}
 					
 					ObjectList.this.reloadObjects();
