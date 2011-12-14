@@ -223,7 +223,15 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 
 	@Override
 	public boolean validateInput() {
-		return (!"".equals(tfName.getText()));
+		return (!"".equals(tfName.getText()) 
+				&& (Integer)spMaxPersons.getValue()!= 0
+				&& (Double)spSinglePrice.getValue()!= 0
+				&& (Double)spDoublePrice.getValue()!= 0
+				&& (Double)spTriplePrice.getValue()!= 0
+				&& (Double)spSingleTwoKidsPrice.getValue()!= 0
+				&& (Double)spSingleOneKidPrice.getValue()!= 0
+				&& (Double)spDoubleOneKidPrice.getValue()!= 0
+				);
 	}
 
 	@Override
@@ -232,6 +240,34 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		
 		if ("".equals(tfName.getText())) {
 			result += "Please enter a name.\n";
+		}
+		
+		if ((Integer)spMaxPersons.getValue() == 0) {
+			result += "The number of max. persons must be greater than 0.\n";
+		}
+		
+		if ((Double)spSinglePrice.getValue() == 0) {
+			result += "The single price must be greater than 0.\n";
+		}
+		
+		if ((Double)spDoublePrice.getValue() == 0) {
+			result += "The double price must be greater than 0.\n";
+		}
+		
+		if ((Double)spTriplePrice.getValue() == 0) {
+			result += "The triple price must be greater than 0.\n";
+		}
+		
+		if ((Double)spSingleTwoKidsPrice.getValue() == 0) {
+			result += "The single price with two kids must be greater than 0.\n";
+		}
+		
+		if ((Double)spSingleOneKidPrice.getValue() == 0) {
+			result += "The single price with one kid must be greater than 0.\n";
+		}
+		
+		if ((Double)spDoubleOneKidPrice.getValue() == 0) {
+			result += "The double price with one kid must be greater than 0.\n";
 		}
 		
 		return result.trim();
