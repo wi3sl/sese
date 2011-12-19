@@ -2,6 +2,8 @@ package blue.hotel.gui;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import blue.hotel.logic.SaveReservation;
@@ -33,8 +36,24 @@ public class ObjectList<T> extends JPanel {
 	Class<T> klass;
 	JList list;
 	List<T> objects;
+	JTextField txtSearch;
 	
+	//displayed search result of given string
+	private void displaySearchResult(String searchString) {
+		if(searchString.trim().equals("")) {
+			JOptionPane.showMessageDialog(ObjectList.this, "Cannot search for empty string!");
+			return;
+		}
+		
+		getObjects(searchString);
+	}
+	
+	//reload all objects
 	private void reloadObjects() {
+		getObjects("");
+	}
+	
+	private void getObjects(String searchString) {
 		try {
 			objects = DAO.getInstance().getAll(klass);
 		} catch (DAOException e) {
@@ -49,6 +68,13 @@ public class ObjectList<T> extends JPanel {
 			for (T o: objects) {
 				boolean add = true;
 				String iconName = null;
+				
+				// if search string is provided display only elements containing it
+				if(!searchString.equals("")) {
+					if(!o.toString().toUpperCase().contains(searchString.toUpperCase())) {
+						add = false;
+					}
+				}
 				
 				//do not display canceled reservations
 				if(o instanceof Reservation) {
@@ -83,7 +109,7 @@ public class ObjectList<T> extends JPanel {
 			}
 		}
 	}
-
+	
 	public String getSimpleName() {
 		return klass.getSimpleName();
 	}
@@ -92,9 +118,45 @@ public class ObjectList<T> extends JPanel {
 		this.klass = klass;
 		this.setLayout(new BorderLayout(0, 0));
 		
+		JPanel panel_search = new JPanel();
+		this.add(panel_search, BorderLayout.NORTH);
+				
+		//search buttons
+		JPanel panel_searchbuttons = new JPanel();	
+		JButton btnSearch = new JButton("Search");
+		JButton btnClear = new JButton("Clear");
+		panel_searchbuttons.add(btnSearch);
+		panel_searchbuttons.add(btnClear);
+		
+		//search box
+		JPanel panel_searchbox = new JPanel();
+		txtSearch = new JTextField();
+		Dimension dim = new Dimension(450, 25);
+		txtSearch.setPreferredSize(dim);
+		panel_searchbox.add(txtSearch);
+		
+		panel_search.add(panel_searchbox);
+		panel_search.add(panel_searchbuttons);
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.add(panel, BorderLayout.SOUTH);
+		
+		
+		//handle search
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				displaySearchResult(txtSearch.getText().trim());
+			}
+		});
+		
+		//handle clear search
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSearch.setText("");
+				reloadObjects();
+			}
+		});
 		
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
@@ -226,8 +288,11 @@ public class ObjectList<T> extends JPanel {
 					
 					ObjectList.this.reloadObjects();
 				} catch (DAOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null,
+							"Reservation could not be canceled! \n\n"+
+							"The following error occured: " + e1.getMessage(), 
+					        "Error",
+					        JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
