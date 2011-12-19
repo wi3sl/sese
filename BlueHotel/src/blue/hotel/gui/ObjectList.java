@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -239,5 +241,36 @@ public class ObjectList<T> extends JPanel {
 		
 		setSize(500, 500);
 		reloadObjects();
+		
+		//handle double click on list item
+		list.addMouseListener(new MouseAdapter() {
+			  public void mouseClicked(MouseEvent e){
+				  if(e.getClickCount() == 2){
+					  int index = list.locationToIndex(e.getPoint());
+					  
+					  IconListItem item = (IconListItem)list.getModel().getElementAt(index);;
+					  list.ensureIndexIsVisible(index);
+					  
+					  if(!item.getObject().toString().equals(PLACE_HOLDER_STRING)) {
+						  //open editor if valid item is selcted
+						  T o = (T)item.getObject();
+						  Editor<T> editor = (Editor<T>) EditorManager.openEditor(ObjectList.this.klass);
+						  
+						  editor.readFrom(o);
+							
+						  if (editor.run()) {
+							  editor.writeTo(o);
+							
+							  try {
+								  DAO.getInstance().update(o);
+							  } catch (DAOException e1) {
+								  JOptionPane.showMessageDialog(ObjectList.this, "Cannot update: " + e1);
+								  e1.printStackTrace();
+							  }
+						  }
+					  }
+				  }
+			  }
+		});
 	}
 }
