@@ -106,7 +106,8 @@ public class MainFrame extends JFrame {
 		
 		btnOtherList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loadContent(new ObjectList<Reservation>(Reservation.class));
+				//loadContent(new ObjectList<Reservation>(Reservation.class));
+				loadReservationAssistant();
 				btnOtherList.setSelected(true);
 				btnInvoiceButton.setSelected(false);
 				btnRoomsList.setSelected(false);
@@ -136,7 +137,8 @@ public class MainFrame extends JFrame {
 		
 		//set reservarion as default content
 		if(panContent == null) {
-			loadContent(new ObjectList<Reservation>(Reservation.class));
+			//loadContent(new ObjectList<Reservation>(Reservation.class));
+			loadReservationAssistant();
 			btnOtherList.setSelected(true);
 		}
 		
@@ -149,8 +151,16 @@ public class MainFrame extends JFrame {
 		panContent = new InvoiceAssistant();
 		panContentBox.removeAll();
 		panContentBox.add(panContent, BorderLayout.CENTER);
+		this.setTitle("[BlueHotel] Hotel Booking System - Invoice");
 		this.validate();
-		
+	}
+	
+	private void loadReservationAssistant() {
+		panContent = new ReservationAssistant();
+		panContentBox.removeAll();
+		panContentBox.add(panContent, BorderLayout.CENTER);
+		this.setTitle("[BlueHotel] Hotel Booking System - Reservation");
+		this.validate();
 	}
 	
 	@SuppressWarnings("rawtypes")

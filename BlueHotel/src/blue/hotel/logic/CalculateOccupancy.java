@@ -43,7 +43,6 @@ public class CalculateOccupancy {
 			}
 			for(Reservation reservation : reservations){
 				dates.add(reservation.getArrival());
-				System.out.println(reservation.getArrival());
 				Date helper = new Date(reservation.getArrival().getTime());
 				helper.setTime(helper.getTime() + MILLIS_IN_DAY);
 				while(helper.getTime() < reservation.getDeparture().getTime()){
@@ -51,7 +50,6 @@ public class CalculateOccupancy {
 					helper.setTime(helper.getTime() + MILLIS_IN_DAY);
 				}
 				dates.add(reservation.getDeparture());
-				System.out.println(reservation.getDeparture());
 			}
 			roomOccupancy.put(room.getName(),dates);
 		}
