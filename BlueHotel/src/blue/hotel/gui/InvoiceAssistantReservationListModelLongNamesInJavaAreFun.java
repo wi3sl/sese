@@ -1,9 +1,11 @@
 package blue.hotel.gui;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 import blue.hotel.model.Reservation;
 import blue.hotel.storage.DAO;
@@ -23,6 +25,17 @@ public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends D
 	@Override
 	public int getSize() {
 		return l.size();
+	}
+	
+	public List<Reservation> getSelectedReservations() {
+		List<Reservation> reservations = new LinkedList<Reservation>();
+		for (int i=0; i<l.size(); i++) {
+			CheckListItem item = (CheckListItem)l.get(i);
+			if (item.isSelected()) {
+				reservations.add(item.getReservation());
+			}			
+		}
+		return reservations;
 	}
 
 	//List<Reservation> l;

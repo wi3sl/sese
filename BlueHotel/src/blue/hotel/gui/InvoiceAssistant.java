@@ -1,11 +1,18 @@
 package blue.hotel.gui;
 
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,11 +21,14 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import blue.hotel.model.Customer;
+import blue.hotel.model.Invoice;
+import blue.hotel.model.Reservation;
 import blue.hotel.storage.DAO;
 import blue.hotel.storage.DAOException;
 
@@ -31,8 +41,13 @@ import com.toedter.calendar.JDateChooser;
 public class InvoiceAssistant extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
+	public JComboBox customerComboBox;
+	public JList reservationList;
+	public InvoiceAssistantReservationListModelLongNamesInJavaAreFun reservationModel;
+	public JDateChooser textDeparture;
+	public JLabel lblTotalAmount;
+	
 	private final JLabel lblNewLabel_1 = new JLabel("Total amount:");
-	private JDateChooser textDeparture;
 	public InvoiceAssistant() {
 		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 		gbc_panel_6.anchor = GridBagConstraints.NORTH;
@@ -68,20 +83,21 @@ public class InvoiceAssistant extends JPanel {
 		JLabel lblNewLabel = new JLabel("Customer:");
 		panel_3.add(lblNewLabel, "2, 2");
 		
-		JComboBox comboBox = new JComboBox();
-		panel_3.add(comboBox, "4, 2, fill, default");
+		customerComboBox = new JComboBox();
+		panel_3.add(customerComboBox, "4, 2, fill, default");
 		
 		JLabel lblReservationsToPay = new JLabel("Reservations to pay:");
 		panel_3.add(lblReservationsToPay, "2, 4");
 	
-		JList list_1 = new JList();
-		list_1.setValueIsAdjusting(true);
-		list_1.setVisibleRowCount(30);
-		list_1.setLayoutOrientation(JList.VERTICAL_WRAP);
-		list_1.setFixedCellWidth(400);
-		list_1.setModel(new InvoiceAssistantReservationListModelLongNamesInJavaAreFun());
-		list_1.setCellRenderer(new CheckListRenderer());
-		list_1.addMouseListener(new MouseAdapter() {
+		reservationList = new JList();
+		reservationList.setValueIsAdjusting(true);
+		reservationList.setVisibleRowCount(30);
+		reservationList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		reservationList.setFixedCellWidth(400);
+		reservationModel = new InvoiceAssistantReservationListModelLongNamesInJavaAreFun();
+		reservationList.setModel(reservationModel);
+		reservationList.setCellRenderer(new CheckListRenderer());
+		reservationList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
 				JList list = (JList) event.getSource();
 
@@ -94,10 +110,14 @@ public class InvoiceAssistant extends JPanel {
 				
 				// Repaint cell
 				list.repaint(list.getCellBounds(index, index));
+				
+				// Ziemlich fett
+				double geodreieck = Pausenrap.taschenrechnerBorgen(reservationModel.getSelectedReservations());
+				lblTotalAmount.setText("" + geodreieck);
 			}
 		}); 
 		
-		JScrollPane scrollPane = new JScrollPane(list_1);
+		JScrollPane scrollPane = new JScrollPane(reservationList);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel_3.add(scrollPane, "4, 4, fill, fill");
@@ -140,7 +160,7 @@ public class InvoiceAssistant extends JPanel {
 				RowSpec.decode("47px"),}));
 		panel_5.add(lblNewLabel_1, "2, 2, left, top");
 		
-		JLabel lblTotalAmount = new JLabel("<...>");
+		lblTotalAmount = new JLabel("<...>");
 		panel_5.add(lblTotalAmount, "4, 2, left, top");
 		
 		JPanel panel_2 = new JPanel();
@@ -159,14 +179,60 @@ public class InvoiceAssistant extends JPanel {
 		panel_2.add(btnPrintInvoice, "4, 2, left, top");
 		btnPrintInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(InvoiceAssistant.this, "not implemented");
-				InvoiceAssistant.this.setVisible(false);
+				List<Reservation> reservations = reservationModel.getSelectedReservations();
+				Customer customer = (Customer)customerComboBox.getSelectedItem();
+				Date date = textDeparture.getDate();
+				
+				if (customer == null) {
+					JOptionPane.showMessageDialog(InvoiceAssistant.this, "No customer selected.");
+					return;
+				} else if (reservations.size() == 0) {
+					JOptionPane.showMessageDialog(InvoiceAssistant.this, "No reservations selected.");
+					return;
+				} else if (date == null) {
+					JOptionPane.showMessageDialog(InvoiceAssistant.this, "no date selected.");
+					return;
+				}
+				
+				Invoice invoice = new Invoice();
+				invoice.setCustomer(customer);
+				invoice.setDate(date);
+				invoice.setReservations(reservations);
+				try {
+					DAO.getInstance().create(invoice);
+				} catch (DAOException e1) {
+					JOptionPane.showMessageDialog(InvoiceAssistant.this, "Cannot create invoice.");
+					e1.printStackTrace();
+				}
+				
+				try {
+					String filename = "invoice_" + invoice.getId() + ".html";
+					invoice.setFilename(filename);
+					DAO.getInstance().update(invoice);
+					
+					PrintWriter w = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(filename))));
+					w.write("<html><head><title>Rechnung</title></head><body>");
+					w.write("<h1>Rechnung " + invoice.getId() + "</h1>");
+					w.write("<p>Kunde: " + customer.getName() + "<br>" + customer.getAddress() + "</p>");
+					w.write("<h2>Rechnungspositionen</h2><ul>");
+					for (Reservation r : reservations) {
+						w.write("<li>" + r.toString() + " // <b>Price:</b> " + r.getPrice() + " (Discount: "+r.getDiscount()+"%)</li>");
+					}
+					w.write("</ul>");
+					w.write("<p>Total price: <strong>" + Pausenrap.taschenrechnerBorgen(reservations) + "</strong></p>");
+					w.write("</body></html>");
+					w.close();
+
+					Desktop.getDesktop().open(new File(filename));
+				} catch (Exception e3) {
+					e3.printStackTrace();
+				}
 			}
 		});
 		
 		try {
 			for (Customer c: DAO.getInstance().getAll(Customer.class)) {
-				comboBox.addItem(c);
+				customerComboBox.addItem(c);
 			}
 		} catch (DAOException e1) {
 			// TODO Auto-generated catch block

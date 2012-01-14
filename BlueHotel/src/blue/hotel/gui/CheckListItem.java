@@ -14,6 +14,10 @@ public class CheckListItem {
 		this.item = item;
 	}
 	
+	public Reservation getReservation() {
+		return item;
+	}
+	
 	public boolean isSelected() {
 		return isSelected;
 	}
