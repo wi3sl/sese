@@ -26,6 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import blue.hotel.logic.SaveReservation;
 import blue.hotel.model.Customer;
 import blue.hotel.model.Invoice;
 import blue.hotel.model.Reservation;
@@ -224,6 +225,12 @@ public class InvoiceAssistant extends JPanel {
 					w.close();
 
 					Desktop.getDesktop().open(new File(filename));
+					
+					for(Reservation res : invoice.getReservations()) {
+						res.setInvoice(invoice);
+						res = SaveReservation.save(res, res.getRooms());
+					}
+					
 				} catch (Exception e3) {
 					e3.printStackTrace();
 				}

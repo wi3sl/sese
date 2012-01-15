@@ -49,10 +49,13 @@ public class InvoiceAssistantReservationListModelLongNamesInJavaAreFun extends D
 			for(Reservation r : rl) {
 				//do not display canceled reservations
 				if(!r.isStorno()) {
-					CheckListItem cli = new CheckListItem(r);
-					cli.setSelected(false);
-
-					l.add(cli);
+					//do not display already booked reservations
+					if(r.getInvoice() == null) {
+						CheckListItem cli = new CheckListItem(r);
+						cli.setSelected(false);
+	
+						l.add(cli);
+					}
 				}
 			}
 			
