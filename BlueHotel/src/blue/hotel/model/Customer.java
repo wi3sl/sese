@@ -30,7 +30,7 @@ public class Customer implements Serializable {
 	private String web;
 	private String fax;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="customers")
+	@ManyToMany(mappedBy="customers")
 	private List<Reservation> reservations;
 	
 	public String toString() {

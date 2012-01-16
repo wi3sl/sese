@@ -27,7 +27,7 @@ public class Room implements Serializable {
 	private double singleOneKidPrice;
 	private double doubleOneKidPrice;
 	
-	@OneToMany
+	@OneToMany(mappedBy="roomReservationId.room")
 	private List<RoomReservation> reservations;
 	
 	public String toString() {
