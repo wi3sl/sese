@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import blue.hotel.model.Room;
 
@@ -112,7 +116,13 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		
 		spMaxPersons = new JSpinner();
 		panel_1.add(spMaxPersons, "3, 4, fill, default");
-		spMaxPersons.setModel(new SpinnerNumberModel(1, 1, 100, 1));
+		spMaxPersons.setModel(new SpinnerNumberModel(1, 1, 3, 1));
+		spMaxPersons.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				enableDisableSpinners();
+			}
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Prices", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -158,17 +168,17 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		spDoublePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		
 		JLabel lblTriplePrice = new JLabel("Triple Price:");
-		panel_2.add(lblTriplePrice, "2, 6");
+		panel_2.add(lblTriplePrice, "2, 8");
 		
 		spTriplePrice = new JSpinner();
-		panel_2.add(spTriplePrice, "3, 6, fill, default");
+		panel_2.add(spTriplePrice, "3, 8, fill, default");
 		spTriplePrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		
 		JLabel lblSPwithOneKid = new JLabel("Single Price with one Kid:");
-		panel_2.add(lblSPwithOneKid, "2, 8");
+		panel_2.add(lblSPwithOneKid, "2, 6");
 		
 		spSingleOneKidPrice = new JSpinner();
-		panel_2.add(spSingleOneKidPrice, "3, 8, fill, default");
+		panel_2.add(spSingleOneKidPrice, "3, 6, fill, default");
 		spSingleOneKidPrice.setModel(new SpinnerNumberModel(0.0, 0.0, 100000.0, 0.5));
 		
 		JLabel lblSPwithTwoKids = new JLabel("Single Price with two Kids:");
@@ -187,6 +197,18 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		
 		setSize(379, 420);
 		setLocationRelativeTo(null);
+		enableDisableSpinners();
+	}
+	
+	private void enableDisableSpinners() {
+		int value = (Integer) spMaxPersons.getValue();
+		
+		spSinglePrice.setEnabled(value >= 1);
+		spDoublePrice.setEnabled(value >= 2);
+		spTriplePrice.setEnabled(value >= 3);
+		spSingleTwoKidsPrice.setEnabled(value >= 3);
+		spSingleOneKidPrice.setEnabled(value >= 2);
+		spDoubleOneKidPrice.setEnabled(value >= 3);
 	}
 
 	@Override
@@ -220,6 +242,17 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		setVisible(true);
 		return accepted;
 	}
+	
+	private List<JSpinner> getPriceSpinners() {
+		List<JSpinner> priceSpinners = new LinkedList<JSpinner>();
+		priceSpinners.add(spSinglePrice);
+		priceSpinners.add(spDoublePrice);
+		priceSpinners.add(spTriplePrice);
+		priceSpinners.add(spSingleTwoKidsPrice);
+		priceSpinners.add(spSingleOneKidPrice);
+		priceSpinners.add(spDoubleOneKidPrice);
+		return priceSpinners;
+	}
 
 	@Override
 	public boolean validateInput() {
@@ -229,13 +262,11 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 		if((Integer)spMaxPersons.getValue() == 0)
 			return false;
 		
-		if((Double)spSinglePrice.getValue()== 0
-				&& (Double)spDoublePrice.getValue()== 0
-				&& (Double)spTriplePrice.getValue()== 0
-				&& (Double)spSingleTwoKidsPrice.getValue()== 0
-				&& (Double)spSingleOneKidPrice.getValue()== 0
-				&& (Double)spDoubleOneKidPrice.getValue()== 0)
-			return false;
+		for (JSpinner spinner : getPriceSpinners()) {
+			if (spinner.isEnabled() && (Double)spinner.getValue() == 0) {
+				return false;
+			}
+		}
 		
 		return true;
 	}
@@ -252,39 +283,12 @@ public class RoomEditor extends JDialog implements Editor<Room> {
 			result += "The number of max. persons must be greater than 0.\n";
 		}
 		
-
-		if((Double)spSinglePrice.getValue()== 0
-				&& (Double)spDoublePrice.getValue()== 0
-				&& (Double)spTriplePrice.getValue()== 0
-				&& (Double)spSingleTwoKidsPrice.getValue()== 0
-				&& (Double)spSingleOneKidPrice.getValue()== 0
-				&& (Double)spDoubleOneKidPrice.getValue()== 0) {
-			result += "At least one price must be greater than 0.\n";
+		for (JSpinner spinner : getPriceSpinners()) {
+			if (spinner.isEnabled() && (Double)spinner.getValue() == 0) {
+				result += "All enabled prices must be greater than 0.\n";
+				break;
+			}
 		}
-			
-		/*if ((Double)spSinglePrice.getValue() == 0) {
-			result += "The single price must be greater than 0.\n";
-		}
-		
-		if ((Double)spDoublePrice.getValue() == 0) {
-			result += "The double price must be greater than 0.\n";
-		}
-		
-		if ((Double)spTriplePrice.getValue() == 0) {
-			result += "The triple price must be greater than 0.\n";
-		}
-		
-		if ((Double)spSingleTwoKidsPrice.getValue() == 0) {
-			result += "The single price with two kids must be greater than 0.\n";
-		}
-		
-		if ((Double)spSingleOneKidPrice.getValue() == 0) {
-			result += "The single price with one kid must be greater than 0.\n";
-		}
-		
-		if ((Double)spDoubleOneKidPrice.getValue() == 0) {
-			result += "The double price with one kid must be greater than 0.\n";
-		}*/
 		
 		return result.trim();
 	}
