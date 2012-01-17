@@ -19,7 +19,25 @@ public class RoomReservation implements Serializable {
 
 	
 	public String toString() {
-		return "Room #" + roomReservationId.getRoom().getId() + " / adult(s):" + adults + " - kid(s):" + kids;
+		StringBuffer sb = new StringBuffer();
+		sb.append(roomReservationId.getRoom().toString());
+		/* Wow, that's one ugly Java hack! Java doesn't really like us :/ */
+		if (adults > 0 || kids > 0) {
+			sb.append(" (");
+			if (adults > 0) {
+				sb.append(""+adults+" adult");
+				if (adults > 1) sb.append("s");
+			}
+			if (adults > 0 && kids > 0) {
+				sb.append(", ");
+			}
+			if (kids> 0) {
+				sb.append(""+kids+" kid");
+				if (kids > 1) sb.append("s");
+			}
+			sb.append(")");			
+		}
+		return sb.toString();
 	}
 	
 	public RoomReservation(){}

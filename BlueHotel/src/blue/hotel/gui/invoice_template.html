@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Invoice</title>
+<style>
+
+body { font-family: sans-serif; background-color: #ddd; }
+
+h1 { font-size: 16pt; padding: 5px; background-color: #eee; border-bottom: 1px solid #aaa; }
+
+</style>
+</head>
+<body>
+
+<div style="width: 600px; height: 800px; padding: 20px; border: 1px solid black; border-right-width: 2px; border-bottom-width: 2px; background-color: white;">
+<h1>Rechnung</h1>
+
+<br>
+<p style="color: #666;">
+<b>Blue Hotel Hotel GmbH</b><br>
+Naschmarkt 42<br>
+1337 Wien
+</p>
+
+<br>
+<p>
+An<br>
+<b>{customer.name}</b><br>
+{customer.address}<br>
+</p>
+
+<br>
+<p style="float: right;">{invoice.date}</p>
+<h2>Rechnung Nr {invoice.id}</h2>
+
+<p>Wir erlauben uns hiermit, Ihnen folgende Reservierungen in Rechnung zu stellen:</p>
+
+<table width="100%" border="1" cellspacing="2" cellpadding="2">
+<tr><th width="10">ID</th><th>Zimmer</th><th>Zeitraum</th><th width="30">Betrag</th></tr>
+<!-- {{<tr><td>{id}</td><td>{room}</td><td>{daterange}</td><td align="right">{amount}</td></tr>}} -->
+<tr><td colspan="3"></td><td align="right"><b>{invoice.amount}</b></td></tr>
+</table>
+
+<br><br>
+<p>
+Betrag dankend erhalten. Vielen Dank f&uuml;r Ihren Besuch!<br>
+<br>
+<small><br>John Blaumann, Hotelmanager</small>
+</p>
+</div>
+
+</body>
+</html>

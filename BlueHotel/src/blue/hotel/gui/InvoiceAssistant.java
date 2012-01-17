@@ -8,14 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -179,7 +186,7 @@ public class InvoiceAssistant extends JPanel {
 				List<Reservation> reservations = reservationModel.getSelectedReservations();
 				Customer customer = (Customer)customerComboBox.getSelectedItem();
 				Date date = textDeparture.getDate();
-
+				
 				if (customer == null) {
 					JOptionPane.showMessageDialog(InvoiceAssistant.this, "No customer selected.");
 					return;
@@ -221,19 +228,40 @@ public class InvoiceAssistant extends JPanel {
 					invoice.setFilename(filename);
 					DAO.getInstance().update(invoice);
 
-					PrintWriter w = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(filename))));
-					w.write("<html><head><title>Rechnung</title></head><body>");
-					w.write("<h1>Rechnung " + invoice.getId() + "</h1>");
-					w.write("<p>Kunde: " + customer.getName() + "<br>" + customer.getAddress() + "</p>");
-					w.write("<h2>Rechnungspositionen</h2><ul>");
-					for (Reservation r : reservations) {
-						w.write("<li>" + r.toString() + " // <b>Price:</b> " + r.getPrice() + " (Discount: "+r.getDiscount()+"%)</li>");
+					String xxx = "";
+					Map<String, String> templateData = new HashMap<String, String>();
+					templateData.put("customer.name", customer.getName());
+					templateData.put("customer.address", customer.getAddress());
+					templateData.put("invoice.date", Pausenrap.dummesJavaHatKeinStrftime(date));
+					templateData.put("invoice.id", ""+invoice.getId());
+					templateData.put("invoice.amount", ""+Pausenrap.taschenrechnerBorgen(reservations));
+					
+					BufferedReader html = new BufferedReader(new InputStreamReader(
+							InvoiceAssistant.class.getResourceAsStream("invoice_template.html")));
+					
+					try {
+						String line;
+						while ((line = html.readLine()) != null) {
+							if (line.contains("{{")) {
+								String rowTemplate = line.substring(line.indexOf("{{")+2, line.indexOf("}}"));
+								for (Reservation r: reservations) {
+									Map<String, String> rowData = new HashMap<String, String>();
+									rowData.put("id", ""+r.getId());
+									rowData.put("room", ""+Pausenrap.istJoinZuVielVerlangt(r.getRooms()));
+									rowData.put("daterange", ""+ Pausenrap.dummesJavaHatKeinStrftime(r.getArrival()) + " - " + Pausenrap.dummesJavaHatKeinStrftime(r.getDeparture()));
+									rowData.put("amount", ""+r.getPrice());
+									xxx += Pausenrap.nurNichtMich(rowTemplate, rowData);
+								}
+							}
+							xxx += Pausenrap.nurNichtMich(line, templateData);
+						}
+					} catch (IOException e4) {
+						e4.printStackTrace();
 					}
-					w.write("</ul>");
-					w.write("<p>Total price: <strong>" + Pausenrap.taschenrechnerBorgen(reservations) + "</strong></p>");
-					w.write("</body></html>");
+					
+					PrintWriter w = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(filename))));
+					w.write(xxx);
 					w.close();
-
 					Desktop.getDesktop().open(new File(filename));
 
 					for(Reservation res : invoice.getReservations()) {
