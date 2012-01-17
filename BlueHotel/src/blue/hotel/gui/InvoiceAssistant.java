@@ -201,6 +201,20 @@ public class InvoiceAssistant extends JPanel {
 					JOptionPane.showMessageDialog(InvoiceAssistant.this, "Cannot create invoice.");
 					e1.printStackTrace();
 				}
+				
+				/* Departure date of each reservation must not be later than today */
+				for (Reservation r : reservations) {
+					if (r.getDeparture().after(date)) {
+						r.setDeparture(date);
+						try {
+							DAO.getInstance().update(r);
+						} catch (DAOException e2) {
+							JOptionPane.showMessageDialog(InvoiceAssistant.this, "Cannot update departure date for: " + r);
+							e2.printStackTrace();
+						}
+						
+					}
+				}
 
 				try {
 					String filename = "invoice_" + invoice.getId() + ".html";
