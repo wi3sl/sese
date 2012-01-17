@@ -1,6 +1,8 @@
 package blue.hotel.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,13 +43,13 @@ import com.toedter.calendar.JDateChooser;
 
 public class InvoiceAssistant extends JPanel {
 	private static final long serialVersionUID = 1L;
-	
+
 	public JComboBox customerComboBox;
 	public JList reservationList;
 	public InvoiceAssistantReservationListModelLongNamesInJavaAreFun reservationModel;
 	public JDateChooser textDeparture;
 	public JLabel lblTotalAmount;
-	
+
 	private final JLabel lblNewLabel_1 = new JLabel("Total amount:");
 	public InvoiceAssistant() {
 		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
@@ -64,7 +66,7 @@ public class InvoiceAssistant extends JPanel {
 				RowSpec.decode("75px"),
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("42px"),}));
-		
+
 		JPanel panel_3 = new JPanel();
 		add(panel_3, "1, 2, fill, top");
 		panel_3.setBorder(new TitledBorder(null, "General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -80,16 +82,16 @@ public class InvoiceAssistant extends JPanel {
 				RowSpec.decode("top:max(221dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(24dlu;default):grow"),}));
-		
+
 		JLabel lblNewLabel = new JLabel("Customer:");
 		panel_3.add(lblNewLabel, "2, 2");
-		
+
 		customerComboBox = new JComboBox();
 		panel_3.add(customerComboBox, "4, 2, fill, default");
-		
+
 		JLabel lblReservationsToPay = new JLabel("Reservations to pay:");
 		panel_3.add(lblReservationsToPay, "2, 4");
-	
+
 		reservationList = new JList();
 		reservationList.setValueIsAdjusting(true);
 		reservationList.setVisibleRowCount(30);
@@ -105,27 +107,27 @@ public class InvoiceAssistant extends JPanel {
 				int index = list.locationToIndex(event.getPoint());
 				CheckListItem item = (CheckListItem)
 				list.getModel().getElementAt(index);
-				
+
 				// Toggle selected state
 				item.setSelected(! item.isSelected());
-				
+
 				// Repaint cell
 				list.repaint(list.getCellBounds(index, index));
-				
+
 				// Ziemlich fett
 				double geodreieck = Pausenrap.taschenrechnerBorgen(reservationModel.getSelectedReservations());
 				lblTotalAmount.setText("" + geodreieck);
 			}
-		}); 
-		
+		});
+
 		JScrollPane scrollPane = new JScrollPane(reservationList);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel_3.add(scrollPane, "4, 4, fill, fill");
-		
+
 		JLabel lblDepartureDate = new JLabel("Departure date:");
 		panel_3.add(lblDepartureDate, "2, 6, default, center");
-		
+
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel_3.add(panel_4, "4, 6, fill, top");
@@ -136,7 +138,7 @@ public class InvoiceAssistant extends JPanel {
 			new RowSpec[] {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("26px"),}));
-		
+
 		textDeparture = new JDateChooser();
 		panel_4.add(textDeparture, "1, 2, fill, center");
 
@@ -147,7 +149,7 @@ public class InvoiceAssistant extends JPanel {
 			    textDeparture.setDate(new Date());
 			}
 		});
-		
+
 		JPanel panel_5 = new JPanel();
 		add(panel_5, "1, 4, fill, top");
 		panel_5.setBorder(new TitledBorder(null, "Amount", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -160,30 +162,21 @@ public class InvoiceAssistant extends JPanel {
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("47px"),}));
 		panel_5.add(lblNewLabel_1, "2, 2, left, top");
-		
+
 		lblTotalAmount = new JLabel("<...>");
 		panel_5.add(lblTotalAmount, "4, 2, left, top");
-		
+
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "1, 6, right, top");
-		panel_2.setBorder(new EmptyBorder(0, 10, 10, 10));
-		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("536px"),
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("104px"),},
-			new RowSpec[] {
-				FormFactory.LINE_GAP_ROWSPEC,
-				RowSpec.decode("27px"),}));
-		
+		panel_2.setLayout(new BorderLayout());
 		JButton btnPrintInvoice = new JButton("Print invoice");
-		panel_2.add(btnPrintInvoice, "4, 2, left, top");
+		panel_2.add(btnPrintInvoice, BorderLayout.EAST);
 		btnPrintInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Reservation> reservations = reservationModel.getSelectedReservations();
 				Customer customer = (Customer)customerComboBox.getSelectedItem();
 				Date date = textDeparture.getDate();
-				
+
 				if (customer == null) {
 					JOptionPane.showMessageDialog(InvoiceAssistant.this, "No customer selected.");
 					return;
@@ -194,7 +187,7 @@ public class InvoiceAssistant extends JPanel {
 					JOptionPane.showMessageDialog(InvoiceAssistant.this, "no date selected.");
 					return;
 				}
-				
+
 				Invoice invoice = new Invoice();
 				invoice.setCustomer(customer);
 				invoice.setDate(date);
@@ -205,12 +198,12 @@ public class InvoiceAssistant extends JPanel {
 					JOptionPane.showMessageDialog(InvoiceAssistant.this, "Cannot create invoice.");
 					e1.printStackTrace();
 				}
-				
+
 				try {
 					String filename = "invoice_" + invoice.getId() + ".html";
 					invoice.setFilename(filename);
 					DAO.getInstance().update(invoice);
-					
+
 					PrintWriter w = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(filename))));
 					w.write("<html><head><title>Rechnung</title></head><body>");
 					w.write("<h1>Rechnung " + invoice.getId() + "</h1>");
@@ -225,18 +218,18 @@ public class InvoiceAssistant extends JPanel {
 					w.close();
 
 					Desktop.getDesktop().open(new File(filename));
-					
+
 					for(Reservation res : invoice.getReservations()) {
 						res.setInvoice(invoice);
 						res = SaveReservation.save(res, res.getRooms());
 					}
-					
+
 				} catch (Exception e3) {
 					e3.printStackTrace();
 				}
 			}
 		});
-		
+
 		try {
 			for (Customer c: DAO.getInstance().getAll(Customer.class)) {
 				customerComboBox.addItem(c);
@@ -245,8 +238,8 @@ public class InvoiceAssistant extends JPanel {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		setSize(715, 650);
 	}
-	
+
 }

@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 	JToggleButton btnOtherList;
 	JToggleButton btnRoomsList;
 	JToggleButton btnCustomerList;
-	
+
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -37,16 +37,16 @@ public class MainFrame extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		getContentPane().setLayout(new GridLayout(1, 2, 10, 0));
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panMenuBox = new JPanel();
-		panMenuBox.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panMenuBox.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.add(panMenuBox, BorderLayout.NORTH);
 		GridBagLayout gbl_panMenuBox = new GridBagLayout();
 		gbl_panMenuBox.columnWidths = new int[]{190, 190, 190, 190, 0};
@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 		gbl_panMenuBox.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panMenuBox.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panMenuBox.setLayout(gbl_panMenuBox);
-		
+
 		btnOtherList = new JToggleButton("Reservations");
 		btnRoomsList = new JToggleButton("Rooms");
 		btnCustomerList = new JToggleButton("Customers");
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame {
 		gbc_btnRoomsList.gridx = 1;
 		gbc_btnRoomsList.gridy = 0;
 		panMenuBox.add(btnRoomsList, gbc_btnRoomsList);
-		
+
 
 		btnInvoiceButton.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/invoice.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -89,11 +89,11 @@ public class MainFrame extends JFrame {
 		gbc_btnOtherList.gridx = 3;
 		gbc_btnOtherList.gridy = 0;
 		panMenuBox.add(btnOtherList, gbc_btnOtherList);
-		
+
 		panContentBox = new JPanel();
 		panel.add(panContentBox, BorderLayout.CENTER);
 		panContentBox.setLayout(new BorderLayout(0, 0));
-		
+
 		//action listeners for menu buttons
 		btnInvoiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,7 @@ public class MainFrame extends JFrame {
 				btnCustomerList.setSelected(false);
 			}
 		});
-		
+
 		btnOtherList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//loadContent(new ObjectList<Reservation>(Reservation.class));
@@ -113,8 +113,8 @@ public class MainFrame extends JFrame {
 				btnRoomsList.setSelected(false);
 				btnCustomerList.setSelected(false);
 			}
-		}); 
-		
+		});
+
 		btnRoomsList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Room>(Room.class));
@@ -124,7 +124,7 @@ public class MainFrame extends JFrame {
 				btnCustomerList.setSelected(false);
 			}
 		});
-		
+
 		btnCustomerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadContent(new ObjectList<Customer>(Customer.class));
@@ -134,19 +134,19 @@ public class MainFrame extends JFrame {
 				btnRoomsList.setSelected(false);
 			}
 		});
-		
+
 		//set reservarion as default content
 		if(panContent == null) {
 			//loadContent(new ObjectList<Reservation>(Reservation.class));
 			loadReservationAssistant();
 			btnOtherList.setSelected(true);
 		}
-		
+
 		setSize(950, 800);
 		setLocationRelativeTo(null);
 	}
-	
-	
+
+
 	private void loadInvoiceAssistant() {
 		panContent = new InvoiceAssistant();
 		panContentBox.removeAll();
@@ -154,7 +154,7 @@ public class MainFrame extends JFrame {
 		this.setTitle("[BlueHotel] Hotel Booking System - Invoice");
 		this.validate();
 	}
-	
+
 	private void loadReservationAssistant() {
 		panContent = new ReservationAssistant();
 		panContentBox.removeAll();
@@ -162,13 +162,13 @@ public class MainFrame extends JFrame {
 		this.setTitle("[BlueHotel] Hotel Booking System - Reservation");
 		this.validate();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	private void loadContent(ObjectList content) {
 		panContent = content;
 		panContentBox.removeAll();
 		panContentBox.add(panContent, BorderLayout.CENTER);
-		
+
 		this.setTitle("[BlueHotel] Hotel Booking System - " + content.getSimpleName());
 		this.validate();
 	}
