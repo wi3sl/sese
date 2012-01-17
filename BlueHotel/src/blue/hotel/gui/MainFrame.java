@@ -24,11 +24,12 @@ import blue.hotel.model.Room;
 public class MainFrame extends JFrame {
 	JPanel panContent;
 	JPanel panContentBox;
-	JToggleButton btnInvoiceButton;
-	JToggleButton btnOtherList;
-	JToggleButton btnRoomsList;
 	JToggleButton btnCustomerList;
-
+	JToggleButton btnRoomsList;
+	JToggleButton btnInvoiceButton;
+	JToggleButton btnReservations;
+	JToggleButton btnAllocation;
+	
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -49,16 +50,17 @@ public class MainFrame extends JFrame {
 		panMenuBox.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.add(panMenuBox, BorderLayout.NORTH);
 		GridBagLayout gbl_panMenuBox = new GridBagLayout();
-		gbl_panMenuBox.columnWidths = new int[]{190, 190, 190, 190, 0};
+		gbl_panMenuBox.columnWidths = new int[]{190, 190, 190, 190, 190, 0};
 		gbl_panMenuBox.rowHeights = new int[]{77, 0};
-		gbl_panMenuBox.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panMenuBox.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panMenuBox.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panMenuBox.setLayout(gbl_panMenuBox);
 
-		btnOtherList = new JToggleButton("Reservations");
+		btnReservations = new JToggleButton("Reservations");
 		btnRoomsList = new JToggleButton("Rooms");
 		btnCustomerList = new JToggleButton("Customers");
 		btnInvoiceButton = new JToggleButton("Invoices");
+		btnAllocation = new JToggleButton("Allocation");
 
 		btnCustomerList.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/users.png")));
 		GridBagConstraints gbc_btnCustomerList = new GridBagConstraints();
@@ -83,12 +85,21 @@ public class MainFrame extends JFrame {
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
 		panMenuBox.add(btnInvoiceButton, gbc_btnNewButton);
-		btnOtherList.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/edit.png")));
-		GridBagConstraints gbc_btnOtherList = new GridBagConstraints();
-		gbc_btnOtherList.fill = GridBagConstraints.BOTH;
-		gbc_btnOtherList.gridx = 3;
-		gbc_btnOtherList.gridy = 0;
-		panMenuBox.add(btnOtherList, gbc_btnOtherList);
+		
+		btnReservations.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/edit.png")));
+		GridBagConstraints gbc_btnReservations = new GridBagConstraints();
+		gbc_btnReservations.fill = GridBagConstraints.BOTH;
+		gbc_btnReservations.insets = new Insets(0, 0, 0, 5);
+		gbc_btnReservations.gridx = 3;
+		gbc_btnReservations.gridy = 0;
+		panMenuBox.add(btnReservations, gbc_btnReservations);
+
+		btnAllocation.setIcon(new ImageIcon(MainFrame.class.getResource("/blue/hotel/data/allocation.png")));
+		GridBagConstraints gbc_btnAllocation = new GridBagConstraints();
+		gbc_btnAllocation.fill = GridBagConstraints.BOTH;
+		gbc_btnAllocation.gridx = 4;
+		gbc_btnAllocation.gridy = 0;
+		panMenuBox.add(btnAllocation, gbc_btnAllocation);
 
 		panContentBox = new JPanel();
 		panel.add(panContentBox, BorderLayout.CENTER);
@@ -97,55 +108,58 @@ public class MainFrame extends JFrame {
 		//action listeners for menu buttons
 		btnInvoiceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				selectOnly(btnInvoiceButton);
 				loadInvoiceAssistant();
-				btnOtherList.setSelected(false);
-				btnRoomsList.setSelected(false);
-				btnCustomerList.setSelected(false);
 			}
 		});
 
-		btnOtherList.addActionListener(new ActionListener() {
+		btnReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//loadContent(new ObjectList<Reservation>(Reservation.class));
+				selectOnly(btnReservations);
 				loadReservationAssistant();
-				btnOtherList.setSelected(true);
-				btnInvoiceButton.setSelected(false);
-				btnRoomsList.setSelected(false);
-				btnCustomerList.setSelected(false);
 			}
 		});
 
 		btnRoomsList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				selectOnly(btnRoomsList);
 				loadContent(new ObjectList<Room>(Room.class));
-				btnRoomsList.setSelected(true);
-				btnInvoiceButton.setSelected(false);
-				btnOtherList.setSelected(false);
-				btnCustomerList.setSelected(false);
 			}
 		});
 
 		btnCustomerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				selectOnly(btnCustomerList);
 				loadContent(new ObjectList<Customer>(Customer.class));
-				btnCustomerList.setSelected(true);
-				btnInvoiceButton.setSelected(false);
-				btnOtherList.setSelected(false);
-				btnRoomsList.setSelected(false);
 			}
 		});
 
+		btnAllocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectOnly(btnAllocation);
+				loadAllocationTable();
+			}
+		});
+		
 		//set reservarion as default content
 		if(panContent == null) {
 			//loadContent(new ObjectList<Reservation>(Reservation.class));
 			loadReservationAssistant();
-			btnOtherList.setSelected(true);
+			btnReservations.setSelected(true);
 		}
 
-		setSize(950, 800);
+		setSize(1000, 800);
 		setLocationRelativeTo(null);
 	}
-
+	
+	private void selectOnly(JToggleButton button) {
+		btnCustomerList.setSelected(false);
+		btnRoomsList.setSelected(false);
+		btnInvoiceButton.setSelected(false);
+		btnReservations.setSelected(false);
+		btnAllocation.setSelected(false);
+		button.setSelected(true);
+	}
 
 	private void loadInvoiceAssistant() {
 		panContent = new InvoiceAssistant();
@@ -156,13 +170,21 @@ public class MainFrame extends JFrame {
 	}
 
 	private void loadReservationAssistant() {
-		panContent = new ReservationAssistant();
+		panContent = new ReservationAssistant(false);
 		panContentBox.removeAll();
 		panContentBox.add(panContent, BorderLayout.CENTER);
 		this.setTitle("[BlueHotel] Hotel Booking System - Reservation");
 		this.validate();
 	}
 
+	private void loadAllocationTable() {
+		panContent = new ReservationAssistant(true);
+		panContentBox.removeAll();
+		panContentBox.add(panContent, BorderLayout.CENTER);
+		this.setTitle("[BlueHotel] Hotel Booking System - Allocations");
+		this.validate();
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private void loadContent(ObjectList content) {
 		panContent = content;
