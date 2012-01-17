@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import blue.hotel.logic.SaveReservation;
 import blue.hotel.model.Customer;
@@ -40,11 +42,6 @@ public class ObjectList<T> extends JPanel {
 	
 	//displayed search result of given string
 	private void displaySearchResult(String searchString) {
-		if(searchString.trim().equals("")) {
-			JOptionPane.showMessageDialog(ObjectList.this, "Cannot search for empty string!");
-			return;
-		}
-		
 		getObjects(searchString);
 	}
 	
@@ -123,9 +120,7 @@ public class ObjectList<T> extends JPanel {
 				
 		//search buttons
 		JPanel panel_searchbuttons = new JPanel();	
-		JButton btnSearch = new JButton("Search");
 		JButton btnClear = new JButton("Clear");
-		panel_searchbuttons.add(btnSearch);
 		panel_searchbuttons.add(btnClear);
 		
 		//search box
@@ -134,6 +129,27 @@ public class ObjectList<T> extends JPanel {
 		Dimension dim = new Dimension(450, 25);
 		txtSearch.setPreferredSize(dim);
 		panel_searchbox.add(txtSearch);
+
+		txtSearch.getDocument().addDocumentListener(new DocumentListener() {
+			public void onTextChanged() {
+				displaySearchResult(txtSearch.getText().trim());
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				onTextChanged();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				onTextChanged();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				onTextChanged();
+			}
+		});
 		
 		panel_search.add(panel_searchbox);
 		panel_search.add(panel_searchbuttons);
@@ -141,14 +157,6 @@ public class ObjectList<T> extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.add(panel, BorderLayout.SOUTH);
-		
-		
-		//handle search
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				displaySearchResult(txtSearch.getText().trim());
-			}
-		});
 		
 		//handle clear search
 		btnClear.addActionListener(new ActionListener() {
