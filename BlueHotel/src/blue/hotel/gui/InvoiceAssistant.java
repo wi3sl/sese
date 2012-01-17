@@ -105,6 +105,9 @@ public class InvoiceAssistant extends JPanel {
 				JList list = (JList) event.getSource();
 
 				int index = list.locationToIndex(event.getPoint());
+				if (index < 0) {
+					return;
+				}
 				CheckListItem item = (CheckListItem)
 				list.getModel().getElementAt(index);
 
@@ -163,7 +166,7 @@ public class InvoiceAssistant extends JPanel {
 				RowSpec.decode("47px"),}));
 		panel_5.add(lblNewLabel_1, "2, 2, left, top");
 
-		lblTotalAmount = new JLabel("<...>");
+		lblTotalAmount = new JLabel("0.0");
 		panel_5.add(lblTotalAmount, "4, 2, left, top");
 
 		JPanel panel_2 = new JPanel();
