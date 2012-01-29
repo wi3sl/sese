@@ -1,0 +1,161 @@
+Retrospektive
+
+Das vorgestellte Projekt wurde von dem Team, bestehend aus vier Personen, 
+mittels eines agilen Vorgehensmodells abgewickelt. Agilität wird durch eine 
+flexible Vorgehensweise und Dynamik umschrieben und eignet sich bei wechselnden 
+Anforderungen, wie es bei der Software Entwicklung der Fall ist, sehr gut. 
+Außerdem sollte der Prozess sehr ergebnisorientiert ausgelegt werden, 
+um der Definition der Agilität gerecht zu werden. 
+
+Selbst im Verlauf dieses relativ kleinen Projektes konnte das Team diese angeführten Eigenschaften 
+erkennen und dadurch auf wechselnde Anforderungen recht schnell einstellen. 
+Des Weiteren konnte das Team auch sehr viel eigene Initiative bei Veränderungen zeigen, 
+wodurch eine nicht unerhebliche Menge an Verbesserungen in das schlussendliche Produkt 
+einflossen. Nachteile konnten im Bezug auf die Eigenschaft der Agilität keine erkannt werden.
+
+Die Punkte des agilen Manifestes, welche die Grundlage für jeden agilen Entwicklungsprozess bilden, 
+konnte in den Phase des Projektverlaufs einmal mehr und an anderer Stelle etwas geringer erkannt werden.
+Vor allem der Grundsatz, dass der Mensch wichtiger ist als die einzelnen Prozesse kam vermehrt zur Anwendung.
+Beispielsweise mussten im Verlauf des Projektes einige Methoden, Technologien oder sogar Teile des 
+Entwicklungsprozess von den Teammitgliedern geforderten Anpassungen unterzogen werden, was sich in der Folge
+als positiv auswirkte. Eine weiteres Merkmal unseres Entwicklungsprozesses sind die lauffähigen Systeme. 
+Dieser tiefgreifende Punkt beeinflusste den gesamten Projektverlauf grundlegend in Planung und Ausführung. 
+Die Planung wurde durch die Anforderung eines funktionsfähigen Systems etwas erschwert. Besonders die ersten 
+Phasen der Entwicklung wurde dadurch mit viel Arbeit belastet, wogegen am Ende des Projektes kaum noch Aufgaben 
+zu erledigen waren. Die gewonnen Zeit konnte allerdings durch weiteres Fehlerkorrigieren genutzt werden. 
+Weitere Zeit konnte im Projekt auch durch das nächste Merkmal gewonnen werden: keine umfassenden Dokumentation. 
+Das Team, welches ansonsten häufig in seinen akademischen Projekten unter der Dokumentationslast leidet, freute 
+sich wiederholt, dass man sich auf die Programmierung konzentrieren konnte. Durch 
+eine saubere Architektur und die gute Kommunikation innerhalb des Teams behielten die Mitglieder einen guten überblick 
+über das Projekt.
+
+"Reagieren ist wichtiger als den Plan befolgen" ist einer der wichtigsten Grundsätze bei agilen Vorgehensmodelle. 
+Dabei werden die Spontanität und die Kreativität des Projektteams auf die Probe gestellt. Dies war auch bei 
+unserem kleinen Projekt der Fall als Anforderungen geändert oder neue Funktionen gefordert wurden. Allerdings 
+konnte dies vom Team und auch vom Prozess gut aufgenommen werden und das Projekt konnte erfolgreich zum Abschluss 
+gebracht werden. Weitere Merkmale von agilen Entwicklungsmethoden wie "enger Kundenkontakt" oder "keine umfassenden 
+Verträge" kamen bei unserem Projekt nicht zum tragen, da der Kunde durch die LVA-Leitung dargestellt wurde und 
+daher ein reger Kontakt nicht immer möglich war.
+
+Diese angeführten Merkmale werden vollständig durch den Entwicklungsprozess SCRUM, der auch in unserem Projekt 
+angewandt wurde, erfüllt. Abgerundet werden die Merkmale von SCRUM durch die spezifischen Eigenschaften der "kurzen 
+Iterationen" und "Team hat Freiheiten beim erreichen der Ziele", welche auch in unserem Projekt zum tragen kamen. 
+
+In den folgenden Abschnitten werden kurz einige Anpassungen des Prozesses erläutert, welche im Lauf des Projektes 
+vorgenommen wurden.
+
+Anpassung 1 - Daily Scrum wird nicht abgehalten
+
+Die erste Anpassung wurde bereits beim ersten Meeting des Teams von einigen Teammitgliedern vorgeschlagen, das Daily 
+Scrum nicht abzuhalten, da der Nutzen in diesem kleinen Projekt als beschränkt eingeschätzt wurde und aufgrund der 
+Größe von Projekt und Team eine indirekte Kommunikation bei Problemen als ausreichend erachtet wurde. 
+Dazu gab es zu nächst einige Einwände, wie was bei Problemen oder Unklarheiten im Sprint gemacht 
+werden soll. Doch nach einiger Diskussion konnten alle Befürchtungen ausgeräumt werden. So wurden Problemen im Verlauf 
+eines Sprints in der ersten Phase mittels Email-Verkehr, später dann anhand der Kommentare von Issues in Github gelöst.
+Da alle Teammitglieder sehr gewissenhaft diese Anfragen schnell und präzise beantworteten, kam es zu keinerlei Verzögerungen. 
+Der Wegfall der Daily Scrums konnte gut kompensiert werden, wodurch keine neue terminliche Belastung der Teammitglieder bestand. 
+
+Anpassung 2 - Rollen Kunde, Benutzer und Management werden vernachlässigt
+
+Eine weitere Anpassung, die Vernachlässigung von Management-, Benutzer- und Kunde-Rolle, wurde ebenfalls am Beginn des Projektes 
+festgelegt. Alle drei Rolle gehören ohnehin nicht direkt zum Scrum-Team und werden trotzdem oft als Rollen mit eigenen Aufgaben 
+in diesem Vorgehensmodell erwähnt. So ist das Management für die Bereitstellung der Rahmenbedingungen zuständig, was in unserem 
+Fall teils durch die LVA-Leitung, teils durch das Team selbst veranlasst wurde und somit kein Problem darstellte.
+Der Benutzer soll im eigentlichen Scrum-Prozess das Produkt aus seiner Sicht beurteilen. Für die Hotelsoftware, die in unserem 
+Projekt erzeugt wurde, konnte allerdings kein Kunde angefragt werden. Die Definition dieser Rolle und deren Simulation hätte, unserer 
+Meinung nach, sehr viel Zeit in Anspruch genommen und dabei keinen nennenswerten Nutzen mit sich gezogen.
+Der Kunde stellt bei Scrum normalerweise eine sehr wichtige Rolle dar, da er in regen Kontakt mit dem Product Owner steht und so 
+seine Anforderungen in das Projekt einfliessen lassen kann. Den Kunde stellte in unserem Fall die LVA-Leitung dar, welche anfangs 
+die Anforderungen an das System formulierte. Allerdings konnte kein reger Kontakt im Umfeld der Universität aufgebaut werden, wodurch 
+der Product Owner einen Teil des Kunden simulierte und dadurch einige Aspekte dieser Rolle in das Projekt einarbeitete. Ein explizite 
+Erwähnung oder Definition der Kunde-Rolle wurde allerdings nicht beachtet, wodurch auch keine nennenswerten Nachteile entstanden.
+
+Anpassung 3 - Jeder ist Entwickler
+
+Eine der ersten Entscheidungen im Projektverlauf war die Aufteilung der Rolle unter den Teammitgliedern. Da sich einige Teammitglieder 
+möglichst wenig mit der Dokumentation befassen wollten und einer bereits etwas mehr Erfahrung mit Scrum hatte, waren die Rollen 
+schnell verteilt. Bei der Verteilung der Aufgaben wurde schon etwas länger diskutiert, da ja der Grundsatz der Gleichverteilung von 
+Arbeit gelten sollte. So kam es, dass beschlossen wurde dem Scrummaster und Product Owner zusätzlich als Entwickler einzubeziehen, da 
+ihre Aufgaben dem Team doch etwas begrenzt schienen. Scrummaster und Product Owner haben somit im Projektverlauf zwar hautsächlich die 
+Aufgaben ihren Rollen entsprechend übernommen, wurde aber kontinuierlich in die Entwicklungsarbeiten einbezogen. 
+Daraus konnten im Verlauf des Projektes keine  negativen Aspekte abgeleitet werden, sondern im Gegenteil ergaben sich dadurch einige 
+Vorteile. So hatten das gesamte Team einen sehr genauen Überblick über den Projektstand und etwaige Probleme. Außerdem  bedarf es 
+bei den Meetings keinen ausschweifenden Erklärungen bei Problemen oder Änderungen, was dazu führte, dass diese recht zügig und unkompliziert 
+von Statten gingen.
+
+Anpassung 4 - Ein großes Meeting
+
+Die Anpassung 4 entwickelte sich im Laufe des Projektes immer weiter, so wurde zu Beginn lediglich Entschieden, dass es 2 Meeting in der Woche 
+geben sollte. Das Team erachtete diese Maßnahme auf Grund der Anpassung 3 - Jeder ist Entwickler als gerechtfertigt. Allerdings kam 
+es bereits in der ersten Woche zu erheblichen Problemen, da es im Studentenleben nahezu unmöglich war 2 Treffen innerhalb einer Woche zu 
+organisieren. Wodurch schlussendlich die Entscheidung getroffen wurde, nur einen Termin pro Woche zu planen und bei diesem Treffen alle 
+4 Scrum-Meetings Sprint Planning 1, Sprint Planning 2, Review und Retrospektive abzuhalten. Aufgrund einer guten Atmosphäre im Team, einer 
+strikten Meeting-Durchführung und detaillierten Protokollierung kam es dabei zu keinerlei Problemen. Der Overhead des Projektes konnte damit 
+erneut reduziert werden.
+
+Anpassung 5 - Optimierung der Artefakte
+
+Die Dokumentation in Scrum fällt deutlich geringer aus als bei anderen Entwicklungsprozessen, trotzdem können auch hier einige Hindernisse 
+entstehen. Am Beginn des Projektes hat sich jedes Mitglied um seine Aufgabe gekümmert, dabei kam es dazu, dass für die Erstellung der Artefakte 
+unterschiedlichste Technologien gewählt wurden. Außerdem wurden alle Artefakte, welche in Scrum gefordert wurden berücksichtigt, was sich schnell 
+als Fehler erwies. Product Backlog wurde in Latex verfasst, wogegen Sprint Backlog, Burndown-Charts, Impediment Backlog und Definition of Done in 
+Excel erarbeitet wurden. 
+Das Aktualisieren der Artefakte stellte sich schnell als äußerst zeitintensiv heraus, wodurch zunächst die Burndown-Charts 
+sowie der Impediment Backlog aus dem Prozess entfernt wurden, da sie nur wenig Nutzen brachten. Als nächsten Schritt wurden die Artefakte 
+durch eine Technologie erfasst. Github bot dazu die nötigen Funktionen, so wurde der Product Backlog im Wiki von Github eingebettet und der 
+Sprint Backlog und Definition of Done konnte durch die Issues realisiert werden. Als weiterer Bonus wurde dadurch die Kommunikation vereinfacht, 
+da diese nahezu komplett von Github übernommen werden konnte.
+
+Fazit
+
+Scrum hat sich als Entwicklungsprozess hervorragend für unser kleines Projekt geeignet. Die mitgebrachten Eigenschaften haben sich großteils 
+in der Praxis bewährt und durchaus einen positiven Effekt auf das Endprodukt ausgeübt. Durch kleinere Änderungen konnte der Prozess 
+präzise an die vorgegeben Anforderungen und somit an das Projekt angepasst werden, wodurch die Effizienz des 
+Vorgehensmodells deutlich erhöht werden konnte.
+
+In den folgenden Abschnitte zeihen die einzelnen Teammitglieder ein persönliches Fazit über den Projektverlauf mit besonderem Augenmerk auf den 
+Entwicklungsprozess und dessen Anpassung.
+
+Teilnehmer 1 – Alexander als Entwickler
+
+Als Entwickler konnte ich Scrum sehr viel positives abgewinnen, da ich in meinen Aufgaben einen hohen Grad an Freiheit empfand. Außerdem konnten
+wir durch die unterschiedlichsten Anpassung den die einzelnen Arbeiten etwas erleichtern.
+Als negativ empfand ich die vielen Meetings am Anfang des Projektes, welche wir allerdings schnell reduzieren konnten.
+
+Teilnehmer 2 – Thomas als Entwickler
+
+Der Prozess selber hat sich anfangs nur bedingt für unser konkretes Projekt geeignet, da sich im universitären Umfeld abspielte. Allerdings 
+kann ich mir sehr gut vorstellen, dass es sich im Projektalltag der einzelnen Unternehmen deutlich besser eignen würde. Vor allem die Agilität 
+und das aufkommende Teamgefühl könnten sich sehr positiv auf einige Projekte auswirken.
+Im konkreten Fall konnten wir durch einige Anpassungen des Entwicklungsprozessen das Projekt schlussendlich zum Erfolg bringen.
+
+Teilnehmer 3 – Stefan als Scrum Master
+
+Anfangs habe ich den anfallenden Koordinationsaufwand mit Meetings und Artefakten etwas unterschätzt, da Scrum als leichtgewichtiger 
+Entwicklungsprozess gilt. Dies konnten wir durch einige Anpassung recht zügig in den Griff bekommen. Schlussendlich können wir 
+mit dem Projektverlauf recht zufrieden sein, besonders das Gefühl im Team etwas zu erreichen zog sich durch das gesamte Projekt, 
+was ich unter anderem als positive Erfahrung aus dem Projekt mitnehme.
+
+Teilnehmer 4 – Martin als Product Owner
+
+Die Rolle des Projekt Owners war neu für mich, deshalb fand ich es etwas schade, dass ich diese nicht vollständig ausleben konnte, 
+da der Kontakt mit dem Kunde nicht vorhanden war. Dies stellt allerdings die Hauptaufgabe der Rolle dar. Ansonsten 
+konnten wir die Vorteile des Entwicklungsprozesses Scrum detailliert kennen lernen. Besonders die Anpassungsfähigkeit von Scrum 
+hat mich überrascht und hat sich des weiteren äußerst positiv auf das Projekt ausgewirkt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

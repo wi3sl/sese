@@ -1,0 +1,158 @@
+\documentclass[11pt]{scrartcl}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{ngerman}
+\usepackage{amsmath,amssymb,amstext}
+\usepackage{graphicx}
+\usepackage[automark]{scrpage2}
+
+\pagestyle{scrheadings}
+
+\title{Tagebuch}
+\author{Martin Wieser}
+
+\begin{document}
+
+\maketitle
+
+\section{Einträge}
+
+\subsection{Meeting - 04.11.11}
+
+Heute gab es das erste Meeting um 12:00 uhr. Es wurde schon viel geklärt:
+\begin{itemize}
+\item repo:                  github
+\item docu:                  latex (texworks)
+\item sprache:             java
+\item datenbank:         hsqldb
+\item gui:                    swing
+\end{itemize}
+und Aufgaben verteilt:
+
+Rollen:
+SM - Stefan
+PO - Martin
+Team - Ale, Thomas
+
+TODO:
+\begin{itemize}
+\item alle:       SCRUM vertraut machen, besonders mit seiner Rolle
+              2-3 Userstories schreiben
+	       persönliches tagebuch schreiben
+\item Thomas \& Ale: Projekt einrichten, libs, entwurf für architektur
+\item Stefan: Report (wie soll er ausschauen?), nächste Meeting organisieren
+\item Martin: Github einrichten, Latex template
+\end{itemize}
+Ich denke die Aufgaben sind alle leicht schaffbar. Das Team ist noch sehr motiviert
+und ich sehe noch keine Probleme.
+
+\subsection{Initilisierung - 05.11.11}
+
+Habe heute meine Aufgaben zum größten Teil bereits erledigt. Werde mich in den nächsten Tagen weiter mit meiner Rolle im Projekt vertraut machen. Nächstes Gruppenmeeting wurde auf Freitag festgelegt. Bis dahin ist noch viel Zeit und die Aufgaben sind leicht schaffbar.
+
+\subsection{Zweites Meeting - 11.11.11}
+
+Zunächst wurde von jedem Mitglied bericht über die vergangene Woche erstattet.
+Daraus resultierte, dass alle Aufgaben erledigt wurden.\\
+Anschließend wurde eine neue Technologie für die GUI-Erstellung vorgeschlagen und angenommen.\\
+Im SP1 wurden nachher vom PO einige Userstories erklärt und der SM und das Team haben einige Userstories in den Sprint 1 übernommen:
+\begin{itemize}
+\item Kunde anlegen
+\item Zimmer anlegen
+\item Reservierung vornehmen
+\item Daten löschen
+\item Daten bearbeiten
+\end{itemize}
+wobei die aufgabe folgend verteilt wurden:
+\begin{itemize}
+\item Thomas: Grundstruktur aufbauen + CRUD für Kunde
+\item Stefan: Sprint Backlog + BDS
+\item Ale: CRUD für Reservierung
+\item Martin: Product Backlog anpassen + CRUD für Zimmer
+\end{itemize}
+Das Projekt nimmt schön langsam gute Züge an, sollten alle Aufgaben bis zum Ende des Sprints (nächten Freitag) erledigt sein. Sind wir auf einem sehr guten Weg. Die Architektur des Teams ist sehr vielversprechend. Die eingebundenen Framework werden uns viel Arbeit ersparen.
+
+\subsection{Anpassung Product Backlog - 12.11.11}
+
+Den Product Backlog habe ich um die besprochenen Userstories erweitert. Der PB schwellt so weiter an und das wird immer mehr werden. Ich muss darauf achten, dass das Team sich nicht übernimmt und nicht in Details verrennt.
+
+\subsection{Erstes Programmieren - 15.11.11}
+
+Das gesamte Team geht mit richtig Schwung an die Sache. Es wurde der Sprint Backlog fertig gestellt, ein Konzept für das Testen vorgeschlagen, ein Template für GUI und DAO aufgesetzt. Außerdem wurde bereits ein Datenbank eingerichtet sowie Kunden und Zimmer darin erfasst. Windows Builder Pro, ein neues Tool, hängt sich hin und wieder auf, aber funktioniert ansonsten recht gut. Vorallem spart man sich die ganze Schreiberei bei der GUI. Ich sehe für diesen Sprint und für das gesamte Projekt keinerlei Probleme, im Gegenteil, es scheint als wären wir zu schnell.
+
+\subsection{Drittes Meeting - 18.11.11}
+
+Beim Meeting wurde zunächst die Aufgaben der letzten Woche besprochen und der erste Sprint abgenommen. Anschließend wurde folgende Aufgabe verteilt:
+\begin{itemize}
+\item Stefan: GUI, Template für Testfälle + Bugliste, Funktionale Tests für Kunde
+\item Alexander: Neue Tabelle => mehrere Zimmer reservieren, Auslagern der Logik
+\item Thomas: Unittests für Logik, Funktionale Tests für Reservierung + Zimmer
+\item Martin: Product Backlog adaptieren
+\end{itemize}
+
+Die Tests aus Sprint 1 sind noch offen, trotzdem war die Bestandteile stabil und konnten abgenommen werden. Zukünftig werden Tests erstellt. J-Unit und Funktionale.
+Das Projekt schreitet sehr schnell voran. Der zweite Sprint ist geprägt von Überarbeiteung der GUI sowie Testanpassung. Trotzdem sind auch Fortschritte geplant. 
+
+\subsection{Tests - 22.11.11}
+
+Zur Zeit ist etwas der Schwung raus. Nach anfänglicher Euphorie geht es nun etwas langsamer voran, da einige Bugs aufgetreten sind. Die Behebung dieser Fehler wird im nächsten Sprint viel Zeit in anspruch nehmen. Außerdem müssen wir die Test ausbauen, damit wir Fehler schneller erkennen und dadurch nicht mehr derartig viel nacharbeiten müssen.
+
+\subsection{Viertes Meeting - 25.11.11}
+
+Nach der Besprechung der vergangenen Wochen liegen einige offene Baustellen vor uns. Diese werden neu verteilt:
+\begin{itemize}
+\item Stefan: GUI, Reservierung stornieren
+\item Alexander: Logik
+\item Thomas: Rechnung erstellen, Frühzeitige Abreise
+\item Martin: Unittests für Logik, Funktionale Tests für Reservierung + Zimmer
+\end{itemize}
+
+Hoffentlich verläuft der kommende Sprint zügiger und sauberer durch. Sollte dies allerdings der Fall sein, schauen wir in eine rosige Zukunft.
+
+\subsection{Testen - 28.11.11}
+
+Wollte heute meine Tests einfügen, allerdings fehlen einige libs, was eine kleine Verzögerung mit sich bringt. Ärgerlich...
+
+\subsection{Testen - 29.11.11}
+
+Nach einer kurzen Email wurden alle Mängel schnell behoben. Die Test konnte ich dann zügig durchführen und einige Fehler erkennen, welche ich teils selber ausbessern konnte. Andere Bugs habe ich an die jeweiligen Ersteller gesendet. \\
+Werden die erkannten Fehler behoben, liegt vor uns eine äußerst stabile Software. Durch die eingeführten Tests wurde auf jeden Fall die Qualität deutlich gesteigert.
+
+\subsection{Meeting -02.12.11}
+
+Zunächst hat jeder seine bisherige Arbeit kurz beschrieben, wobei einige Arbeiten durch andere blockiert wurde. Außerdem wurde die doppelte Buchführung von Bugs bemängelt.
+Dadurch wurde beschlossen von nun an alle Aufgabe und Bugs im GitHub zu dokumentieren.
+Dies soll schnelleres Arbeiten auf Grund der schnellern Kommunikation ermöglichen. \\
+Für die kommende Woche wurde alle Issues in GitHub eingetragen und verteilt. Somit werden einige Bugs ausgebessert die Rechnungen vervollständigt und die GUI sowie DAO überarbeitet.
+
+\subsection{DAO -06.12.11}
+
+Durch die ausschließliche Doku in Github wird die Arbeit deutlich leichter. Die zugewiesenen Issues werden abgearbeitet und geschlossen. Den Rest (Emails versenden, ...) erledigt das System. \\
+Die DAO konnte ohne Probleme erweitert werden, sobald die ``Zauberei'' von Hibernate verstanden wurde.
+
+\subsection{Meeting -09.12.11}
+
+Die geforderten Aufgaben wurde vollständig erfüllt und das System ist lauffähig. Das Team ist weiterhin sehr zuversichtlich. Die Änderungen bezüglich der Dokumentation haben sich positiv ausgewirkt, wodurch die Arbeiten erleichtert wurden. Eine Überarbeitung der GUI sowie einige Funktionen, welche die Usability betreffen sollen eingearbeitet werden.
+
+\subsection{Meeting -16.12.11}
+
+Das Ausdrucken der Rechnung muss überarbeitet werden, um allen Anforderungen gerecht zu werden. Ansonsten wurden alle Aufgabe zufriedenstellend abgearbeitet. Auf grund der kommenden Ferien werden nun größere Aufgaben vergeben, wodurch das Projekt auch zum Abschluss gebracht werden soll.
+\begin{itemize}
+\item Zimmerbelegung anzeigen:
+Als Geschäftsführer will ich in die Zimmerbelegung einsehen.
+\item Suchfunktion in Anzeige:
+Als Rezeptionist will ich über eine Suche schnell zu gewünschten Kunden, Zimmern oder Reservierungen gelangen.
+\item Öffnen des Bearbeiten-Menüs nach Doppelklick:
+Als Rezeptionist will ich durch einen Doppelklick auf einen Datensatz, diesen bearbeiten.
+\end{itemize}
+
+\subsection{Meeting -12.01.11}
+Alle must-have- und einige nice-to-have-Tasks wurde abgearbeitet. Nun soll das Produkt 
+für die kommende Präsentation vorbereitet werden. Das gesamte Team ist mit dem ENdprodukt recht zufrieden.
+
+\subsection{Endpräsentation -18.01.11}
+Die Vorstellung des Projektes war ein voller Erfolg. Das Produkt hat ohne Probleme funktioniert.
+
+
+\end{document}
