@@ -1,0 +1,255 @@
+\documentclass[11pt]{scrartcl}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{ngerman}
+\usepackage{amsmath,amssymb,amstext}
+\usepackage{graphicx}
+\usepackage[automark]{scrpage2}
+
+\pagestyle{scrheadings}
+
+\title{Tagebuch}
+\author{Thomas Perl}
+
+\begin{document}
+
+\maketitle
+
+\section{Einträge}
+
+\subsection{4.11.2011 - Meeting}
+
+Das erste Projekttreffen war sehr angenehm. Mein Vorschlag, Python und eine
+Web-GUI zu verwenden, wurde nicht angenommen. Stattdessen haben wir uns für
+Java und Swing entschieden - damit kann ich leben. Ansonsten bin ich froh,
+dass wir Git zur Versionskontrolle und LaTeX für die Dokumentation verwenden.
+
+Die Aufgabenverteilung passt mir, freue mich schon, mit dem Team zu arbeiten.
+
+
+\subsection{11.11.2011 - Meeting}
+
+Nachdem wir in der ersten Woche mal grundlegende Sachen erledigt haben (und
+leider auch in anderen LVAs genug zu tun hatten), haben wir heute schon das
+zweite Treffen. Userstories sind gut angelegt, und ich werde in dieser Woche
+die Grundstruktur des Projektes anlegen.
+
+
+\subsection{14.11.2011 - Grundgerüst und GUI}
+
+Heute wurde das Grundgerüst für das Projekt erstellt - ein Java-Projekt mit
+dem Namen ,,BlueHotel`` und einer groben Oberfläche. Der Code wurde mit
+Vorausschau auf zukünftige Erweiterungen durch Projektmitglieder sehr offen
+gehalten, d.h. es wird mit möglichst abstrakten Konstrukten gearbeitet, die
+dann einfach durch Subclassing bzw. Generics konkretisiert werden können.
+
+Implementiert wurde unter anderem: Editor (ein Interface, das beschreibt, was
+ein "Editor-Objekt" mit Objekten anstellen kann), EditorManager (eine Factory,
+die zu einem Objekt von einem bestimmten Typ den richtigen Editor liefert) und
+ObjectList (eine grafische Liste von Objekten, die das Anlegen, Bearbeiten und
+Löschen von Objekten unterstützt, und sich dabei der vorher genannten Klassen
+bedient.
+
+Unzufrieden bin ich mit der technischen Unzulänglichkeit von Java und Swing -
+das, was in anderen Toolkits sehr leicht geht, ist in Swing sehr schwierig und
+mühsam. Stefan's Tipp, ,,Window Builder Pro`` zu verwenden, hilft mir hier
+allerdings, denn mit diesem Eclipse-Plugin kann man das Grundgerüst der GUI
+einfach zusammenklicken. Das macht den Code zwar nicht schöner, bringt aber
+viel schneller Ergebnisse, auf die man aufbauen kann. Gut, dass wir jemanden
+im Team haben, der sich mit diesen Tools auskennt!
+
+
+\subsection{18.11.2011 - Meeting}
+
+Ein weiteres wöchentliches Meeting hat heute stattgefunden - ich konnte bereits
+meine ersten Code-Ergebnisse präsentieren. Bei den Tests hängen wir momentan
+noch ein bisschen nach, aber ich bin der Meinung, dass es gut ist, als Basis
+für die Diskussionen einmal ein herzeigbares Projekt zu haben.
+
+Habe dem Projektteam erklärt, wie meiner Meinung nach das Editor-Interface zu
+funktionieren hat. Insgesamt stehe ich dem Projekt zuversichtlich gegenüber.
+
+
+\subsection{25.11.2011 - Meeting}
+
+Diese Woche ist von meiner Seite nicht viel weitergegangen, dafür habe ich aber
+schon für die nächste Woche einiges eingeplant. Das Erstellen von Rechnungen
+wird in den nächsten Tagen zu erledigen sein.
+
+
+\subsection{30.11.2011 - Eingabevalidierung}
+
+Ein Requirement, dass wir beim letzten Treffen besprochen haben, ist die
+Eingabevalidierung. Um den Aufwand wieder so gering wie nötig zu halten, wurde
+auch hier wieder sehr abstrakt gearbeitet - so wurde das Editor-Interface um
+Funktionen erweitert, die ein Objekt auf Vollständigkeit und Korrektheit
+überprüfen können. Im Fehlerfall gibt es auch eine Funktion, die aus einem
+Objekt die Fehler als von Menschen lesbaren Text ausgeben kann. Weil das
+Handling von Fehlern immer gleich ist (Validierung und wenn fehlgeschlagen,
+dann Fehlermeldung anzeigen, ansonsten fortfahren), wurde auch diese Logik in
+die Klasse ,,ValidationHandler`` gekapselt.
+
+Für den Kunden-Editor habe ich diese Funktionalität heute einmal komplett
+ausprogrammiert - das soll auch als Code-Beispiel für meine Gruppenmitglieder
+dienen, wenn diese die Funktionalität für ihre Module implementieren. Eine
+Beschreibung des Mechanismus habe ich per E-Mail ans Team geschickt.
+
+Aus der Validierung heraus ergeben sich einige fehlende Funktionalitäten, die
+ich als Bug-Reports erstellt habe. Momentan verwalten wir die Bugs als Excel-
+Dokument, was meiner Meinung nach suboptimal ist - die Github Issues eignen
+sich viel besser dafür. Ich habe das jetzt einmal per E-Mail deutlich zur
+Sprache gebracht, und werde auch beim nächsten Treffen versuchen, diese
+Änderung durchzubringen, denn auf die Dauer ist das Arbeiten mit dem Excel-
+Dokument sehr mühsam, und man hat schlecht überblick über den zeitlichen
+Verlauf. In einem Bugtracker (wie Github Issues) sieht man schön, was noch
+offen ist, und wie sich der Status von Bugs geändert hat.
+
+
+\subsection{30.11.2011 - Rechnungs-Assistent}
+
+In der zweiten Programmier-Session des heutigen Tages habe ich den Rechnungs-
+Assistenten implementiert. Dieser hilft dabei, eine Liste von Reservierungen
+anzuzeigen, und diese dann zu verbuchen. Das wird momentan einfach in der GUI
+angezeigt, und ist noch nicht ausimplementiert.
+
+Auch hier stoße ich entweder auf fehlendes Swing-Wissen meinerseits oder auf
+Limitierungen von Swing - so musste ich für die Liste der Reservierungen (eine
+Multi-Selektions-Liste) eine eigene Klasse erstellen. Es funktioniert, aber
+macht den Code etwas unübersichtlicher.
+
+
+\subsection{1.12.2011 - Einbauen von Invoices}
+
+Heute hatte ich nur wenig Zeit, am Projekt weiter zu arbeiten. Ich habe ein
+Icon für die Rechnungen zum Projekt erstellt, um diese in der UI sichtbar zu
+machen.
+
+
+\subsection{2.12.2011 - Meeting}
+
+Ich habe meine Bedenken über die Führung der Bug-Liste als Excel-Dokument dem
+Projektteam bekanntgegeben. Nach einiger Diskussion haben wir uns entschieden,
+die Bugs wie vorgeschlagen nach Github zu übertragen. Diese Aufgabe übernehme
+ich gerne, da es meine Arbeit im Projekt in Zukunft erleichtern wird.
+
+
+\subsection{2.12.2011 - Bugs zu Issues konvertiert}
+
+Nach dem letzten Meeting wurde beschlosen, dass die Excel-Liste für die Bugs
+endlich wegkommt, und wir stattdessen Github Issues verwenden. Darüber bin ich
+sehr froh, und es wird meine Motivation für das Projekt steigern. Weiters haben
+wir uns auch entschlossen, das Product-Backlog nicht mehr als LaTeX-Datei zu
+führen, sondern ins Github-Wiki zu übernehmen.
+
+Beide Änderungen habe ich heute gemacht, und per E-Mail das Team informiert.
+
+
+\subsection{9.12.2011 - Meeting}
+
+Dieses Meeting war recht kurz, wir haven vorallem in Hinblick auf die
+bevorstehende Präsentation schon einige Punkte besprochen. Allgemein ist zu
+sagen, dass wir ca. ein Drittel des Projekts fertig haben, vielleicht sogar
+ein bisschen mehr.
+
+Insgesamt habe ich das Gefühl, dass wir gut in der Zeit liegen, und gut
+miteinander auskommen. Vorallem die wöchentlichen Treffen am Freitag sind ein
+guter Abschluss der Uni-Woche, und geben uns Ansporn, in der nächsten Woche
+am Projekt weiter zu arbeiten.
+
+
+\subsection{9.12.2011 - Fehlerüberprüfung beim Löschen}
+
+Beim Löschen von Kunden und Zimmern ist darauf zu achten, dass diese nicht
+gelöscht werden dürfen, wenn sie in Reservierungen vorkommen. Dies wurde beim
+letzten Meeting besprochen, und ich habe das jetzt implementiert - wobei nun
+nur ein Fehler angezeigt wird. Idealerweise sollte hier noch eine bessere
+Meldung erscheinen - werde das beim nächsten Meeting zur Sprache bringen.
+
+Seit den letzten 2 Wochen geht es wieder gut voran beim Projekt, die Meetings
+jeden Freitag helfen, das Projekt am Laufen zu halten - selbst wenn wir oft nur
+eine halbe Stunde oder Stunde über das Projekt sprechen. Der wöchentliche
+Austausch ist für so ein Studentenprojekt meiner Meinung nach sehr wichtig.
+
+Ein Online-Treffen (Textchat oder VoIP) würde wohl nicht so viel Motivation
+bringen.
+
+Weiters habe ich heute Rechnungs-Infos zum Datenmodell hinzugefügt, und einige
+Clean-Ups durchgeführt.
+
+
+\subsection{13.12.2011 - Lösch-Checks in der Objektliste}
+
+Heute habe ich die Issue 26 behoben - in der Objekt-Liste wird nun immer eine
+Bestätigung des Löschens angezeigt (bzw wenn nicht möglich, dann eine andere
+Meldung).
+
+
+\subsection{14.12.2011 - Präsentation}
+
+Für die Präsentation habe ich heute die Präsentation (Demo) mit aktuellem
+Stand abgelegt. Bin recht zufrieden mit dem aktuellen Zwischenstand, die
+Stimmung im Projekt ist gut - es ist schön, einen kleinen Meilenstein erreicht
+zu haben.
+
+\subsection{16.12.2011 - Meeting}
+
+Heute haben wir vorallem zum Thema Rechnungslegung eine offene Punkte
+besprochen. Ich hoffe, diese kann ich bald umsetzen. Einige Bugs, die dafür
+offen sind, werden von den Projektmitgliedern hoffentlich bald erledigt.
+
+Jetzt haben wir noch Zeit, um einige Nice-to-have Features umzusetzen. Die GUI
+ist in der Zwischenzeit schon recht angewachsen, ich hoffe, dass wir am Ende
+des Projekts noch etwas Zeit finden, um die GUI etwas aufzuräumen.
+
+
+\subsection{14.01.2012 - Rechnungs-Generierung}
+
+Heute habe ich den Code für die Erstellung der Rechnungen implementiert. Die
+Implementierung wird von den Projektmitgliedern noch getestet werden. Auch hier
+war einiges schwerer als erwartet, aber im Endeffekt funktioniert es jetzt
+rudimentär sehr gut.
+
+Was hier noch zu erledigen ist, ist etwas Polishing für die Rechnungen und ein
+paar Verbesserungen bei der Berechnung. Das sind aber alles Sachen, die dann
+später erledigt werden können. Als ,,Feature`` kann das Rechnung Erstellen nun
+abgehakt werden.
+
+Das Projekt geht dem Ende zu - es sind nur mehr ein paar Kleinigkeiten zu
+erledigen. Wenn es sich ausgeht, will ich mir vor der Endpräsentation noch ein
+klein wenig Zeit nehmen, um die GUI und die Rechnungen noch schöner zu machen.
+
+
+\subsection{17.01.2012 - Polishing}
+
+Heute habe ich fast den ganzen Tag mit Polishing der UI verbracht. Ich bin ein
+wenig ausgelaugt, deshalb kein detaillierter Report heute, sondern nur ein
+kleiner Überblick über die Änderungen: Suchen/filtern in der Objektliste, mehr
+Spacing/Padding in der GUI, Raumbelegungs-Platz als eigenen Menüpunkt in der
+Menüleiste, korrigieren der Preis-Eingabe im Zimmer-Editor, Rechnungslegung
+verbessert und gepolished.
+
+Ich freue mich schon auf die Präsentation, und finde, dass das Programm mit den
+heutigen Änderungen schon sehr professionell aussieht. Habe die Änderungen den
+Projektmitgliedern mitgeteilt.
+
+
+\subsection{18.01.2012 - Endpräsentation}
+
+Heute war die Endpräsentation. Durch das Polishing gestern ist das Endprodukt
+heute sehr schön, und Alexander hat sich darum gekümmern, Test-Daten für die
+Demo zu erstellen. Freue mich schon auf den Abschluss des Projekts!
+
+
+\subsection{20.01.2012 - Schreiben des Endreports}
+
+Da ich in der kommenden Woche Uni-Sachen zu erledigen habe, und am Wochenende
+danach nicht in Wien bin, habe ich heute meinen Teil des Endreports erledigt.
+
+Rückblickend bin ich sehr zufrieden mit dem Ergebnis, und finde, dass wir ein
+herzeigbares und schönes Projekt haben, aber gleichzeitig auch einiges in
+Sachen Java und Projektmanagement gelernt haben. Das Arbeiten im Team war gut,
+und vorallem die wöchentlichen Meetings steigerten die Motivation.
+
+
+\end{document}
